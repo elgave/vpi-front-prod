@@ -1,0 +1,131 @@
+<app-menu></app-menu>
+
+<div class="container-fluid">
+    <div class="col-md-12 container_div">
+        <h3 style="font-weight: bold; margin-left: 40px;">Mi pedido</h3>
+        <div class="row">
+            <div class="col-md-7 div-resumen">
+                <h4 style="font-weight: bold;">Resumen</h4>
+                <hr>
+                <div class="card mb-3" style="max-width: 540px; max-height: 90px; ">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="{{this.s3Url}}/{{fotoRestaurante}}" alt="..." class="img-fluid restaurante-img" />
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title restaurante-title"><b>{{nombreRestaurante}}</b></h5>
+                                <p class="card-text" style="font-size: 12px;">
+                                    <i class="fas fa-tags"></i> Costo de envio $ {{restaurante.precioEnvio}}
+                                </p>
+                                <p class="card-text">
+                                    <small class="text-muted" style="font-size: 12px; line-height: 0;"><i class="fas fa-money-bill-wave"></i>{{restaurante.direccion}}</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <ng-container *ngFor="let group of groups"> -->
+                <div class="card mb-3" style="max-width: 540px; max-height: 130px; " *ngFor="let item of itemArray">
+                    <div class="row g-0">
+
+                        <div class="col-md-8">
+                            <div class="card-body card-menu">
+                                <h5 class="card-title" style="font-size: 18px;">{{item.nombre}}</h5>
+                                <p class="card-text">
+                                    <i class="fas fa-tags"></i>Cantidad: {{item.cantidad}}
+                                </p>
+                                <p class="card-text">
+                                    <small class="text-muted"><i class="fas fa-money-bill-wave"></i>Costo ${{item.precio}}</small>
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <!-- </ng-container> -->
+                <hr>
+                <h6 style="font-size: 11px;">Subtotal: $ {{costoMenus}}</h6>
+                <h6 style="font-size: 11px;">Envio: $ {{restaurante.precioEnvio}}</h6>
+                <h6 style="display: inline-block;">Total</h6> <button class="btn btn-danger btn-rounded">$ {{costoTotal}}</button>
+                <br><br>
+                <div class="card mb-3" style="max-width: 540px; max-height: 430px;">
+                    <h4 style="font-weight: bold;">Detalles de entrega</h4>
+                    <hr>
+                    <h6>Dirección</h6>
+                    <i class="fas fa-map-marker-alt"> </i><b>{{direccion}} 
+                        <button class="btn btn-warning btn-rounded" data-mdb-toggle="modal" data-mdb-target="#exampleModal"> Cambiar </button></b>
+                    <br><br>
+                    <div class="container">
+                        <h6>Forma de pago</h6>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <select class="form-select" aria-label="Default select example" [(ngModel)]="seleccionado" (change)="seleccionar()">
+                        <option selected value="1">Efectivo</option>
+                        <option value="2">OnLine</option>
+                    </select>
+                    </div>
+                    <br>
+                    <div class="container">
+                        <div class="form-outline" (ngSubmit)="confirmarPedido()" novalidate>
+                            <textarea class="form-control" name="comentario" id="comentario" class="form-control" [(ngModel)]="comentario" rows="4"></textarea>
+                            <label class="form-label" for="textAreaExample">Comentarios</label>
+                        </div>
+                        <div class="container">
+                            <div class="container-btn">
+                                <button type="button" class="btn btn-warning btn-rounded" (click)="confirmarPedido()"> Hacer pedido</button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    
+
+
+
+        <!-- Modal -->
+        <div class="modal left fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-mdb-backdrop="static" data-mdb-keyboard="false">
+            <div class="modal-dialog modal-lg  modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Mis direcciones</h5>
+                        <i class="fas fa-times" data-mdb-dismiss="modal"></i>
+<!--                         <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+ -->                    </div>
+                    <div class="modal-body">
+                        <table class="table table-striped" *ngFor="let direccion of direcciones">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Calle</th>
+                                    <th scope="col">Numero</th>
+                                    <th scope="col">Apto</th>
+                                    <th scope="col">Barrio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{direccion.nombre}}</td>
+                                    <td>{{direccion.calle}}</td>
+                                    <td>{{direccion.numero}}</td>
+                                    <td>{{direccion.apto}}</td>
+                                    <td>{{direccion.barrio}}</td>
+                                    <td><b><button class="btn btn-warning btn-rounded" data-mdb-toggle="modal" data-mdb-dismiss="modal" (click)="cambiarDireccion(direccion)"> Cambiar </button></b></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">
+            Volver
+          </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>

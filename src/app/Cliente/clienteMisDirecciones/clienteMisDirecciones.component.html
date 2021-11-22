@@ -1,0 +1,236 @@
+<app-menu></app-menu>
+<div class="container">
+    <div class="row">
+        <div class="col-md-7">
+            <div class="title div-s">
+                <span>Mis Direcciones</span>
+            </div>
+            <form class="search-container " action="//llamaswill.tumblr.com/search">
+                <input id="search-box" type="text" class="search-box" name="q" />
+                <label for="search-box"><span class="fas fa-search"></span></label>
+                <input type="submit" id="search-submit" />
+            </form>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th> </th>
+                        <th>Nombre</th>
+                        <th>Calle</th>
+                        <th>Barrio</th>
+                        <th>Principal</th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let direccion of direcciones">
+                    <tr>
+                        <td><i class="fas fa-map-marker-alt"></i></td>
+                        <td>
+                            <p>{{direccion.nombre}}</p>
+                        </td>
+                        <td>
+                            <p>{{direccion.calle}} {{direccion.numero}} - {{direccion.apto}}</p>
+                        </td>
+                        <td>
+                            <p>{{direccion.barrio}}</p>
+                        </td>
+                        <td>
+                            <p *ngIf="direccion.principal">Principal</p>
+                        </td>
+
+                        <td>
+                            <a data-mdb-toggle="modal" data-mdb-target="#modificarDirModal"><i class="fas fa-pen expanded"  (click)="seleccionar(direccion)"></i></a>
+                            <div class="modal fade" id="modificarDirModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <form #f="ngForm" (ngSubmit)="modificar()" novalidate>
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Modificar dirección</h5>
+                                                <i class="fas fa-times" data-mdb-dismiss="modal"></i>
+                                            </div>
+                                            <div class="modal-body" *ngIf="abrirModal">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <ul class="d-flex justify-content-center list-unstyled">
+                                                            <li class="item-list" *ngIf="cambiarPrincipal">
+                                                                <input type="checkbox" class="form-check-input" [(ngModel)]="principal" data-md-icheck (change)="capturarPrincipal($event)"> Principal
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-outline">
+                                                            <label>Nombre</label>
+                                                            <input type="text" name="nombre" id="nombre" class="form-control" value="{{direccionSeleccionada.nombre}}" disabled />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <div class="form-outline">
+                                                            <input type="text" name="nro" id="nro" class="form-control" [(ngModel)]="numero" required pattern="\d+$" #nroref="ngModel" value="{{direccionSeleccionada.numero}}"/>
+                                                            <label class="form-label" for="formControlLg">Número</label>
+                                                        </div>
+                                                        <div *ngIf="nroref.errors &&(nroref.touched || nroref.dirty)" class ="alert alert-danger">
+                                                            <div [hidden]="! nroref.errors?.pattern">
+                                                              Número inválido
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="form-outline">
+                                                            <input type="text" name="apto" id="nro" class="form-control"  [(ngModel)]="apto" required pattern="^\d+$" #aptoref="ngModel" value="{{direccionSeleccionada.apto}}"/>
+                                                            <label class="form-label" for="formControlLg">Apto</label>
+                                                        </div>
+                                                        <div *ngIf="aptoref.errors &&(aptoref.touched || aptoref.dirty)" class ="alert alert-danger">
+                                                            <div [hidden]="! aptoref.errors?.pattern">
+                                                              Apto inválido
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-outline">
+                                                            <label>Calle</label>
+                                                            <input type="text" id="formControlLg" name="calle" class="form-control form-control-lg" [(ngModel)]="calle" value="{{direccionSeleccionada.calle}}" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="form-outline">
+                                                            <label>Esquina</label>
+                                                            <input type="text" id="formControlLg" name="esquina" class="form-control form-control-lg" [(ngModel)]="esquina" value="{{direccionSeleccionada.esquina}}" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-outline">
+                                                            <label>Barrio</label>
+                                                            <input type="text" id="formControlLg" name="barrio" class="form-control form-control-lg" [(ngModel)]="barrio" value="{{direccionSeleccionada.barrio}}" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer text-center">
+                                                <button type="submit" class="centrado btn btn-warning btn-rounded" (click)="modificar()" data-mdb-dismiss="modal">Confirmar Dirección</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <a data-mdb-toggle="modal" data-mdb-target="#eliminarDirModal" (click)="seleccionar(direccion)"><i class="fas fa-backspace expanded" ></i></a>
+                            <div class="modal fade" id="eliminarDirModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Eliminar dirección</h5>
+                                            <i class="fas fa-times " data-mdb-dismiss="modal"></i>
+                                        </div>
+                                        <div class="modal-body text-center" *ngIf="abrirModal">
+                                            <h6 class="delete-h6">Se eliminará la dirección {{direccionSeleccionada.nombre}}</h6>
+                                        </div>
+                                        <div class="modal-footer text-center">
+                                            <button type="button" class="centrado btn btn-warning btn-rounded" (click)="eliminarDireccion(direccionSeleccionada.id)" data-mdb-dismiss="modal">Confirmar Eliminación</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-4">
+            <div class="text-center">
+                <div class="title div-s">
+                    <span>Acciones</span>
+                </div>
+                <h6>Ingresa una nueva dirección para seleccionar en tu próximo pedido</h6>
+                <div class="conteiner-btn">
+                    <div class="col text-center">
+                        <button type="submit" (change)="cantDirecciones()" data-mdb-toggle="modal" data-mdb-target="#crearDirModal" class="btn btn-outline-warning btn-rounded">
+                            Agregar Dirección</button>
+                    </div>
+                    <div class="modal fade" id="crearDirModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form #f="ngForm" (ngSubmit)="registrarDireccion()" novalidate>
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Agregar dirección</h5>
+                                        <i class="fas fa-times" data-mdb-dismiss="modal"></i>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col">
+                                                <ul class="d-flex justify-content-center list-unstyled">
+                                                    <li class="item-list" *ngIf="onlyRead">
+                                                        <input type="checkbox" class="form-check-input" [(ngModel)]="principal" data-md-icheck (change)="capturarPrincipal($event)"> Principal
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-outline">
+                                                    <input type="text" name="nombre" id="nombre" class="form-control" [(ngModel)]="nombre" required />
+                                                    <label class="form-label" for="formControlLg">Nombre</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <div class="form-outline">
+                                                    <input type="text" name="nro" id="nro" class="form-control" [(ngModel)]="numero" required pattern="^\d+$" #nroref="ngModel"/>
+                                                    <label class="form-label" for="formControlLg">Número</label>
+                                                </div>
+                                                <div *ngIf="nroref.errors &&(nroref.touched || nroref.dirty)" class ="alert alert-danger">
+                                                    <div [hidden]="! nroref.errors?.pattern">
+                                                      Número inválido
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-outline">
+                                                    <input type="text" name="apto" id="nro" class="form-control"  [(ngModel)]="apto" required pattern="^\d+$" #aptoref="ngModel"/>
+                                                    <label class="form-label" for="formControlLg">Apto</label>
+                                                </div>
+                                                <div *ngIf="aptoref.errors &&(aptoref.touched || aptoref.dirty)" class ="alert alert-danger">
+                                                    <div [hidden]="! aptoref.errors?.pattern">
+                                                      Apto inválido
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-outline">
+                                                    <input type="text" name="calle" id="nombre" class="form-control" [(ngModel)]="calle" required />
+                                                    <label class="form-label" for="formControlLg">Calle</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="form-outline">
+                                                    <input type="text" name="esquina" id="nombre" class="form-control" [(ngModel)]="esquina" required />
+                                                    <label class="form-label" for="formControlLg">Esquina</label>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-outline">
+                                                    <input type="text" name="barrio" id="nombre" class="form-control" [(ngModel)]="barrio" required />
+                                                    <label class="form-label" for="formControlLg">Barrio</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer text-center" *ngIf="!( numero == '' || apto == '' || nombre=='' || calle == '' || esquina=='' || barrio == '' || (nroref.errors &&(nroref.touched || nroref.dirty))|| (aptoref.errors &&(aptoref.touched || aptoref.dirty))); else btnDisabled">
+                                        <button type="submit" class="centrado btn btn-warning btn-rounded" (click)="registrarDireccion()" data-mdb-dismiss="modal">Confirmar Dirección</button>
+                                    </div>
+                                    <ng-template #btnDisabled>
+                                        <div class="modal-footer text-center">
+                                            <button type="submit" class="centrado btn btn-warning btn-rounded" (click)="registrarDireccion()" data-mdb-dismiss="modal" disabled>Confirmar Dirección</button>
+                                        </div>
+                                    </ng-template>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

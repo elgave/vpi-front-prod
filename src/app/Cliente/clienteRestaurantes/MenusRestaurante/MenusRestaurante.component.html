@@ -1,0 +1,360 @@
+<app-menu></app-menu>
+<div class="container-fluid">
+    <div class="row row_t">
+        <div class="col-md-4 fg-4">
+            <div class="title div-s">
+                <a target="_blank" href={{urlTweet}}><span (click)="injectTweet()">Compartir</span></a>
+            </div>
+            <div class="compartir_container">
+                <h6 class="compartir h6"><b>Hola {{email}}!</b></h6>
+                <p class="compartir p">Recomienda a tus seguidores este restaurante</p>
+                <a target="_blank" href={{urlTweet}}><i class="fab fa-twitter" (click)="injectTweet()"></i></a>
+            </div>
+        </div>
+        <div class="col-md-8 fg-8">
+            <div class="row row_t">
+                <div class="col-3">
+                    <h3 class="title_h3">{{restaurante.nombreRestaurante}}</h3>
+                    <p class="title_p"><b>Horario: </b>{{restaurante.horario}}</p>
+                    <p class="title_p"><b>Tel: </b>{{restaurante.celular}}</p>
+
+                </div>
+                <div class="col-3">
+                    <p class="col-4_p"><i class="fas fa-map-marker-alt"></i><b> Dirección: </b><br>{{restaurante.direccion}}</p>
+                    <p class="title_p-col-1"><b>Razón social: </b>{{restaurante.razonSocial}}</p>
+
+
+                    <!-- <div class="tiempo_estimado">
+                        <i class="far fa-clock"></i>
+                        <h3 class="title_h3-te"><b>30 - 45 min.</b></h3>
+                    </div>-->
+                </div>
+                <div class="col-2">
+
+                    <button *ngIf="isFavorito" (click)="quitarFavorito()" type="button" class="btn btn-primary btn-lg btn-floating">
+            <i class="fas fa-heart"></i>
+        </button>
+                    <button *ngIf="!isFavorito" (click)="agregarFavorito()" type="button" class="btn btn-primary btn-lg btn-floating">
+            <i class="far fa-heart"></i>
+        </button>
+                    <div class="informacion-adicional">
+                        <div class="calificacion">
+                            <h3 class="title_h3-calif">{{caliRest}}</h3>
+                            <i class="fas fa-star"></i>
+
+                        </div>
+                        <p class="calificacion-vpi">{{restaurante.calificacionVPI}}</p><img src="../../../../assets/VPI-icon.png" class="img-calificacion">
+                        <p class="title_p-col-1"><b>Rut: </b>{{restaurante.rut}}</p>
+                        <p class="title_p-col-1"><b>Nro de habilitación: </b>{{restaurante.nroHabilitacion}}</p>
+
+
+                    </div>
+                    <p *ngIf="restaurante.precioEnvio==0" class="title_h3-te" id="costo"><b>Envío Gratis</b></p>
+                    <p *ngIf="restaurante.precioEnvio>0" class="title_h3-te" id="costo"><b>Envío ${{restaurante.precioEnvio}}</b></p>
+                </div>
+                <div class="col-4 img">
+                    <img class="img-rest" src="{{this.s3Url}}/{{restaurante.foto}}">
+                </div>
+                <div *ngIf="puedeCalificarVar" class="flex-container estrellas">
+                    <ng-container *ngFor="let star of stars">
+                        <app-star [starId]="star" [rating]="hoverState || rating" (enter)="enter($event)" (leave)="leave($event)" (bigClick)="updateRating(star)">
+                        </app-star>
+                    </ng-container>
+                    <a *ngIf="micalificacion>0" data-mdb-toggle="modal" data-mdb-target="#eliminarDirModal"><i class="fas fa-backspace expanded" ></i></a>
+                    <div class="modal fade" id="eliminarDirModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Eliminar calificación</h5>
+                                    <i class="fas fa-times " data-mdb-dismiss="modal"></i>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <h6 class="delete-h6">Se eliminará su calificación</h6>
+                                </div>
+                                <div class="modal-footer text-center">
+                                    <button type="button" class="centrado btn btn-warning btn-rounded" (click)="eliminarCalificacion()" data-mdb-dismiss="modal">Confirmar Eliminación</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row row_t">
+        <div class="col-md-8">
+            <nav class="navbar">
+                <div class="container-fluid">
+                    <select class="form-select" aria-label="Default select example" [(ngModel)]="categoriaSeleccionada" (change)="seleccionarCat()">
+                        <option value="0">Seleccionar categoría</option>
+                        <option value="Todas">Todas</option>
+                        <option value="Pizza">Pizza</option>
+                        <option value="Sushi">Sushi</option>
+                        <option value="Saludable">Saludable</option>
+                        <option value="Empanadas">Empanadas</option>
+                        <option value="Hamburguesas">Hamburguesas</option>
+                        <option value="Milanesas">Milanesas</option>
+                        <option value="Helados">Helados</option>
+                        <option value="Postres">Postres</option>
+                        <option value="Vegetariana">Vegetariana</option>
+                        <option value="Italiana">Italiana</option>
+                        <option value="Pastas">Pastas</option>
+                        <option value="Chivito">Chivito</option>
+                        <option value="Panadería">Panadería</option>
+                        <option value="Parrilla">Parrilla</option>
+                        <option value="Vegano">Vegano</option>
+                        <option value="Celiaco">Celiaco</option>    
+                        <option value="Otros">Otros</option>
+                    </select>
+                    <form class="search-container" action="//llamaswill.tumblr.com/search">
+                        <input (keyup)="onKey($event)" id="search-box" type="text" class="search-box" name="q" />
+                        <label for="search-box"><span class="fas fa-search"></span></label>
+                        <input (keyup)="onKey($event)" type="submit" id="search-submit" />
+                    </form>
+                </div>
+            </nav>
+
+            <h3 class="title_h3 title3">Menús y Promociones</h3>
+            <!-- <div class="row"> -->
+            <!--                 <div class="container">
+ -->
+            <!-- <div class="row">
+ -->
+            <div class="row row_m row-cols-1 row-cols-md-4 g-8">
+                <!-- g-8 -->
+                <!--card si no es promo-->
+                <ng-container *ngFor="let menu of menus">
+                    <ng-container *ngIf="!menu.promocion">
+                        <div class="col">
+                            <div class="card" style="max-width: 30rem;">
+                                <img src="{{this.s3Url}}/{{menu.imagen}}" height="200px" width="100%" loading="lazy" class="card-img-top redondo" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{menu.nombre}}</h5>
+                                    <p class="card-text"> {{menu.descripcion}}</p><br>
+                                    <p class="card-text price-m"> ${{menu.costo}}</p><br>
+                                    <div class="cont-btn">
+                                        <button type="button" class="btn btn-warning btn-rounded" (click)="seleccionado(menu.idMenu,menu.nombre,menu.costo,menu.descuento,menu.imagen)" data-mdb-toggle="modal" data-mdb-target="#exampleModal">Añadir</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <!--card si es promo-->
+                    <ng-container *ngIf="menu.promocion">
+                        <div class="col">
+                            <div class="card  promo" style="max-width: 30rem;">
+                                <img src="https://www.pngplay.com/wp-content/uploads/7/Discount-PNG-Free-File-Download.png" class="img-promo">
+                                <img src="{{this.s3Url}}/{{menu.imagen}}" class="card-img-top redondo" alt="..." height="200px" width="100%" loading="lazy">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{menu.nombre}}</h5>
+                                    <p class="card-text"> {{menu.descripcion}}</p><br>
+                                    <p class="card-text price"> ${{menu.costo}}</p>
+                                    <p class="card-text price-d"> ${{menu.costo-menu.costo*menu.descuento/100}}</p><br>
+                                    <button type="button" class="btn btn-warning btn-rounded" (click)="seleccionado(menu.idMenu,menu.nombre,menu.costo,menu.descuento,menu.imagen)" data-mdb-toggle="modal" data-mdb-target="#exampleModal">Añadir</button>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-container>
+                <!-- </div> -->
+                <!-- </div> -->
+                <!-- </div> -->
+            </div>
+        </div>
+        <div class="col-md-4 orden ">
+            <div class="contenedor ">
+                <div class="title div-s orden-div">
+                    <span>Mi orden</span>
+                </div>
+                <br>
+                <!-- <div class="items-oren" *ngFor="let item of pedidos"> -->
+                <div *ngIf="itemArray.length!=0" class="sd" >
+                    <div class="items-orden" *ngFor="let item of itemArray">
+                        <div>
+                            <p class="item-p"><b>{{item.nombre}}</b></p>
+                            <p class="item-precio"><b> ${{item.precio}}</b></p><br>
+                            <div class="info-orden">
+                                <p class="item-p">Cant: {{item.cantidad}}</p>
+                                <i class="fas fa-backspace" (click)="quitarItem(item.nombre)"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <p *ngIf="itemArray.length!=0" class="item-p"><b>Envio: ${{restaurante.precioEnvio}}</b></p>
+                    </div>
+                    <div class="total-price">
+                        <h4 class="total-price-h4">Total: <b>${{totalConEnvio}}</b></h4>
+                    </div>
+
+                    <div>
+                        <h4 style="font-weight: bold;">Detalles de entrega</h4>
+                        <hr>
+                        <h6>Dirección</h6>
+                        <i class="fas fa-map-marker-alt"> </i><b>       {{direccion}} 
+                            <button class="btn btn-warning btn-rounded" data-mdb-toggle="modal" data-mdb-target="#direModal"> Cambiar </button></b>
+                        <br><br>
+                        <div class="container">
+                            <h6>Forma de pago</h6>
+                            <select class="form-select" aria-label="Default select example" [(ngModel)]="pagoSeleccionado" (change)="seleccionarPago()">
+                            <option selected value="1">Efectivo</option>
+                            <option value="2">PayPal</option>
+                        </select>
+                        </div>
+                        <br>
+                        <div class="container">
+                            <div class="form-outline" (ngSubmit)="confirmarPedido()" novalidate>
+                                <textarea class="form-control" name="comentario" id="comentario" class="form-control" [(ngModel)]="comentario" rows="4"></textarea>
+                                <label class="form-label" for="textAreaExample">Comentarios</label>
+                            </div>
+                            <br>
+                            <div *ngIf="!pagoOnline" class="container-btn">
+                                <button type="button" class="btn btn-warning btn-rounded btn-l" (click)="confirmarPedido()">Realizar pedido</button>
+                                
+                            </div>
+                            <div *ngIf="pagoOnline">
+                                <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+                            </div>
+                           
+                        </div>
+                    </div>
+
+                </div>
+
+                <div *ngIf="itemArray.length==0" class="items-orden">
+                    <div class="carrito-vacio">
+                        <img src="../../../../assets/carrito-vacio.png" width="500" loading="lazy" >
+                        <span class="text21">Parece que no hay nada por aquí</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- Modal Direcciones-->
+        <div class="modal left fade" id="direModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-mdb-backdrop="static" data-mdb-keyboard="false">
+            <div class="modal-dialog modal-lg  modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Mis direcciones</h5>
+                        <i class="fas fa-times" data-mdb-dismiss="modal"></i>
+<!--                         <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+ -->                    </div>
+                    <div class="modal-body">
+                        <table class="table table-striped" *ngFor="let direccion of direcciones">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Calle</th>
+                                    <th scope="col">Numero</th>
+                                    <th scope="col">Apto</th>
+                                    <th scope="col">Barrio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{direccion.nombre}}</td>
+                                    <td>{{direccion.calle}}</td>
+                                    <td>{{direccion.numero}}</td>
+                                    <td>{{direccion.apto}}</td>
+                                    <td>{{direccion.barrio}}</td>
+                                    <td><b><button class="btn btn-warning btn-rounded" data-mdb-toggle="modal" data-mdb-dismiss="modal" (click)="cambiarDireccion(direccion)"> Cambiar </button></b></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">
+                Volver
+              </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog ">
+                <div class="modal-content redondo">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Mi orden</h5>
+                        <i class="fas fa-times" data-mdb-dismiss="modal"></i>
+                        <!-- <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button> -->
+                    </div>
+                    <div class="modal-body">
+                        <div class="cont-body-info">
+                            <img class="redondo" src="{{this.s3Url}}/{{fotoMenu}}" height="220" alt="" loading="lazy" data-mdb-toggle="modal" data-mdb-target="#exampleModal" />
+                            <br>
+                            <h4 class="card-title">{{nombre}} </h4>
+                            <br>
+                        </div>
+                        <div class="input-group mb-3 group-caant">
+                            <div>
+                            <span class="input-group-text border-0">Unidades:</span>
+                            <!-- <span class="input-group-text"></span> -->
+                                <input type="number" name="nro" id="nro" class="form-control cantidad" min="1" max="10"  [(ngModel)]="cantModal" (change)="Oncantidad()" required pattern="^\d+$" #unidadref="ngModel"/>
+                            <!-- <span class="input-group-text"></span> -->
+                            </div>
+                            <div *ngIf="unidadref.errors &&(unidadref.touched || unidadref.dirty)" class ="alert alert-danger">
+                                <div [hidden]="! unidadref.errors?.pattern">
+                                  Unidad inválida
+                                </div>
+                            </div>
+                       
+                        </div>
+                        <h5 class="card-title">Subtotal Menu: $ {{costoMenu}}</h5>
+                        <hr>
+                        <div *ngIf="hayAgragados">
+                            <form [formGroup]="checkArray" (ngSubmit)="submitForm()" c>
+                                <h5 class="card-title">Extras</h5>
+                                <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                                    <table class="table table-bordered table-striped mb-0">
+                                        <tbody>
+                                            <tr *ngFor="let agregado of agregados; let i = index" [attr.data-index]="i">
+                                                <th scope="row">
+                                                </th>
+                                                <!-- <div class="form-check">-->
+                                                <td>
+                                                    <input class="form-check-input" type="checkbox" [value]="agregado.nombre" (change)="onCheckboxChange($event)" />
+                                                    <!--checked-->
+                                                </td>
+                                                <td>{{agregado.nombre}}</td>
+                                                <td>$ {{agregado.costo}}</td>
+                                                <!-- </div> -->
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <h5 class="col">SubTotal Extras: $ {{CostoAgregadosCantidad}}</h5>
+                                    <button type="submit" class="col-sm-4 btn btn-outline-warning btn-rounded" value="Submit" data-mdb-ripple-color="dark">Agregar extras</button>
+                                </div>
+                                <div class="col-12 col-lg-7"> <!-- col-m-10  -->
+                                    <h5 class="card-title">Total $ {{costoTotal}}</h5>
+                                </div>
+                            </form>
+                        </div>
+                        <hr>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger btn-rounded btn-lg action" data-mdb-dismiss="modal" aria-label="Close" (click)="OnClose()">Cerrar</button>
+
+
+                        <div class="modal-footer text-center" *ngIf="!( cantidad == 0 || (unidadref.errors &&(unidadref.touched || unidadref.dirty))); else btnDisabled">
+                            <button *ngIf="sinItems" type="button" class="btn btn-warning btn-rounded btn-lg action" (click)="agregarItemAPedido()">Agregar al pedido</button>
+                        </div>
+                        <ng-template #btnDisabled>
+                            <div class="modal-footer text-center">
+                                <button *ngIf="sinItems" type="button" class="btn btn-warning btn-rounded btn-lg action" (click)="agregarItemAPedido()" disabled>Agregar al pedido</button>
+                            </div>
+                        </ng-template>
+                        <button *ngIf="!sinItems" type="button" class="btn btn-warning btn-rounded btn-lg action" data-mdb-dismiss="modal" aria-label="Close" (click)="OnClose()">Seguir comprando</button>
+                    </div>
+                </div>
+            </div>
+        </div>

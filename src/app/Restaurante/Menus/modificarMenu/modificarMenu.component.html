@@ -1,0 +1,208 @@
+<app-menu></app-menu>
+<div class="container">
+
+    <div class=" row">
+        <div class="contitulo redondo col-md-12 bg-white">
+            <form #f="ngForm" (ngSubmit)="modificar()" novalidate>
+
+                <div class="title div-s">
+                    <span>Modificar Menú / Promoción</span>
+                </div>
+                <div class="row">
+                    <div class="border align-items-center contitulo border-warning col-md-3">
+                        <div>
+                            Ingrese Nombre:
+                            <div class="form-outline">
+                                <input type="text" id="formControlLg" name="nombre" class="form-control form-control-lg" [(ngModel)]="nombre" />
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border contitulo border-warning col-md-2 ">
+                        <div>
+                            Tipo:
+                            <div class="form-check">
+                                <input (change)="onChange()" *ngIf="menu.promocion" [(ngModel)]="promocion" class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked/>
+                                <input (change)="onChange()" *ngIf="!menu.promocion" [(ngModel)]="promocion" class="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
+                                <label class="form-check-label" for="flexCheckChecked"> Promocion</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border contitulo border-warning col-md-5">
+                        <div>
+                            Descripción:
+                            <div class="form-outline">
+                                <textarea class="form-control" id="textAreaExample" rows="3" d="formControlLg" name="descripcion" class="form-control form-control-lg" [(ngModel)]="descripcion"></textarea>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="border border-warning col-md-3">
+                        <div>
+                            Categoría:
+                            <div class="form-outline">
+                                <select class="form-select" aria-label="Default select example" [(ngModel)]="opcionSeleccionado" (change)="capturar()">
+                                    <option value="0">{{menu.categoria}}</option>
+                                    <option *ngFor="let dato of lista">{{dato}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border border-warning col-md-2">
+                        <div>
+                            <div class="form-outline">
+                                <input type="number" id="typeNumber" name="costo" class=" border form-control form-control-lg" value="{{menu.costo}}" [(ngModel)]="costo" required pattern="^\d+$" #costoref="ngModel"/>
+                                <label class="form-label" for="typeNumber">Costo</label>
+                            </div>
+                            <div *ngIf="costoref.errors &&(costoref.touched || costoref.dirty)" class ="alert alert-danger">
+                                <div [hidden]="! costoref.errors?.pattern">
+                                  Costo inválido
+                                </div>
+                            </div>
+                            <div class="form-outline" *ngIf="isPromo">
+                                <input type="number" name="descuento" id="typeNumber" class=" border form-control form-control-lg" value="{{menu.descuento}}"  [(ngModel)]="descuento" required pattern="^\d+$" #descuentoref="ngModel" />
+                                <label class="form-label" for="typeNumber">Descuento</label>
+                            </div>
+                            <div *ngIf="descuento > 100 || descuento < 0" class ="alert alert-danger">
+                                <div [hidden]="! descuentoref.errors?.pattern">
+                                  Descuento inválido
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border border-warning col-md-5 ">
+                        <div>
+                            <div class="mb-3">
+                                <label for="formFileLg" class="form-label">Imagen:</label>
+
+
+                                <img id="blah" src="{{imageSrc}}" alt="your image" />
+                                <input class="form-outline form-control form-control-lg" id="formFileLg" type="file" #file (change)="subirIcono(file.files)" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-center">
+                        <button (click)="cargarAgregados(menu)" type="button" data-mdb-toggle="modal" href="#agragadosModal" class="btn btn-warning btn-rounded">Agregados</button>
+                            <button *ngIf="!( (costoref.errors &&(costoref.touched || costoref.dirty)) || descuento > 100 || descuento < 0); else btnDisabled" type="submit" class="btn btn-warning btn-rounded">Confirmar Menú / Promoción</button>
+                        <ng-template #btnDisabled>
+                                <button type="submit" class="btn btn-warning btn-rounded" disabled>Confirmar Menú / Promoción</button>
+                        </ng-template>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<!-- First modal (agregados) -->
+<div class="modal fade" id="agragadosModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel1" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalToggleLabel1">Agregados del menu: {{menu.nombre}}</h5>
+                <i class="fas fa-times" data-mdb-dismiss="modal"></i>
+<!--                 <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+ -->            </div>
+            <div class="modal-body" *ngIf="abrirModal">
+                <h5 *ngIf="!(agregados.length > 0)"> Este menu no tiene agregados</h5>
+                <table *ngIf="agregados.length>0" class="table">
+
+                    <tbody *ngFor="let agregado of agregados">
+                        <tr>
+                            <thead></thead>
+                            <td><b>{{agregado.nombre}}</b></td>
+                            <td>${{agregado.costo}}</td>
+                            <td> <a (click)="seleccionarAgre(agregado)" class="btn btn-primary" data-mdb-target="#eliminarModal" data-mdb-toggle="modal" data-mdb-dismiss="modal"><i class="fas fa-backspace expanded" ></i></a></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button class="centrado btn btn-warning btn-rounded" (click)="cargarAgregadosNoMenu(menu.idMenu)" data-mdb-target="#asociarrModal" data-mdb-toggle="modal" data-mdb-dismiss="modal">Asociar Agregados</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Second modal (quitar) -->
+<div class="modal fade" id="eliminarModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel22" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalToggleLabel22">Quitar agregado</h5>
+                <i class="fas fa-times" data-mdb-dismiss="modal"></i>
+<!--                 <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+ -->            </div>
+            <div class="modal-body">
+                <div class="modal-body text-center" *ngIf="abrirModalE">
+                    <h6 class="delete-h6">Se quitara el agregado: {{agregadoSeleccionado.nombre}}</h6>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger btn-rounded btn-lg" data-mdb-target="#exampleModalToggle1" data-mdb-toggle="modal" data-mdb-dismiss="modal"> Cancelar </button>
+                <button type="button" class="centrado btn btn-warning btn-rounded" (click)="eliminarAgregado()" data-mdb-target="#agragadosModal" data-mdb-toggle="modal" data-mdb-dismiss="modal">Confirmar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Second modal (asociar) -->
+<div class="modal fade" id="asociarrModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel22" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalToggleLabel22">Asociar Agregados</h5>
+                <i class="fas fa-times" data-mdb-dismiss="modal"></i>
+<!--                 <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+ -->            </div>
+            <div class="modal-body">
+                <form [formGroup]="checkArray" (ngSubmit)="asociarAgregados()">
+                    <div class="card  shadow-0 " style="max-width: 30rem;">
+                        <div class="bg-image hover-overlay ripple align-items-center" data-mdb-ripple-color="light">
+                        </div>
+                        <div class="card-body justify-content-center align-items-center text-center ">
+                            <div class="container-fluid agregados-mod">
+                                <div class="input-group mb-3">
+                                    <div class="col-12 col-m-6 col-lg-7">
+                                        <table class="table">
+                                            <thead>
+                                            </thead>
+                                            <h5 *ngIf="!(agregadosN.length > 0)"> No hay mas agregados para asociar </h5>
+                                            <tbody *ngIf="(agregadosN.length > 0)">
+                                                <tr *ngFor="let agregado of agregadosN; let i = index" [attr.data-index]="i">
+                                                    <th scope="row">
+
+                                                    </th>
+
+                                                    <td>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" [value]="agregado.id" (change)="onCheckboxChange($event)" />
+                                                        </div>
+                                                    </td>
+                                                    <td hidden>{{agregado.id}}</td>
+                                                    <td>{{agregado.nombre}}</td>
+                                                    <td>$ {{agregado.costo}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <hr />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger btn-rounded btn-lg" data-mdb-dismiss="modal" aria-label="Close">Cerrar</button>
+                        <button *ngIf="(agregadosN.length > 0)" type="button" class="btn btn-warning btn-rounded btn-lg" (click)="asociarAgregados()" data-mdb-dismiss="modal">Asociar al Menu</button>
+                    </div>
+                </form>
+            </div>
+        </div>

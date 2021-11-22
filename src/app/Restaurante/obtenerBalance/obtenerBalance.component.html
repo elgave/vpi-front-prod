@@ -1,0 +1,77 @@
+<app-menu></app-menu>
+
+<div class="container">
+    <div class=" row">
+        <div id="eltitulo" class="contitulo redondo col-md-10">
+            <div class="div-s title"><span>Balance de Ventas</span></div>
+            <h5 class="h5_t">Selecciona un período de tiempo para obtener el balance adecuado:</h5>
+            
+            <div class="fechas">
+
+                <mat-form-field>
+                    <input [(ngModel)]="fechaSelec1" #minmaxInput matInput [min]="minDate" [max]="maxDate" [matDatepicker]="disabletext" placeholder="desde" disabled>
+                    <mat-datepicker-toggle matSuffix [for]="disabletext">
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #disabletext disabled="false">
+                    </mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field class="fecha">
+                    <input [(ngModel)]="fechaSelec2" #minmaxInput2 matInput [min]="minDate" [max]="maxDate" [matDatepicker]="disabletext2" placeholder="hasta" disabled>
+                    <mat-datepicker-toggle matSuffix [for]="disabletext2">
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #disabletext2 disabled="false">
+                    </mat-datepicker>
+                </mat-form-field>
+
+<!-- color="warn" -->
+                <button mat-raised-button  (click)="buscar()" class="btn redondo btn-warning btn-rounded">Buscar</button>
+            </div>
+        </div>
+        <div id="div_balance" class="redondo col-md-10 bg-white">
+
+
+            <select class="filtro1 form-select" aria-label="Default select example" [(ngModel)]="opcionSeleccionada" (change)="seleccionarOpcion()">
+                  <option value="0">Tipo de Venta</option>
+                  <option value="Todo">Todo</option>
+                  <option value="Efectivo">Efectivo</option>
+                  <option value="PayPal">PayPal</option>         
+              </select>
+            <div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nro. Pedido</th>
+                            <th>Estado</th>
+
+                            <th>Fecha</th>
+                            <th>Pago</th>
+                            <th>Venta</th>
+                            <th>Devolución</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let pedido of pedidos; let i=index">
+                        <tr>
+                            <td>{{pedido.idPedido}}</td>
+                            <td>{{pedido.estado}}</td>
+                            <td>{{pedido.fecha}}</td>
+                            <td *ngIf="pedido.pagoAcreditado"> Acreditado </td>
+                            <td *ngIf="!pedido.pagoAcreditado"> Pendiente </td>
+                            <td>${{pedido.precioTotal}}</td>
+                            <td *ngIf="pedido.reclamos.length > 0 && pedido.reclamos[0].estado === 'Reembolsado'"> ${{pedido.precioTotal}} </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="total-price">
+                    <h5 class="total-price-h4">Total ventas: <b>${{totalVentas}}</b></h5>
+                    <h5 class="total-price-h4">Total devoluciones: <b>${{totalDev}}</b></h5>
+                    <h3 class="total-price-h4">Total : <b>${{total}}</b></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

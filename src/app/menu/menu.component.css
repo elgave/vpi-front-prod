@@ -1,0 +1,243 @@
+.navbar-dark{
+    height: 60px;
+    box-shadow: none;
+}
+.navbar-brand{
+    color: rgb(221, 49, 58);
+}
+.navbar-brand:hover{
+    color: rgb(207, 41, 50);
+}
+.fa-bars{
+    color: #1d1d1d70;
+    margin-left: 20px;
+}
+.dropdown-menu{
+    color: black;
+}
+.navbar-dark .navbar-nav .nav-link{
+    color: #1d1d1d70;
+}
+.fa-shopping-cart{
+    color: #33333397;
+    font-size: 26px
+}
+.rounded-circle {
+    border-radius: 50%!important;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&family=Roboto:wght@300&display=swap');
+.nav__cont {
+    position: fixed;
+    width: 60px;
+    top: 0;
+    height: 100vh;
+    z-index: 100;
+    overflow: hidden;
+    background: #fff0cc;
+    transition: width 0.3s ease;
+    cursor: pointer;
+    box-shadow: 4px 7px 10px rgba(0, 0, 0, 0.4);
+}
+.nav__cont:hover {
+    width: 290px;
+}
+@media screen and (min-width: 600px) {
+.nav__cont {
+    width: 55px;
+}
+}
+.nav {
+    list-style-type: none;
+    color: white;
+}
+.nav:first-child {
+    padding-top: 1.5rem;
+    margin-left: 25px;
+}
+.nav__items {
+    margin-bottom: 20px;
+    font-family: 'roboto';
+}
+.nav__items a {
+    position: relative;
+    display: block;
+    top: -31px;
+    left: 10px;
+    padding-left: 25px;
+    padding-right: 15px;
+    transition: all 0.3s ease;
+    margin-left: 25px;
+    margin-right: 10px;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    font-size: 1.1rem;
+}
+.nav__items a:after{
+    content: '';
+    width: 210px;
+    height: 45px;
+    position: absolute;
+    top: -10px;
+    left: 0;
+    border-radius: 30px;
+    color: #ffff !important;
+    background: #ecb725;
+    opacity: 0;
+    transition: all 0.5s ease;
+    z-index: -222;
+}
+.nav__items:hover a:after {
+    opacity: 1;
+}
+.nav__items svg {
+    width: 26px;
+    height: 26px;
+    position: relative;
+    left: -25px;
+    cursor: pointer;
+}
+@media screen and (min-width: 600px) {
+    .nav__items svg {
+        width: 32px;
+        height: 32px;
+        left: -15px;
+    }
+}
+body {
+    height: 100vh;
+    background: radial-gradient(circle at 94.02% 88.03%, #54a4ff, transparent 100%), radial-gradient(circle at 25.99% 27.79%, #ff94fb, transparent 100%), radial-gradient(circle at 50% 50%, #000000, #000000 100%);
+}
+h1 {
+    margin-top: 6rem;
+    margin-left: 80px;
+    text-align: center;
+    font-family: 'Roboto';
+    font-weight: 100;
+    font-size: 4rem;
+    text-transform: uppercase;
+    color: white;
+    letter-spacing: 6px;
+    text-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
+}
+.user-img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.info-user{
+    margin-left: 70px;
+}
+h5{
+    text-align: center;
+    color: #ecb725;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 15px;
+    margin-left: -20px;
+}
+i{
+    color: #ecb725;
+    font-size: 25px;
+    margin-left: -10px;
+    text-align: center;
+}
+.fa-home{
+    margin-left: -13px;
+}
+a{
+    font-size: 17px; 
+    color: #ecb725;
+}
+a:hover{
+    color: #ffff;
+}
+
+#info{
+    margin-bottom: 50px;
+}
+
+.nav__items:hover > a {
+    color: #ffff;
+}
+.cont-li{
+    background: #ecb725;
+    height: 45px;
+    width: 220px;
+    margin-left: 30px;
+    margin-top: -70px;
+    border-radius: 30px;
+    margin-bottom: 20px;
+}
+.active{
+    color: #ffff;
+}
+.logo{
+    margin-left: 100px;
+    margin-top: 15vh;
+    bottom: 0;
+    position:relative;
+    opacity: 70%;
+}
+.logo_2{
+    margin-left: 100px;
+    margin-top: 11vh;
+    bottom: 0;
+    position:relative;
+    opacity: 70%;
+}
+.logo-img{
+    width: 90px;
+}
+.image-vpi{
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+}
+.dropdown-menu-end{
+    background: #fff0cc;
+    border-radius: 10px;
+}
+.dropdown-item{
+    padding: 12px 30px;
+}
+.dropdown-item:hover{
+    background: #ecb725;
+}
+.dropmenu{
+    margin-right: 10px;
+    font-weight: 100;
+    font-size: 20px;
+}
+.dropdown-item:hover > .dropmenu{
+    color: #ffff;
+}
+.fa-times{
+    color: #ffff;
+    margin-right: 15px;
+    cursor: pointer;
+}
+.modal-content{
+    margin-top: 30vh;
+    border-radius: 30px;
+}
+.modal-header{
+    background-color: #ecb725;
+    color: #ffff;
+    border-radius: 30px;
+    margin: -20px -20px;
+    width: 350px;
+    height: 55px;
+}
+.modal-body{
+    margin-top: 20px;
+}
+.modal-title{
+    margin-left: 20px;
+    color: #ffff;
+}

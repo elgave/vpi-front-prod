@@ -1,0 +1,144 @@
+<app-menu></app-menu>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-11">
+            <div class="title div-s">
+                <span>Mis Pedidos</span>
+            </div>
+            <nav class="navbar">
+                <div class="container-fluid">
+
+                    <button type="button" class="btn btn-warning btn-rounded" data-mdb-ripple-color="dark" (click)="setFiltro('Pendiente')"> Pendientes </button>
+                    <button type="button" class="btn btn-warning btn-rounded" data-mdb-ripple-color="dark" (click)="setFiltro('Confirmado')"> Confirmados </button>
+                    <button type="button" class="btn btn-warning btn-rounded" data-mdb-ripple-color="dark" (click)="setFiltro('Rechazado')"> Rechazados </button>
+                    <button type="button" class="btn btn-warning btn-rounded" data-mdb-ripple-color="dark" (click)="setFiltro('none')"> Todos </button>
+
+                    <form class="search-container" action="//llamaswill.tumblr.com/search">
+                        <input (keyup)="onKey($event)" id="search-box" type="text" class="search-box" name="q" />
+                        <label for="search-box"><span class="fas fa-search"></span></label>
+                        <input type="submit" (keyup)="onKey($event)" id="search-submit" />
+                    </form>
+                    <button (click)="ordenarAsc()" type="button" class="btn btn-warning px-3"><i class="fas fa-lg fa-sort-numeric-up-alt"> </i></button>
+                    <button (click)="ordenarDesc()" type="button" class="btn btn-warning px-3"><i class="fas fa-lg fa-sort-numeric-down-alt"> </i></button>
+                </div>
+            </nav>
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Estado</th>
+                        <th>Precio</th>
+                        <th>Fecha</th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let pedido of pedidos | async">
+                    <!-- <ng-container *ngFor="let group of groups"> -->
+                    <tr>
+                        <td>{{pedido.idPedido}}</td>
+                        <td>{{pedido.estado}}</td>
+                        <td>$ {{pedido.precioTotal}}</td>
+                        <td>{{pedido.fecha}}</td>
+                        <td>
+                            <!-- aca debe dirigirse a realizar reclamo-->
+                            <i *ngIf="pedido.reclamos.length == 0" class="fas fa-bookmark" data-mdb-toggle="modal" attr.data-mdb-target="#realizarReclamo{{pedido.idPedido}}" (click)="seleccionPedido(pedido)"></i>
+
+                            <i class="fas fa-plus-circle expanded" data-mdb-toggle="modal" attr.data-mdb-target="#detallesPedido{{pedido.idPedido}}"></i>
+                            <!-- Modal -->
+                            <div class="modal fade" attr.id="detallesPedido{{pedido.idPedido}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Información del pedido</h5>
+                                            <i class="fas fa-times" data-mdb-dismiss="modal"></i>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h6>Detalles del pedido</h6>
+                                            <ul class=" list-unstyled fw-normal pb-1 small mt-1 mb-0 ">
+                                                <li class="item-list"><b>Comentario:</b> {{pedido.comentario}}</li>
+                                                <li *ngIf="pedido.pagoAcreditado" class="item-list"><b>Pago:</b> Acreditado</li>
+                                                <li *ngIf="!pedido.pagoAcreditado" class="item-list"><b>Pago:</b> Pendiente</li>
+                                                <li class="item-list"><b>Tiempo de entrega:</b> {{pedido.tiempoE}}</li>
+                                                <li class="list-unstyled_li item-list"><b>Items:</b> </li>
+                                                <table>
+                                                    <tr *ngFor="let item of pedido.items">
+                                                        <td>
+                                                            {{item.nombre}}
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <li class="list-unstyled_li item-list"><b>Reclamo:</b> </li>
+                                                <table *ngIf="pedido.reclamos.length > 0">
+                                                    <tr *ngFor="let item of pedido.items">
+                                                        <td>
+                                                            Reclamo nro: {{pedido.reclamos[0].idReclamo}},
+                                                        </td>
+                                                        <td>
+                                                            Estado: {{pedido.reclamos[0].estado}}
+                                                        </td>
+
+                                                    </tr>
+                                                </table>
+
+                                            </ul>
+                                        </div>
+
+
+
+
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger btn-rounded" data-mdb-ripple-color="dark" data-mdb-dismiss="modal"> Cerrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" attr.id="realizarReclamo{{pedido.idPedido}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Realizar un reclamo</h5>
+                                            <i class="fas fa-times" data-mdb-dismiss="modal"></i>
+                                        </div>
+                                        <div class="modal-body">
+
+
+                                            <span>Tipo de reclamo</span>
+                                            <select class="form-select" aria-label="Default select example" [(ngModel)]="seleccionado">
+                                                <option value="Reembolso" selected="Reembolso">Reembolso</option>
+                                                <option value="Compensacion">Compensación</option>
+                                                </select>
+                                            <form (ngSubmit)="realizarReclamo()" novalidate #f="ngForm">
+                                                <br>
+                                                <div class="form-group">
+                                                    <span>Comentario</span>
+                                                    <textarea type="text" class="form-control" id="comentario" name="comentario" [(ngModel)]="comentario" required></textarea>
+                                                </div>
+                                                <br>
+                                                <button (click)="realizarReclamo()" class="btn btn-warning btn-rounded" [disabled]="!f.valid" data-mdb-dismiss="modal">Realizar reclamo</button>
+                                            </form>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger btn-rounded" data-mdb-ripple-color="dark" data-mdb-dismiss="modal"> Cerrar</button>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr class="collapse">
+
+                    </tr>
+                </tbody>
+                <!-- </ng-container> -->
+            </table>
+        </div>
+    </div>
+</div>

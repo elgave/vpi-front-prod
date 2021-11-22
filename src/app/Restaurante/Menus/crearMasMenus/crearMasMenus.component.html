@@ -1,0 +1,162 @@
+<app-menu></app-menu>
+<div class="container">
+    <div class=" row">
+
+
+
+
+        <div class="contitulo redondo col-md-12 bg-white">
+            <div class="title div-s">
+                <span>Crear Menús / Promociones</span>
+            </div>
+            <br><br>
+            <div class="row">
+                <div class="border border-warning col-md-3">
+                    <div>
+                        Categoría:
+                        <div class="form-outline">
+                            <select class="form-select" aria-label="Default select example" [(ngModel)]="opcionSeleccionado" (change)="capturar()">
+                                <option value="0">Selecciona una categoria</option>
+                                <option *ngFor="let dato of lista">{{dato}}</option>
+        
+                              </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <form #f="ngForm" (ngSubmit)="onRegisterMenu()" novalidate>
+
+
+                <div class="row">
+                    <div class="border align-items-center contitulo border-warning col-md-3">
+                        <div>
+                            Ingrese Nombre:
+                            <div class="form-outline">
+                                <input type="text" name="nombre" id="formControlLg" class="form-control form-control-lg" [(ngModel)]="nombre" required />
+                                <label class="form-label" for="formControlLg">...</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border contitulo border-warning col-md-2 ">
+                        <div>
+                            Tipo:
+                            <!-- Default radio -->
+                            <div class="form-check">
+                                <input (change)="onChange()" name="promocion" [(ngModel)]="promocion" class="form-check-input" type="checkbox" id="flexRadioDefault1" />
+                                <label class="form-check-label" for="flexRadioDefault1"> Promoción </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border contitulo border-warning col-md-5">
+                        <div>
+                            Descripción:
+                            <div class="form-outline">
+                                <textarea name="descripcion" class="form-control" [(ngModel)]="descripcion" required id="textAreaExample" rows="3"></textarea>
+                                <label class="form-label" for="textAreaExample">...</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="border border-warning col-md-2">
+                        <div>
+                            <div class="form-outline">
+                                <input type="number" id="typeNumber" name="costo" class=" border form-control form-control-lg" [(ngModel)]="costo" required pattern="^\d+$" #costoref="ngModel"/>
+                                <label class="form-label" for="typeNumber">Costo</label>
+                            </div>
+                            <div *ngIf="costoref.errors &&(costoref.touched || costoref.dirty)" class ="alert alert-danger">
+                                <div [hidden]="! costoref.errors?.pattern">
+                                  Costo inválido
+                                </div>
+                            </div>
+                            <div class="form-outline" *ngIf="isPromo">
+                                <input type="number" name="descuento" id="typeNumber" class=" border form-control form-control-lg" [(ngModel)]="descuento" required pattern="^\d+$" #descuentoref="ngModel" />
+                                <label class="form-label" for="typeNumber">Descuento</label>
+                            </div>
+                            <div *ngIf="descuento > 100 || descuento < 0" class ="alert alert-danger">
+                                <div [hidden]="! descuentoref.errors?.pattern">
+                                  Descuento inválido
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border border-warning col-md-5 ">
+                        <div>
+                            <div class="mb-3">
+                                <label for="formFileLg" class="form-label">Imagen del menú</label>
+                                <input class="form-outline form-control form-control-lg" type="file" #file placeholder="Subir foto" (change)="subirIcono(file.files)" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-center" *ngIf="!((costoref.errors &&(costoref.touched || costoref.dirty) || nombre == '' || descripcion == '' || costo == undefined || categoria == '0' || categoria == undefined || descuento > 100 || descuento < 0)); else btnDisabled">
+                        <button  (click)="cargarAgregadosDisponibles()" type="submit" data-mdb-toggle="modal" data-mdb-target="#crearMenuModal" class="btn btn-warning btn-rounded">Confirmar Menú / Promoción</button>
+                    </div>
+                    <ng-template #btnDisabled>
+                        <div class="col text-center">
+                            <button type="submit" data-mdb-toggle="modal" data-mdb-target="#crearMenuModal" class="btn btn-warning btn-rounded" disabled>Confirmar Menú / Promoción</button>
+                        </div>
+                    </ng-template>
+                <!-- Second modal (asociar) -->
+                <div class="modal fade" id="crearMenuModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel22" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalToggleLabel22">Asociar Agregados</h5>
+                                <i class="fas fa-times" data-mdb-dismiss="modal"></i>
+                <!--                 <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                -->            </div>
+                            <div class="modal-body">
+                                <form [formGroup]="checkArray" (ngSubmit)="asociarAgregados()">
+                                    <div class="card  shadow-0 " style="max-width: 30rem;">
+                                        <div class="bg-image hover-overlay ripple align-items-center" data-mdb-ripple-color="light">
+                                        </div>
+                                        <div class="card-body justify-content-center align-items-center text-center ">
+                                            <div class="container-fluid agregados-mod">
+                                                <div class="input-group mb-3">
+                                                    <div class="col-12 col-m-6 col-lg-7">
+                                                        <table class="table">
+                                                            <thead>
+                                                            </thead>
+                                                            <h5 *ngIf="!(agregadosN.length > 0)"> No hay mas agregados para asociar </h5>
+                                                            <tbody *ngIf="(agregadosN.length > 0)">
+                                                                <tr *ngFor="let agregado of agregadosN; let i = index" [attr.data-index]="i">
+                                                                    <th scope="row">
+
+                                                                    </th>
+
+                                                                    <td>
+                                                                        <div class="form-check">
+                                                                            <input class="form-check-input" type="checkbox" [value]="agregado.id" (change)="onCheckboxChange($event)" />
+                                                                        </div>
+                                                                    </td>
+                                                                    <td hidden>{{agregado.id}}</td>
+                                                                    <td>{{agregado.nombre}}</td>
+                                                                    <td>$ {{agregado.costo}}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <hr />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger btn-rounded btn-lg" data-mdb-dismiss="modal" aria-label="Close">Cerrar</button>
+                                        <button *ngIf="(agregadosN.length > 0)" type="button" class="btn btn-warning btn-rounded btn-lg" (click)="asociarAgregados()" data-mdb-dismiss="modal">Asociar al Menu</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

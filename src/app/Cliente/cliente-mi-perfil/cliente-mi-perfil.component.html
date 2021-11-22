@@ -1,0 +1,60 @@
+<app-menu></app-menu>
+<div class="container">
+    <div class="row">
+        <div class="col-md-7">
+            <div class="title div-s">
+                <span>Mi perfil</span>
+            </div>
+
+            <div class="subtitle div-s">
+                <span>Email</span>
+            </div>
+            <input type="text" name="email" id="email" class="form-control" [(ngModel)]="email" readonly/>
+            <br>
+            <div class="subtitle div-s">
+                <span>Nombre</span>
+            </div>
+            <input type="text" name="nombre" id="nombre" class="form-control" [(ngModel)]="nombre" readonly/>
+            <br>
+            <div class="subtitle div-s">
+                <span>Apellido</span>
+            </div>
+            <input type="text" name="apellido" id="apellido" class="form-control" [(ngModel)]="apellido" readonly/>
+            <br>
+            <div class="subtitle div-s">
+                <span>Teléfono</span>
+            </div>
+            <input type="text" name="telefono" id="telefono" class="form-control" [(ngModel)]="telefono" readonly/>
+            <br>
+            <div class="subtitle div-s">
+                <span>Mi calificación</span>
+            </div>
+            <input type="text" name="calificacion" id="calificacion" class="form-control" [(ngModel)]="miCalificacion" readonly/>
+            <br>
+            <div class="col text-center">
+                <button type="submit"  data-mdb-toggle="modal" data-mdb-target="#eliminarCuentaModal" class="btn btn-outline-warning btn-rounded">
+                    Eliminar mi cuenta</button>
+                
+                    <div class="modal fade" id="eliminarCuentaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Eliminación de cuenta</h5>
+                                    <i class="fas fa-times " data-mdb-dismiss="modal"></i>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <h6 class="delete-h6">ATENCIÓN: Se eliminará su cuenta definitivamente</h6>
+                                </div>
+                                <div class="modal-footer text-center">
+                                    <button type="button" class="centrado btn btn-warning btn-rounded" (click)="eliminarMiCuenta()" data-mdb-dismiss="modal">Confirmar Eliminación</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            
+            
+
+        </div>
+    </div>      
+</div>

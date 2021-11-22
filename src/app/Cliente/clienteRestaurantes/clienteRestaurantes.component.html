@@ -1,0 +1,116 @@
+<app-menu></app-menu>
+<div class="container">
+    <div class="row ">
+        <div class="wrapper col-md-12">
+            <div class="outer" *ngIf="resTop.length >= 5">
+                <div class="card" style="--delay:1;">
+                    <div class="content">
+                        <div class="card-img"><img src="{{this.s3Url}}/{{resTop[0].foto}}" alt=""></div>
+                        <div class="details">
+                            <span class="name">{{resTop[0].nombreRestaurante}} TOP5 1</span>
+                        </div>
+                    </div>
+                    <i *ngIf="!resTop[0].abierto" class="fas fa-store-alt-slash" style="color: #da0707"> Cerrado, abriremos pronto! </i>
+                    <button *ngIf="resTop[0].abierto" type="button" class="btn btn-outline-warning btn-rounded card-a" (click)="menus(resTop[0].nombreRestaurante)">Comprar</button>
+                </div>
+                <div class="card" style="--delay:2;">
+                    <div class="content">
+                        <div class="card-img"><img src="{{this.s3Url}}/{{resTop[1].foto}}" alt=""></div>
+                        <div class="details">
+                            <span class="name">{{resTop[1].nombreRestaurante}} TOP5 2</span>
+                        </div>
+                    </div>
+                    <i *ngIf="!resTop[1].abierto" class="fas fa-store-alt-slash" style="color: #da0707"> Cerrado, abriremos pronto! </i>
+                    <button *ngIf="resTop[1].abierto" type="button" class="btn btn-outline-warning btn-rounded card-a" (click)="menus(resTop[1].nombreRestaurante)">Comprar</button>
+                </div>
+                <div class="card" style="--delay:3;">
+                    <div class="content">
+                        <div class="card-img"><img src="{{this.s3Url}}/{{resTop[2].foto}}" alt=""></div>
+                        <div class="details">
+                            <span class="name">{{resTop[2].nombreRestaurante}} TOP5 3</span>
+                        </div>
+                    </div>
+                    <i *ngIf="!resTop[2].abierto" class="fas fa-store-alt-slash" style="color: #da0707"> Cerrado, abriremos pronto! </i>
+                    <button *ngIf="resTop[2].abierto" type="button" class="btn btn-outline-warning btn-rounded card-a" (click)="menus(resTop[2].nombreRestaurante)">Comprar</button>
+                </div>
+                <div class="card" style="--delay:4;">
+                    <div class="content">
+                        <div class="card-img"><img src="{{this.s3Url}}/{{resTop[3].foto}}" alt=""></div>
+                        <div class="details">
+                            <span class="name">{{resTop[3].nombreRestaurante}} TOP5 4</span>
+                        </div>
+                    </div>
+                    <i *ngIf="!resTop[3].abierto" class="fas fa-store-alt-slash" style="color: #da0707"> Cerrado, abriremos pronto! </i>
+                    <button *ngIf="resTop[3].abierto" type="button" class="btn btn-outline-warning btn-rounded card-a" (click)="menus(resTop[3].nombreRestaurante)">Comprar</button>
+                </div>
+                <div class="card" style="--delay:5;">
+                    <div class="content">
+                        <div class="card-img"><img src="{{this.s3Url}}/{{resTop[4].foto}}" alt=""></div>
+                        <div class="details">
+                            <span class="name">{{resTop[4].nombreRestaurante}} TOP5 5</span>
+                        </div>
+                    </div>
+                    <button *ngIf="resTop[4].abierto" type="button" class="btn btn-outline-warning btn-rounded card-a" (click)="menus(resTop[4].nombreRestaurante)">Comprar</button>
+                    <i *ngIf="!resTop[4].abierto" class="fas fa-store-alt-slash" style="color: #da0707"> Cerrado, abriremos pronto! </i>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <nav class="navbar">
+                <div class="column ">
+                    <!--Filtros-->
+                    <button type="button" class="btn btn-warning btn-rounded fil" data-mdb-ripple-color="dark" (click)="setFiltro('Promociones')"> Promociones </button>
+                    <button type="button" class="btn btn-warning btn-rounded fil" data-mdb-ripple-color="dark" (click)="setFiltro('EnvioGratis')"> Envío Gratis </button>
+                    <button type="button" class="btn btn-warning btn-rounded fil" data-mdb-ripple-color="dark" (click)="setFiltro('Favoritos')"> Favoritos </button>
+                    <button type="button" class="btn btn-warning btn-rounded fil" data-mdb-ripple-color="dark" (click)="setFiltro('none')"> Todos </button>
+
+                    <!--Buscador-->
+                    <form class="search-container" action="//llamaswill.tumblr.com/search">
+                        <input (keyup)="onKey($event)" id="search-box" type="text" class="search-box" name="q" />
+                        <label for="search-box"><span class="fas fa-search"></span></label>
+                        <input (keyup)="onKey($event)" type="submit" id="search-submit" />
+                    </form>
+                    <button (click)="ordenarRestDesc()" type="button" class="btn btn-warning px-3"><i class="fas fa-lg fa-sort-alpha-up-alt"> </i></button>
+                    <button (click)="ordenarRestAsc()" type="button" class="btn btn-warning px-3"><i class="fas fa-lg fa-sort-alpha-down-alt"></i> </button>
+                </div>
+                <!--  <div class="input-group justify-content-center align-items-center text-center mb-2">
+            <div class="form-outline">
+                <input type="search" id="form1" class="form-control" />
+                <label class="form-label" for="form1">Buscar</label>
+            </div>
+            <button type="button" class="btn btn-primary" style="background-color: #f30909;">
+    <i class="fas fa-search"></i>
+    </button></div> -->
+                <!-- <div class="btn-group justify-content-center align-items-center text-center " role="group mb-4">
+            <button type="button" class="btn btn-outline-warning" (click)="cargarRestaurantes()">Calificacion</button>
+            <button type="button" class="btn btn-outline-warning">Calificacion VPI</button>
+            <button type="button" class="btn btn-outline-warning">Mis Favoritos</button>
+        </div> -->
+            </nav>
+            <h3 class="title_h3 title3">Restaurantes Abiertos</h3>
+            <!--     </div>
+ -->
+            <!--Restaurantes-->
+            <!--     <div class="container ">text-center mb-3 -->
+            <div class="row row-cols-1 row-cols-md-4 ">
+                <!-- g-3  text-center mb-4  -->
+                <div class="col" *ngFor="let restaurante of restaurantes  | async">
+                    <div class="card redondo border shadow-0 " style="max-width: 30rem;">
+                        <div class="bg-image hover-overlay text-center ripple " data-mdb-ripple-color="light">
+                            <img class="redondo" src="{{this.s3Url}}/{{restaurante.foto}}" height="200px" width="100%" alt="" loading="lazy" />
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title text-center">{{ restaurante.nombreRestaurante }}</h5>
+                            <ul class="card-text list-unstyled">
+                                <li class="item-list"> {{ restaurante.descripcionMenues }} </li>
+                                <li class="item-list"><i class="far fa-clock"></i> {{ restaurante.horario }}</li>
+                                <li class="item-list"><i class="fas fa-shipping-fast"></i> <i class="fas  fa-dollar-sign"></i> {{ restaurante.precioEnvio }}</li>
+                            </ul>
+                            <button type="button" class="btn btn-warning btn-rounded" (click)="menus(restaurante.nombreRestaurante)">Ver Menús</button>
+                            <!--                         <a class="btn btn-warning btn-rounded"  (click)="menus(restaurante.nombreRestaurante)">Ver Menús</a>
+ --></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

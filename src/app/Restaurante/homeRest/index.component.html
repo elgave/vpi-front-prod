@@ -1,0 +1,244 @@
+<app-menu></app-menu>
+<div class="container text-center">
+    <div *ngIf="isLogged; else loggedOut">
+        <div class="container">
+            <div class="row">
+                <h2>Bienvenido {{email}}</h2>
+            </div>
+        </div>
+        <!--Cliente-->
+        <div *ngIf="isCliente">
+        </div>
+
+        <!--Restaurante-->
+        <div *ngIf="!isCliente" class="container">
+            <div class=" row">
+                <div class="contitolo redondo col-md-7 bg-white">
+                    <div class="title div-s">
+                        <span>Pedidos Pendientes</span>
+                    </div>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Id de Pedido</th>
+                                <th>Estado</th>
+                                <th>Dirección</th>
+                                <th>Fecha</th>
+                                <th>Total </th>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let pedido of pedidos">
+                            <tr>
+                                <td>{{pedido.idPedido}}</td>
+                                <td>{{pedido.estado}}</td>
+                                <td>{{pedido.direccion}}</td>
+                                <td>{{pedido.fecha}}</td>
+                                <td>{{pedido.precioTotal}}</td>
+                                <td>
+                                    <a data-mdb-toggle="tooltip" title="Información Adicional"><i class="fas fa-search expanded" data-mdb-toggle="modal" attr.data-mdb-target="#detallesPedidosPendientes{{pedido.idPedido}}" aria-expanded="false" aria-controls="test"></i></a>
+
+                                    <!--ACÁ REDIRIGE A CALIFICAR CLIENTE-->
+                                    <a data-mdb-toggle="tooltip" title="Calificar Cliente" href=""><i class="fas fa-star"></i></a>
+                                </td>
+                            </tr>
+
+
+                            <div class="modal top fade" id="detalleModal" attr.id="detallesPedidosPendientes{{pedido.idPedido}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg  modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Información del pedido</h5>
+                                            <i class="fas fa-times" data-mdb-dismiss="modal"></i>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h6>Detalles del pedido</h6>
+                                            <ul class=" list-unstyled fw-normal pb-1 small mt-1 mb-0 ">
+                                                <li class="item-list"><b>Comentario:</b> {{pedido.comentario}}</li>
+                                                <li *ngIf="pedido.pagoAcreditado" class="item-list"><b>Pago:</b> Acreditado </li>
+                                                <li *ngIf="!pedido.pagoAcreditado" class="item-list"><b>Pago:</b> Pendiente </li>
+                                                <li class="item-list"><b>Tiempo de entrega:</b>{{pedido.tiempoE}} </li>
+                                            </ul>
+                                            <li class="list-unstyled_li item-list"><b>Items:</b> </li>
+                                            <ul *ngFor="let item of pedido.items" class=" fw-normal pb-1 small mt-1 mb-0 ">
+                                                <li class="item-list"><b>Menu y extras: </b>{{item.nombre}}</li>
+                                                <li class="item-list"><b>Cantidad: </b>{{item.cantidad}}</li>
+
+                                            </ul>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <!--ACÁ REDIRIGE A APROBAR PEDIDO-->
+                                            <a data-mdb-toggle="tooltip" title="Confirmar Pedido"><i class="fas fa-clipboard-check"  data-mdb-toggle="modal" data-mdb-target="#confirmacionModal" (click)="seleccionar(pedido)" data-mdb-dismiss="modal" ></i></a>
+                                            <!--ACÁ REDIRIGE A RECHAZAR PEDIDO-->
+                                            <a data-mdb-toggle="tooltip" title="Rechazar Pedido"><i class="fas fa-times"  data-mdb-toggle="modal" data-mdb-target="#rechazoModal" (click)="seleccionar(pedido)" data-mdb-dismiss="modal" ></i></a>
+                                            <button type="button" class="btn btn-danger btn-rounded" data-mdb-ripple-color="dark" data-mdb-dismiss="modal"> Cerrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <!-- Second Confirmar Pedido -->
+                <div class="modal top fade" id="confirmacionModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel22" tabindex="-1">
+                    <div class="modal-dialog modal-lg  modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalToggleLabel22">Confirmar Pedido</h5>
+                                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="modal-body text-center" *ngIf="abrirModal">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Id Pedido</th>
+                                                <th scope="col">Costo</th>
+                                                <th scope="col">Dirección</th>
+                                                <th scope="col">Ingrese tiempo de entrega</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>{{pedidoSelecionado.idPedido}}</td>
+                                                <td>{{pedidoSelecionado.precioTotal}}</td>
+                                                <td>{{pedidoSelecionado.direccion}}</td>
+                                                <td>
+                                                    <div class="form-outline" (ngSubmit)="confirmarPedido()" novalidate>
+                                                        <input type="number" id="form12" class="form-control" [(ngModel)]="tiempoE" required pattern="^[1-9][0-9]*$" #tiemporef="ngModel"/>
+                                                        <label class="form-label" for="form12">Minutos</label>
+                                                    </div>
+                                                    <div *ngIf="tiempoE == 0 || tiempoE < 0" class ="alert alert-danger">
+                                                        <div [hidden]="! tiemporef.errors?.pattern">
+                                                          Tiempo de entrega inválido
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-danger btn-rounded btn-lg" data-mdb-toggle="modal" data-mdb-dismiss="modal"> Cancelar </button>
+                                <div *ngIf="(tiempoE > 0 ); else btnDisabled">
+                                    <button type="button" class="centrado btn btn-warning btn-rounded" (click)="confirmarPedido()" data-mdb-toggle="modal" data-mdb-dismiss="modal">Confirmar</button>
+                                </div>
+                                <ng-template #btnDisabled>
+                                        <button type="button" class="centrado btn btn-warning btn-rounded" disabled data-mdb-toggle="modal" data-mdb-dismiss="modal">Confirmar</button>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Cierre modal -->
+
+                <div class="redondo col-md-4">
+                    <br>
+                    <h3>
+                        Gracias por ser parte de nuestra comunidad.
+                    </h3>
+                    <img src="https://cdn0.iconfinder.com/data/icons/mother-s-day-bzzricon-filled-lines/512/10_Heart_Hands-128.png" class="img-fluid" alt="..." />
+                    <h4>
+                        VPI se esfuerza por satisfacer las necesidades de cada restaurante y ofrecerle a cada cliente lo mejor
+                    </h4>
+                    <br>
+                </div>
+            </div>
+            <div class="row">
+                <div id="carouselExampleIndicators" class="carousel slide col-md-8 offset-md-2" data-mdb-ride="carousel">
+                    <div class="carousel-indicators">
+                        <button type="button" class="active" aria-current="true" data-mdb-target="#carouselExampleIndicators" data-mdb-slide-to="0" aria-label="Slide 1"></button>
+                        <button type="button" data-mdb-target="#carouselExampleIndicators" data-mdb-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-mdb-target="#carouselExampleIndicators" data-mdb-slide-to="2" aria-label="Slide 3"></button>
+                        <button type="button" data-mdb-target="#carouselExampleIndicators" data-mdb-slide-to="3" aria-label="Slide 4"></button>
+                        <button type="button" data-mdb-target="#carouselExampleIndicators" data-mdb-slide-to="4" aria-label="Slide 5"></button>
+                    </div>
+                    <div class="redondo carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="assets\carousel1.jpeg" class="d-block w-100" alt="..." />
+                        </div>
+                        <div class="carousel-item">
+                            <img src="assets\carousel4.jpeg" class="d-block w-100" alt="..." />
+                        </div>
+                        <div class="carousel-item">
+                            <img src="assets\carousel6.jpeg" class="d-block w-100" alt="..." />
+                        </div>
+                        <div class="carousel-item">
+                            <img src="assets\carousel7.jpeg" class="d-block w-100" alt="..." />
+                        </div>
+                        <div class="carousel-item">
+                            <img src="assets\carousel8.jpeg" class="d-block w-100" alt="..." />
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-mdb-target="#carouselExampleIndicators" data-mdb-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                    <button class="carousel-control-next" type="button" data-mdb-target="#carouselExampleIndicators" data-mdb-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <ng-template #loggedOut> No has iniciado sesion</ng-template>
+
+
+</div>
+
+
+
+<!-- Second rechazar Pedido -->
+<div class="modal top fade" id="rechazoModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel22" tabindex="-1">
+    <div class="modal-dialog modal-lg  modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalToggleLabel22">Rechazar Pedido</h5>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body text-center" *ngIf="abrirModal">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id Pedido</th>
+                                <th scope="col">Costo</th>
+                                <th scope="col">Dirección</th>
+                                <th scope="col">Ingrese motivo de rechazo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{pedidoSelecionado.idPedido}}</td>
+                                <td>{{pedidoSelecionado.precioTotal}}</td>
+                                <td>{{pedidoSelecionado.direccion}}</td>
+                                <td>
+                                    <div class="form-outline" (ngSubmit)="rechazarPedido()" novalidate>
+                                        <input type="text" id="form12" class="form-control" [(ngModel)]="motivo" />
+                                        <label class="form-label" for="form12">Motivo</label>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger btn-rounded btn-lg" data-mdb-toggle="modal" data-mdb-dismiss="modal"> Cancelar </button>
+                <button type="button" class="centrado btn btn-warning btn-rounded" (click)="rechazarPedido()" data-mdb-toggle="modal" data-mdb-dismiss="modal">Confirmar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Cierre modal -->

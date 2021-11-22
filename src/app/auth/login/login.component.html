@@ -1,0 +1,55 @@
+<div class="login">
+    <div class="container" id="container">
+        <div class="form-container sign-in-container">
+            <form *ngIf="!resetearPass" #f="ngForm" (ngSubmit)="onLogin()" novalidate>
+                <h1>Iniciar sesión</h1>
+                <div class="text-center mb-3">
+                </div>           
+                    <div class="mb-4">
+                        <input type="email" name="email" id="email" class="form-control" [(ngModel)]="email" required />
+                    </div>
+    
+                    <div class="mb-4" >
+                        <input type="password" name="password" id="password" class="form-control" [(ngModel)]="password" required />  
+                    </div>
+    
+                    <div class=" mb-4 d-flex justify-content-center "  >
+                        <!-- Simple link -->
+                        <a class="link-warning" type="button" (click)="ResetPass()">¿Olvidó su contraseña?</a>
+                    </div>
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-primary btn-block mb-4" style="background-color: #FFA900;"><i class="fas fa-pizza-slice"></i> Iniciar sesión</button>
+            </form>
+                    <!--Form recuperar Contraseña-->
+                    <form *ngIf="resetearPass" #f="ngForm" (ngSubmit)="onSendEmail()" novalidate>
+                        <div class="text-center mb-3">
+                            <img src="./assets/fondoLogin.png" height="220" alt="..." class="img-password" />
+                        </div>
+            
+                        <div class="mb-4">
+                            <label class="form-label" for="loginName">Correo electrónico</label>
+                            <input type="email" name="email" id="email" class="form-control" [(ngModel)]="email" required />
+                        </div>
+            
+                        <div class=" mb-4 d-flex justify-content-center ">
+                            <!-- Simple link -->
+                            <a class="link-warning" type="button" (click)="ResetPass()">Volver</a>
+                        </div>
+            
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-primary btn-block mb-4" style="background-color: #FFA900;" [disabled]="!f.valid">Recuperar Contraseña</button>
+                    </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-right">
+                    <h1>Crear cuenta</h1>
+                    <p>Si aún no tienes una cuenta registrate para usar VPI.</p>
+                    <button class="ghost" id="signUp"  routerLink="/registro" id="tab-register" data-mdb-toggle="pill" href="#pills-register" role="tab" aria-controls="pills-register" aria-selected="false">Registrarse</button>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    
+   

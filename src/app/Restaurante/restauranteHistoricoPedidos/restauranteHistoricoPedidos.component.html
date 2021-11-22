@@ -1,0 +1,104 @@
+<app-menu></app-menu>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="title div-s">
+                <span>Historial de pedidos</span>
+            </div>
+
+            <nav class="navbar">
+
+                <div class="container-fluid">
+
+                    <button type="button" class="btn btn-warning btn-rounded" data-mdb-ripple-color="dark" (click)="setFiltro('Entregado')"> Entregados </button>
+                    <button type="button" class="btn btn-warning btn-rounded" data-mdb-ripple-color="dark" (click)="setFiltro('Pendiente')"> Pendientes </button>
+                    <button type="button" class="btn btn-warning btn-rounded" data-mdb-ripple-color="dark" (click)="setFiltro('Confirmado')"> Confirmados </button>
+                    <button type="button" class="btn btn-warning btn-rounded" data-mdb-ripple-color="dark" (click)="setFiltro('Rechazado')"> Rechazados </button>
+                    <button type="button" class="btn btn-warning btn-rounded" data-mdb-ripple-color="dark" (click)="setFiltro('none')"> Todos </button>
+
+                    <form class="search-container" action="//llamaswill.tumblr.com/search">
+                        <input id="search-box" type="text" class="search-box" name="q" />
+                        <label for="search-box"><span class="fas fa-search"></span></label>
+                        <input type="submit" id="search-submit" />
+                    </form>
+
+                    <button (click)="ordenarAsc()" type="button" class="btn btn-warning px-3"><i class="fas fa-lg fa-sort-numeric-up-alt"> </i></button>
+                    <button (click)="ordenarDesc()" type="button" class="btn btn-warning px-3"><i class="fas fa-lg fa-sort-numeric-down-alt"> </i></button>
+                </div>
+
+            </nav>
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Nro. Pedido</th>
+                        <th>Estado</th>
+                        <th>Dirección</th>
+                        <th>Fecha</th>
+                        <th>Costo</th>
+                        <th>Pago</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let pedido of pedidos">
+                    <tr *ngIf="getFiltro() === 'none'">
+                        <td>{{pedido.idPedido}}</td>
+                        <td>{{pedido.estado}}</td>
+                        <td>{{pedido.direccion}}</td>
+                        <td>{{pedido.fecha}}</td>
+                        <td>${{pedido.precioTotal}}</td>
+                        <td *ngIf="pedido.pagoAcreditado"> Acreditado </td>
+                        <td *ngIf="!pedido.pagoAcreditado"> Pendiente </td>
+                        <td>
+                            <i *ngIf="!pedido.pagoAcreditado" class="fas fa-money-bill-alt fa-lg expanded" style="color: #1f8e01" (click)="ingresarPagoEnEfectivo(pedido.idPedido)"></i>
+                            <a><i class="fas fa-star" data-mdb-toggle="modal"  data-mdb-target="#calificarModal" (click)="calificarCliente(pedido.cliente)"></i></a>
+                            <!-- Modal Calificar-->
+
+                        </td>
+                    </tr>
+
+                    <tr *ngIf="pedido.estado === getFiltro() && getFiltro() != 'none' ">
+                        <td>{{pedido.idPedido}}</td>
+                        <td>{{pedido.estado}}</td>
+                        <td>{{pedido.direccion}}</td>
+                        <td>{{pedido.fecha}}</td>
+                        <td>${{pedido.precioTotal}}</td>
+                        <td *ngIf="pedido.pagoAcreditado"> Acreditado </td>
+                        <td *ngIf="!pedido.pagoAcreditado"> Pendiente </td>
+                        <td>
+                            <i *ngIf="!pedido.pagoAcreditado" class="fas fa-money-bill-alt fa-lg expanded" style="color: #1f8e01" (click)="ingresarPagoEnEfectivo(pedido.idPedido)"></i>
+                            <a><i class="fas fa-star" data-mdb-toggle="modal"  data-mdb-target="#calificarModal" (click)="calificarCliente(pedido.cliente)" ></i></a>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <div class="modal fade" id="calificarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Calificar cliente</h5>
+                            <i class="fas fa-times" data-mdb-dismiss="modal"></i>
+                        </div>
+                        <div class="modal-body">
+                            <h6 style="margin-left: 40px;">Cliente a calificar: <b>{{idCliente}}</b></h6>
+                            <div class="estrellas">
+                                <ng-container *ngFor="let star of stars">
+                                    <app-star [starId]="star" [rating]="hoverState || rating" (enter)="enter($event)" (leave)="leave($event)" (bigClick)="updateRating(star)" data-mdb-dismiss="modal">
+                                    </app-star>
+                                </ng-container>
+                            </div>
+                            <a *ngIf="micalificacion>0"><i class="fas fa-backspace expanded" (click)="eliminarCalificacion()" data-mdb-dismiss="modal"></i></a>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-danger btn-rounded" data-mdb-ripple-color="dark" data-mdb-dismiss="modal">Cancelar</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

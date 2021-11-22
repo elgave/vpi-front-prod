@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+.container-fluid {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+    overflow: auto;
+}
+
+.img-fluid {
+    height: 130px;
+    width: 300px;
+    object-fit: cover;
+}
+
+.div-resumen {
+    margin-top: 10px;
+    background-color: #ffff;
+    padding: 20px 40px;
+    border-radius: 30px;
+}
+
+.btn-danger {
+    margin-left: 30px;
+}
+
+.div-detalles {
+    margin-top: 10px;
+    background-color: #ffff;
+    padding: 40px;
+    margin-left: 40px;
+    border-radius: 30px;
+    height: 380px;
+}
+
+.restaurante-img {
+    height: 70px;
+    width: 70px;
+}
+
+.restaurante-title {
+    font-size: 15px;
+}
+
+.card-body {
+    margin-top: -20px;
+}
+
+.table-hover {
+    margin: 10px;
+    /* font-size: 11px; */
+    font-size: 15px;
+}
+
+.card-menu {
+    margin-top: 5px;
+}
+.fa-times{
+    color: #ffff;
+    margin-right: 15px;
+    cursor: pointer;
+}
+.container-btn {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+}

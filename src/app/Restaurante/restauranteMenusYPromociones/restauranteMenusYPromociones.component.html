@@ -1,0 +1,251 @@
+<app-menu></app-menu>
+<div class="container">
+    <div class="row">
+        <div class="col-md-7">
+            <div class="title div-s">
+                <span>Menús y promociones</span>
+            </div>
+            <div>
+                <!--<nav class="navbar">
+
+                    <div class="container-fluid">
+                        <button type="button" class="btn btn-warning btn-rounded">Costo</button>
+                        <button type="button" class="btn btn-warning btn-rounded">Categoría</button>
+                        <form class="search-container" action="//llamaswill.tumblr.com/search">
+                            <input id="search-box" type="text" class="search-box" name="q" />
+                            <label for="search-box"><span class="fas fa-search"></span></label>
+                            <input type="submit" id="search-submit" />
+                        </form>
+                    </div>
+                </nav>-->
+                <!-- SECCIÓN DE MENUS-->
+                <button type="button" class="btn btn-outline-warning btn-rounded btn-title" data-mdb-ripple-color="dark">
+            Menús
+          </button>
+                <table class="table" *ngFor="let menu of menus">
+                    <!-- <ng-container *ngFor="let group of groups"> -->
+                    <tbody>
+                        <tr>
+                            <td><img class="img-table" src="{{this.s3Url}}/{{menu.imagen}}"></td>
+                            <td><b>{{menu.nombre}}</b></td>
+                            <td class="td-description">{{menu.descripcion}}</td>
+                            <td>$ {{menu.costo-(menu.costo*menu.descuento)/100}}</td>
+                            <td>
+                                <a (click)="modificarMenu(menu)"><i class="fas fa-pen"></i></a>
+
+                                <a (click)="seleccionarMenu(menu)" data-mdb-toggle="modal" data-mdb-target="#eliminarMenu"><i class="fas fa-backspace"></i></a>
+                                <!-- Modal -->
+                                <div class="modal fade" id="eliminarMenu" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content" *ngIf="abrirModalMenu">
+                                            <div class="modal-header delete">
+                                                <h5 class="modal-title" id="exampleModalLabel">Confirmar eliminación</h5>
+                                                <i class="fas fa-times" data-mdb-dismiss="modal"></i>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h6 class="delete-h6">Se eliminará el menú: {{menuSeleccionado.nombre}}</h6>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-outline-danger btn-rounded" data-mdb-ripple-color="dark" data-mdb-dismiss="modal">
+                          Cancelar
+                        </button>
+                                                <button type="button" class="btn btn-warning btn-rounded delete" (click)="eliminarMenu(menuSeleccionado.idMenu)" data-mdb-dismiss="modal">Confirmar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                    <!-- </ng-container> -->
+                </table>
+                <br>
+
+                <!-- SECCIÓN DE PROMOS-->
+                <button type="button" class="btn btn-outline-warning btn-rounded btn-title" data-mdb-ripple-color="dark">
+          Promociones
+        </button>
+                <table class="table" *ngFor="let promo of promos">
+                    <tbody>
+                        <tr>
+                            <td><img class="img-table" src="{{this.s3Url}}/{{promo.imagen}}"></td>
+                            <td><b>{{promo.nombre}}</b></td>
+                            <td class="td-description">{{promo.descripcion}}</td>
+                            <td>$ {{promo.costo-(promo.costo*promo.descuento)/100}}</td>
+                            <td>
+                                <a (click)="modificarMenu(promo)"><i class="fas fa-pen"></i></a>
+
+                                <a (click)="seleccionarMenu(promo)" data-mdb-toggle="modal" data-mdb-target="#eliminarPromocion"><i class="fas fa-backspace"></i></a>
+                                <!-- Modal -->
+                                <div class="modal fade" id="eliminarPromocion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content" *ngIf="abrirModalMenu">
+                                            <div class="modal-header delete">
+                                                <h5 class="modal-title" id="exampleModalLabel">Confirmar eliminación</h5>
+                                                <i class="fas fa-times" data-mdb-dismiss="modal"></i>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h6 class="delete-h6">Se eliminará la promoción: {{menuSeleccionado.nombre}}</h6>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-outline-danger btn-rounded" data-mdb-ripple-color="dark" data-mdb-dismiss="modal">
+                                                 Cancelar   </button>
+                                                <button type="button" class="btn btn-warning btn-rounded delete" (click)="eliminarMenu(menuSeleccionado.idMenu)" data-mdb-dismiss="modal">Confirmar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="row">
+                <div class="title title_col_4 div-s">
+                    <span>Acciones</span>
+                </div>
+                <h6>Potencia tu restaurante agregando nuevos menús y promociones a la lista.</h6>
+                <div class="conteiner-btn">
+                    <button routerLink="/crearMasMenus" type="button" class="btn btn-outline-warning btn-rounded">
+                Crear menú / promoción
+              </button>
+                </div>
+                <h6>También puedes añadir agregados.</h6>
+                <div class="conteiner-btn">
+                    <button type="button" class="btn btn-outline-warning btn-rounded" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
+                Crear agregado
+              </button>
+                </div>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+
+                    <div class="modal-content">
+                        <form #f="ngForm" (ngSubmit)="altaAgregado()" novalidate>
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Crear agregado</h5>
+                                <i class="fas fa-times" data-mdb-dismiss="modal"></i>
+                            </div>
+
+                            <div class="modal-body">
+
+                                <div class="form-outline mb-4">
+                                    <input type="text" id="form5Example1" class="form-control" name="nombre" [(ngModel)]="nombre" required />
+                                    <label class="form-label" for="form5Example1">Nombre</label>
+                                </div>
+
+                                <div class="form-outline mb-4">
+                                    <input type="number" id="form5Example2" class="form-control" name="precio" [(ngModel)]="precio" required pattern="\d+$" #precioref="ngModel"/>
+                                    <label class="form-label" for="form5Example2">Precio</label>
+                                </div>
+                                <div *ngIf="precioref.errors &&(precioref.touched || precioref.dirty)" class ="alert alert-danger">
+                                    <div [hidden]="! precioref.errors?.pattern">
+                                      Precio inválido
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-danger btn-rounded" data-mdb-ripple-color="dark" data-mdb-dismiss="modal">
+                  Cancelar
+                </button>
+                                <div class="modal-footer text-center" *ngIf="!((precioref.errors &&(precioref.touched || precioref.dirty)) || nombre == ''  || precio == undefined || nombre == undefined); else btnDisabled">
+                                    <button type="submit" class="btn btn-warning btn-rounded">Confirmar</button>
+                                </div>
+                                <ng-template #btnDisabled>
+                                    <div class="modal-footer text-center">
+                                        <button type="submit" class="btn btn-warning btn-rounded" disabled>Confirmar</button>
+                                    </div>
+                                </ng-template>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row div-row-2">
+                <div class="title title_col_4 div-s">
+                    <span>Agregados</span>
+                </div>
+                <div>
+                    <table class="table" *ngFor="let agregado of agregados">
+                        <!-- <ng-container *ngFor="let group of groups"> -->
+                        <tbody>
+                            <tr>
+                                <thead></thead>
+                                <td><b>{{agregado.nombre}}</b></td>
+                                <td>${{agregado.costo}}</td>
+                                <td>
+                                    <a href="#" data-mdb-toggle="modal" data-mdb-target="#modificarAgregado" (click)="seleccionar(agregado)"><i class="fas fa-pen"></i></a>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="modificarAgregado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <form #f="ngForm" (ngSubmit)="modificarAgregado(agregadoSeleccionado.id)" novalidate>
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Modificar agregado</h5>
+                                                        <i class="fas fa-times" data-mdb-dismiss="modal"></i>
+                                                    </div>
+                                                    <div class="modal-body" *ngIf="abrirModal">
+                                                        <form>
+                                                            <div class="form-outline mb-4">
+                                                                <input class="form-control" id="formControlDisabled" type="text" placeholder="Nombre" aria-label="disabled input example" value="{{agregadoSeleccionado.nombre}}" disabled />
+                                                            </div>
+                                                            <div class="form-outline mb-4">
+                                                                <input type="number" id="form5Example2" class="form-control" name="precio" [(ngModel)]="costo" required pattern="\d+$" #costoref="ngModel"/>
+                                                                <label class="form-label" for="form5Example2">Precio</label>
+                                                            </div>
+                                                            <div *ngIf="costoref.errors &&(costoref.touched || costoref.dirty)" class ="alert alert-danger">
+                                                                <div [hidden]="! costoref.errors?.pattern">
+                                                                  Precio inválido
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-outline-danger btn-rounded" data-mdb-ripple-color="dark" data-mdb-dismiss="modal">
+                            Cancelar
+                          </button>
+                                                        <button type="submit" class="btn btn-warning btn-rounded" (click)="modificarAgregado(agregadoSeleccionado.id)" data-mdb-dismiss="modal">Confirmar</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <a (click)="seleccionar(agregado)" data-mdb-toggle="modal" data-mdb-target="#eliminarAgregado"><i class="fas fa-backspace agregados-icon"></i></a>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="eliminarAgregado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header delete">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Confirmar eliminación</h5>
+                                                    <i class="fas fa-times" data-mdb-dismiss="modal"></i>
+                                                </div>
+                                                <div class="modal-body" *ngIf="abrirModal">
+                                                    <h6 class="delete-h6">Se eliminará el agregado: {{agregadoSeleccionado.nombre}}</h6>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-outline-danger btn-rounded" data-mdb-ripple-color="dark" data-mdb-dismiss="modal">
+                            Cancelar
+                          </button>
+                                                    <button type="button" class="btn btn-warning btn-rounded delete" (click)="eliminarAgregado(agregadoSeleccionado.id)" data-mdb-dismiss="modal">Confirmar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <!-- </ng-container> -->
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
