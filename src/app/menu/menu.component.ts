@@ -6,6 +6,7 @@ import { RestauranteService } from '../service/Restaurante/restaurante.service';
 import { AbrirCerrar } from '../models/Restaurante/AbrirCerrar';
 import { environment } from 'src/environments/environment';
 import { ClienteService } from '../service/Cliente/cliente.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -32,7 +33,8 @@ export class MenuComponent implements OnInit {
     private tokenService: TokenService,
     private restauranteService: RestauranteService,
     private toastr : ToastrService,
-    private clienteService: ClienteService
+    private clienteService: ClienteService,
+    private router : Router
 
     ) { }
 
@@ -69,7 +71,8 @@ export class MenuComponent implements OnInit {
 
   onLogOut(): void{
     this.tokenService.logOut();
-    window.location.replace('/login')
+    this.router.navigate(['/login']);
+    
   }
 
   isAbierto(){
