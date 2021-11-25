@@ -25,6 +25,9 @@ export class ChangePasswordComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.tokenPassword = '';
+    this.password = '';
+    this.confirmarPassword = '';
   }
 
   onChangePass():void{
@@ -34,7 +37,7 @@ export class ChangePasswordComponent implements OnInit {
       });
       return;
     }
-    this.tokenPassword = this.activatedRoute.snapshot.params.tokenPassword;
+    //this.tokenPassword = this.activatedRoute.snapshot.params.tokenPassword;
     this.dto = new ChangePass(this.password, this.confirmarPassword, this.tokenPassword);
     this.emailPasswordService.changePasswords(this.dto).subscribe(
       data =>{

@@ -147,7 +147,7 @@ export class LoginComponent implements OnInit {
         this.toastr.success('Correo enviado', '', {
           timeOut : 3000 , positionClass: 'toast-top-center',
         });
-        console.log(data);
+        this.router.navigate(['/cambioContraseña'])
       },
       err => {
         this.toastr.error(err.error , '',{

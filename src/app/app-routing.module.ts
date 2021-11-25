@@ -35,7 +35,7 @@ const routes: Routes = [
   {path: 'miPedidoActual', component: ClientePedidoResumenComponent},
   {path: 'misDirecciones', component: ClienteMisDireccionesComponent},
   {path: 'menusYPromociones', component: RestauranteMenusYPromocionesComponent},
-  {path: 'changePassword/:tokenPassword', component: ChangePasswordComponent},
+  {path: 'cambioContraseña', component: ChangePasswordComponent},
   {path: 'altaMenu', component: AltaMenuComponent},
   {path: 'crearMasMenus', component: CrearMasMenusComponent},
   {path: 'modificarMenu', component: ModificarMenuComponent},
