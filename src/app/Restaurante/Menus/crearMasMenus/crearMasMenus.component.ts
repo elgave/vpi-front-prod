@@ -53,6 +53,7 @@ export class CrearMasMenusComponent implements OnInit {
   dtoEliminar: QuitarAgregadoDto;
   menus:Menu[];
   nombreMenu: string;
+  puedeAsociar: boolean = false;
 
   cantMenu: number;
   ready: boolean;
@@ -90,11 +91,15 @@ export class CrearMasMenusComponent implements OnInit {
       checkArray: this.fb.array([])
       })
     
+    this.promocion = false;
+    this.imagen = '';
+    
   }
 
 
 
   onRegisterMenu():void{
+
     this.restaurante = this.tokenService.getUsername();
     this.nuevoMenu = new NuevoMenu(this.restaurante, this.nombre, this.categoria, this.promocion, this.descripcion,
       this.costo, this.descuento, this.imagen);
@@ -136,7 +141,7 @@ export class CrearMasMenusComponent implements OnInit {
   limpiarForm(){
     this.restaurante = '';
     this.nombre = '';
-    this.categoria= '';
+    this.categoria= '0';
     this.promocion = false;
     this.descripcion = '';
     this.costo = 0;
@@ -144,6 +149,7 @@ export class CrearMasMenusComponent implements OnInit {
     this.imagen = '';
     this.opcionSeleccionado = '0';
     this.isPromo= false;
+    this.foto = undefined;
   }
 
   subirIcono(files) {
@@ -228,6 +234,12 @@ export class CrearMasMenusComponent implements OnInit {
         }
         i++;
       });
+    }
+    if(this.checkArray.length >0){
+      this.puedeAsociar = true;
+    }
+    else{
+      this.puedeAsociar = false;
     }
   }
 }

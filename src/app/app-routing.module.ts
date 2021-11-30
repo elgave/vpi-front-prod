@@ -24,33 +24,34 @@ import { ClienteMiPerfilComponent } from './Cliente/cliente-mi-perfil/cliente-mi
 
 
 const routes: Routes = [
-  /*pantallas*/ 
-  {path: 'clienteHome', component: ClienteRestaurantesComponent},
-   
-  /**Cliente**/
+  /*Sin Guard*/ 
   {path: '', component: LoginComponent},
   {path: 'login', component: LoginComponent},
   {path: 'registro', component: RegistroComponent},
-  //{path: 'misPedidos', component: ClienteMisPedidosComponent},
-  {path: 'miPedidoActual', component: ClientePedidoResumenComponent},
-  {path: 'misDirecciones', component: ClienteMisDireccionesComponent},
-  {path: 'menusYPromociones', component: RestauranteMenusYPromocionesComponent},
   {path: 'cambioContraseña', component: ChangePasswordComponent},
   {path: 'altaMenu', component: AltaMenuComponent},
-  {path: 'crearMasMenus', component: CrearMasMenusComponent},
-  {path: 'modificarMenu', component: ModificarMenuComponent},
-  {path: 'obtenerBalance', component: ObtenerBalanceComponent},
+  
+   /**Cliente**/
+  {path: 'clienteHome', component: ClienteRestaurantesComponent, canActivate: [guard], data:{expectedRol: ['Cliente']}},
+  {path: 'misDirecciones', component: ClienteMisDireccionesComponent, canActivate: [guard], data:{expectedRol: ['Cliente']}},
   {path: 'clienteRestaurante', component: ClienteRestaurantesComponent, canActivate: [guard], data:{expectedRol: ['Cliente']}},
   {path: 'clienteRestaurante/:idRestaurante', component: MenusRestauranteComponent, canActivate: [guard], data:{expectedRol: ['Cliente']}},
   {path: 'pedido/:nombreRestaurante', component: ClientePedidoResumenComponent, canActivate: [guard], data:{expectedRol: ['Cliente']}},
   {path: 'misPedidos', component: ClienteMisPedidosComponent, canActivate: [guard], data:{expectedRol: ['Cliente']}},
-  {path: 'reclamos', component: RestauranteReclamosComponent},
+  {path: 'miPedidoActual', component: ClientePedidoResumenComponent, canActivate: [guard], data:{expectedRol: ['Cliente']}}, 
   {path: 'miPerfil', component: ClienteMiPerfilComponent,canActivate: [guard], data:{expectedRol: ['Cliente']}},
  
   /**Restaurante**/
   {path: 'historicoPedidos', component: RestauranteHistoricoPedidosComponent, canActivate: [guard], data:{expectedRol: ['Restaurante']}},
   {path: 'homeRest', component: IndexComponent, canActivate: [guard], data:{expectedRol: ['Restaurante']}},
+  {path: 'obtenerBalance', component: ObtenerBalanceComponent, canActivate: [guard], data:{expectedRol: ['Restaurante']}},
+  {path: 'reclamos', component: RestauranteReclamosComponent, canActivate: [guard], data:{expectedRol: ['Restaurante']}},
+  {path: 'menusYPromociones', component: RestauranteMenusYPromocionesComponent, canActivate: [guard], data:{expectedRol: ['Restaurante']}},
+  {path: 'crearMasMenus', component: CrearMasMenusComponent, canActivate: [guard], data:{expectedRol: ['Restaurante']}},
+  {path: 'modificarMenu', component: ModificarMenuComponent, canActivate: [guard], data:{expectedRol: ['Restaurante']}},
+
   {path: '**', component: PageNotFoundComponent},
+
   
 ];
 

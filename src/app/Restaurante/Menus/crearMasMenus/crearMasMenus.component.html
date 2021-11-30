@@ -62,21 +62,21 @@
                     <div class="border border-warning col-md-2">
                         <div>
                             <div class="form-outline">
-                                <input type="number" id="typeNumber" name="costo" class=" border form-control form-control-lg" [(ngModel)]="costo" required pattern="^\d+$" #costoref="ngModel"/>
+                                <input type="number" id="typeNumber" name="costo" class=" border form-control form-control-lg" [(ngModel)]="costo" required pattern="^\d+$" #costoref="ngModel" />
                                 <label class="form-label" for="typeNumber">Costo</label>
                             </div>
-                            <div *ngIf="costoref.errors &&(costoref.touched || costoref.dirty)" class ="alert alert-danger">
+                            <div *ngIf="costoref.errors &&(costoref.touched || costoref.dirty)" class="alert alert-danger">
                                 <div [hidden]="! costoref.errors?.pattern">
-                                  Costo inválido
+                                    Costo inválido
                                 </div>
                             </div>
                             <div class="form-outline" *ngIf="isPromo">
                                 <input type="number" name="descuento" id="typeNumber" class=" border form-control form-control-lg" [(ngModel)]="descuento" required pattern="^\d+$" #descuentoref="ngModel" />
                                 <label class="form-label" for="typeNumber">Descuento</label>
                             </div>
-                            <div *ngIf="descuento > 100 || descuento < 0" class ="alert alert-danger">
+                            <div *ngIf="descuento > 100 || descuento < 0" class="alert alert-danger">
                                 <div [hidden]="! descuentoref.errors?.pattern">
-                                  Descuento inválido
+                                    Descuento inválido
                                 </div>
                             </div>
                         </div>
@@ -91,69 +91,69 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col text-center" *ngIf="!((costoref.errors &&(costoref.touched || costoref.dirty) || nombre == '' || descripcion == '' || costo == undefined || categoria == '0' || categoria == undefined || descuento > 100 || descuento < 0)); else btnDisabled">
-                        <button  (click)="cargarAgregadosDisponibles()" type="submit" data-mdb-toggle="modal" data-mdb-target="#crearMenuModal" class="btn btn-warning btn-rounded">Confirmar Menú / Promoción</button>
+                    <div class="col text-center" *ngIf="!((costoref.errors &&(costoref.touched || costoref.dirty) || nombre == '' || descripcion == '' || costo == undefined || categoria == '0' || categoria == undefined || descuento > 100 || descuento < 0 || costo == 0 || foto == undefined )); else btnDisabled">
+                        <button (click)="cargarAgregadosDisponibles()" type="submit" data-mdb-toggle="modal" data-mdb-target="#crearMenuModal" class="btn btn-warning btn-rounded">Confirmar Menú / Promoción</button>
                     </div>
                     <ng-template #btnDisabled>
                         <div class="col text-center">
                             <button type="submit" data-mdb-toggle="modal" data-mdb-target="#crearMenuModal" class="btn btn-warning btn-rounded" disabled>Confirmar Menú / Promoción</button>
                         </div>
                     </ng-template>
-                <!-- Second modal (asociar) -->
-                <div class="modal fade" id="crearMenuModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel22" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalToggleLabel22">Asociar Agregados</h5>
-                                <i class="fas fa-times" data-mdb-dismiss="modal"></i>
-                <!--                 <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
-                -->            </div>
-                            <div class="modal-body">
-                                <form [formGroup]="checkArray" (ngSubmit)="asociarAgregados()">
-                                    <div class="card  shadow-0 " style="max-width: 30rem;">
-                                        <div class="bg-image hover-overlay ripple align-items-center" data-mdb-ripple-color="light">
-                                        </div>
-                                        <div class="card-body justify-content-center align-items-center text-center ">
-                                            <div class="container-fluid agregados-mod">
-                                                <div class="input-group mb-3">
-                                                    <div class="col-12 col-m-6 col-lg-7">
-                                                        <table class="table">
-                                                            <thead>
-                                                            </thead>
-                                                            <h5 *ngIf="!(agregadosN.length > 0)"> No hay mas agregados para asociar </h5>
-                                                            <tbody *ngIf="(agregadosN.length > 0)">
-                                                                <tr *ngFor="let agregado of agregadosN; let i = index" [attr.data-index]="i">
-                                                                    <th scope="row">
+                    <!-- Second modal (asociar) -->
+                    <div class="modal fade" id="crearMenuModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel22" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalToggleLabel22">Asociar Agregados</h5>
+                                    <i class="fas fa-times" data-mdb-dismiss="modal"></i>
+                                    <!--                 <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                --></div>
+                                <div class="modal-body">
+                                    <form [formGroup]="checkArray" (ngSubmit)="asociarAgregados()">
+                                        <div class="card  shadow-0 " style="max-width: 30rem;">
+                                            <div class="bg-image hover-overlay ripple align-items-center" data-mdb-ripple-color="light">
+                                            </div>
+                                            <div class="card-body justify-content-center align-items-center text-center ">
+                                                <div class="container-fluid agregados-mod">
+                                                    <div class="input-group mb-3">
+                                                        <div class="col-12 col-m-6 col-lg-7">
+                                                            <table class="table">
+                                                                <thead>
+                                                                </thead>
+                                                                <h5 *ngIf="!(agregadosN.length > 0)"> No hay mas agregados para asociar </h5>
+                                                                <tbody *ngIf="(agregadosN.length > 0)">
+                                                                    <tr *ngFor="let agregado of agregadosN; let i = index" [attr.data-index]="i">
+                                                                        <th scope="row">
 
-                                                                    </th>
+                                                                        </th>
 
-                                                                    <td>
-                                                                        <div class="form-check">
-                                                                            <input class="form-check-input" type="checkbox" [value]="agregado.id" (change)="onCheckboxChange($event)" />
-                                                                        </div>
-                                                                    </td>
-                                                                    <td hidden>{{agregado.id}}</td>
-                                                                    <td>{{agregado.nombre}}</td>
-                                                                    <td>$ {{agregado.costo}}</td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
+                                                                        <td>
+                                                                            <div class="form-check">
+                                                                                <input class="form-check-input" type="checkbox" [value]="agregado.id" (change)="onCheckboxChange($event)" />
+                                                                            </div>
+                                                                        </td>
+                                                                        <td hidden>{{agregado.id}}</td>
+                                                                        <td>{{agregado.nombre}}</td>
+                                                                        <td>$ {{agregado.costo}}</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <hr />
                                                     </div>
-                                                    <hr />
                                                 </div>
                                             </div>
-                                        </div>
 
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger btn-rounded btn-lg" data-mdb-dismiss="modal" aria-label="Close">Cerrar</button>
-                                        <button *ngIf="(agregadosN.length > 0)" type="button" class="btn btn-warning btn-rounded btn-lg" (click)="asociarAgregados()" data-mdb-dismiss="modal">Asociar al Menu</button>
-                                    </div>
-                                </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger btn-rounded btn-lg" data-mdb-dismiss="modal" aria-label="Close">Cerrar</button>
+                                            <button *ngIf="(agregadosN.length > 0 && puedeAsociar)" type="button" class="btn btn-warning btn-rounded btn-lg" (click)="asociarAgregados()" data-mdb-dismiss="modal">Asociar al Menu</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 </div>
             </form>
         </div>
