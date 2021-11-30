@@ -138,6 +138,7 @@ export class AltaMenuComponent implements OnInit {
     this.imagen = '';
     this.opcionSeleccionado = '0';
     this.isPromo = false;
+    this.foto = undefined;
   }
   limpiarPromo(){
     this.promocion = false;

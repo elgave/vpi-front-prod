@@ -87,7 +87,7 @@
               </div>
             </div>
 
-            <div class="col text-center" *ngIf="!((costoref.errors &&(costoref.touched || costoref.dirty) || descref.errors &&(descref.touched || descref.dirty) || nombre == '' || descripcion == '' || costo == undefined || categoria == '0' || categoria == undefined || descuento > 100 || descuento < 0)); else btnDisabled">
+            <div class="col text-center" *ngIf="!((costoref.errors &&(costoref.touched || costoref.dirty) || descref.errors &&(descref.touched || descref.dirty) || nombre == '' || descripcion == '' || costo == undefined || categoria == '0' || categoria == undefined || descuento > 100 || descuento < 0 || foto==undefined)); else btnDisabled">
               <button type="submit" class="btn btn-warning btn-block mb-3" style="background-color: #FFA900;" >Crear Menú</button>
           </div>
           <ng-template #btnDisabled>

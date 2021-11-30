@@ -134,6 +134,7 @@ export class RegistroComponent implements OnInit {
     this.nombre = '';
     this.apellido = '';
     this.password = ''; 
-    this.celular = '';  
+    this.celular = ''; 
+    this.foto = undefined; 
   }
 }

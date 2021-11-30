@@ -3,224 +3,215 @@
 </div>
 
 <ng-template #loggedOut>
-  <div class="login">
-    <div class="container" id="container">
-        <div class="form-container sign-in-container">
-            <!-- Pills content -->
-  <div class="tab-content">
-  
-    <div class="tab-pane fade show active" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
-    
-      <div class="text-center mb-3">
-        <label class="visually-hidden" for="inlineFormSelectPref">Preference</label>
-        <select class="form-select" aria-label="Default select example"  [(ngModel)]="seleccionado" (change)="capturar()">
+    <div class="login">
+        <div class="container" id="container">
+            <div class="form-container sign-in-container">
+                <!-- Pills content -->
+                <div class="tab-content">
+
+                    <div class="tab-pane fade show active" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
+
+                        <div class="text-center mb-3">
+                            <label class="visually-hidden" for="inlineFormSelectPref">Preference</label>
+                            <select class="form-select" aria-label="Default select example" [(ngModel)]="seleccionado" (change)="capturar()">
           <option [ngValue]="objeto" *ngFor="let objeto of lista">{{objeto}}</option>
           
           
         </select>
-      </div>
-  
-            <!-- Form Cliente -->
-        <div class="form_cont">
-        <form  *ngIf="cliente"  #f="ngForm" (ngSubmit)="onRegisterCliente()" novalidate>
-          <h5 class="title-log">Ingrese sus datos para crearse la cuenta de cliente.</h5>
-            <div class="row">
-              <div class="col-md-6">
-                <div class=" mb-3">
-                  <label class="form-label" for="registerName">Nombre</label>
-                  <input type="text"  name="nombre" id="nombre" class="form-control" [(ngModel)]="nombre" required />
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <label class="form-label" for="registerUsername">Apellido</label>
-                  <input type="text"  name="apellido" id="apellido" class="form-control" [(ngModel)]="apellido" required />
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <label class="form-label" for="registerUsername">Celular</label>
-                  <input type="text" name="celular" id="celular" [(ngModel)]="celular" required class="form-control"  pattern="^\d{8,9}$" #celularref="ngModel"/>
-                  <div *ngIf="celularref.errors &&(celularref.touched || celularref.dirty)" class ="alert alert-danger">
-                  <div [hidden]="!celularref.errors?.pattern">
-                    Celular inválido
-                  </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="mb-3">
-                <label class="form-label" for="registerUsername">Email</label>
-                <input type="email" name="email" id="email" class="form-control"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" #emailref="ngModel" [(ngModel)]="email" required/>
-                <div *ngIf="emailref.errors &&(emailref.touched || emailref.dirty)" class ="alert alert-danger">
-                 <div [hidden]="!emailref.errors?.pattern">
-                   Correo inválido
-                 </div> 
-                </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <label class="form-label" for="registerPassword">Password</label>
-                  <input type="password"  name="password" id="password" class="form-control" [(ngModel)]="password" required />
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="mb-1">
-                  <label for="formFileLg" class="form-label">Foto de perfil</label><br>
-                  <input class="form-outline form-control form-control-lg" type="file" #file placeholder="Subir foto" (change)="subirIcono(file.files)" class="file"/>
-                </div>
-              </div>
-            </div>
-            <div *ngIf="!((emailref.errors &&(emailref.touched || emailref.dirty)) || (celularref.errors &&(celularref.touched || celularref.dirty))|| email == '' || nombre == '' || apellido == '' || celular == '' || password == '')">
-              <button type="submit" class="btn btn-primary btn-block mb-3" style="background-color: #FFA900;"  >Registrarse</button>
-            </div>
-            <div *ngIf="((emailref.errors &&(emailref.touched || emailref.dirty)) || (celularref.errors &&(celularref.touched || celularref.dirty))|| email == '' || nombre == '' || apellido == '' || celular == '' || password == '')">
-              <button type="submit" class="btn btn-primary btn-block mb-3" style="background-color: #FFA900;" disabled >Registrarse</button>
-            </div>
-         </form>
-        </div>
-    
-    
-           <!-- Form Restaurante -->
-        <div class="form_cont-res">
-          <form  *ngIf="!cliente" #f="ngForm" (ngSubmit)="onRegisterRestaurante()" novalidate >
-            <h5 class="title-log-r">Ingrese sus datos para crearse la cuenta de restaurante.</h5>
-            <div class="row">
-              <div class="col-md-6">
-                <div class=" mb-1">
-                  <label class="form-label" for="registerName">Nombre</label>
-                  <input type="text" name="nombreRestaurante" id="nombreRestaurante" class="form-control" [(ngModel)]="nombreRestaurante" required  /> 
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="mb-1">
-                  <label class="form-label" for="registerUsername">Razón social</label>
-                  <input type="text" name="razonSocial" id="razonSocial" class="form-control" [(ngModel)]="razonSocial" required />
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                  <label class="form-label" for="registerUsername">Descripción</label>
-                  <input type="text" name="descripcionMenues" id="descripcionMenues" class="form-control" [(ngModel)]="descripcionMenues" required pattern="^.{1,30}$" #descref="ngModel"/>
-                  <div *ngIf="descref.errors &&(descref.touched || descref.dirty)" class ="alert alert-danger">
-                  <div [hidden]="!descref.errors?.pattern">
-                    La descripción supera los 30 caracteres
-                  </div>
-                  </div>
-              </div>
-              <div class="col-md-6">
-                  <label class="form-label" for="registerUsername">Horario</label>
-                  <input type="text" name="horario" id="horario" class="form-control" [(ngModel)]="horario" required />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <label class="form-label" for="registerUsername">Celular</label>
-                <input type="text" name="celular" id="celular" [(ngModel)]="celular" required class="form-control"  pattern="^\d{8,9}$" #celularref="ngModel"/>
-                <div *ngIf="celularref.errors &&(celularref.touched || celularref.dirty)" class ="alert alert-danger">
-                <div [hidden]="!celularref.errors?.pattern">
-                  Celular inválido
-                </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <label class="form-label" for="registerUsername">Número de habilitación</label>
-                <input type="text" name="nroHabilitacion" id="nroHabilitacion" [(ngModel)]="nroHabilitacion" required class="form-control"  pattern="^\d+$" #nroHabref="ngModel"/>
-                <div *ngIf="nroHabref.errors &&(nroHabref.touched || nroHabref.dirty)" class ="alert alert-danger">
-                <div [hidden]="! nroHabref.errors?.pattern">
-                  Número de habilitación inválido
-                </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <label class="form-label" for="registerUsername">RUT</label>
-                <input type="text" name="rut" id="rut" [(ngModel)]="rut"  required class="form-control"  pattern="^\d+$" #rutref="ngModel"/>
-                <div *ngIf="rutref.errors &&(rutref.touched || rutref.dirty)" class ="alert alert-danger">
-                <div [hidden]="! rutref.errors?.pattern">
-                  RUT inválido
-                </div>
-                </div>
+                        </div>
 
-              </div>
-              <div class="col-md-6">
-                <label class="form-label" for="registerUsername">Precio de envío</label>
-                <input type="number" name="precioEnvio" id="precioEnvio" [(ngModel)]="precioEnvio" required class="form-control"  pattern="^\d+$" #precioref="ngModel"/>
-                <div *ngIf="precioref.errors &&(precioref.touched || precioref.dirty)" class ="alert alert-danger">
-                <div [hidden]="! precioref.errors?.pattern">
-                  Precio de envío inválido
-                </div>
-                </div>
+                        <!-- Form Cliente -->
+                        <div class="form_cont">
+                            <form *ngIf="cliente" #f="ngForm" (ngSubmit)="onRegisterCliente()" novalidate>
+                                <h5 class="title-log">Ingrese sus datos para crearse la cuenta de cliente.</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class=" mb-3">
+                                            <label class="form-label" for="registerName">Nombre</label>
+                                            <input type="text" name="nombre" id="nombre" class="form-control" [(ngModel)]="nombre" required />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="registerUsername">Apellido</label>
+                                            <input type="text" name="apellido" id="apellido" class="form-control" [(ngModel)]="apellido" required />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="registerUsername">Celular</label>
+                                            <input type="text" name="celular" id="celular" [(ngModel)]="celular" required class="form-control" pattern="^\d{8,9}$" #celularref="ngModel" />
+                                            <div *ngIf="celularref.errors &&(celularref.touched || celularref.dirty)" class="alert alert-danger">
+                                                <div [hidden]="!celularref.errors?.pattern">
+                                                    Celular inválido
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="registerUsername">Email</label>
+                                            <input type="email" name="email" id="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" #emailref="ngModel" [(ngModel)]="email" required/>
+                                            <div *ngIf="emailref.errors &&(emailref.touched || emailref.dirty)" class="alert alert-danger">
+                                                <div [hidden]="!emailref.errors?.pattern">
+                                                    Correo inválido
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="registerPassword">Password</label>
+                                            <input type="password" name="password" id="password" class="form-control" [(ngModel)]="password" required />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-1">
+                                            <label for="formFileLg" class="form-label">Foto de perfil</label><br>
+                                            <input class="form-outline form-control form-control-lg" type="file" #file placeholder="Subir foto" (change)="subirIcono(file.files)" class="file" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="!((emailref.errors &&(emailref.touched || emailref.dirty)) || (celularref.errors &&(celularref.touched || celularref.dirty))|| email == '' || nombre == '' || apellido == '' || celular == '' || password == ''|| foto==undefined)">
+                                    <button type="submit" class="btn btn-primary btn-block mb-3" style="background-color: #FFA900;">Registrarse</button>
+                                </div>
+                                <div *ngIf="((emailref.errors &&(emailref.touched || emailref.dirty)) || (celularref.errors &&(celularref.touched || celularref.dirty))|| email == '' || nombre == '' || apellido == '' || celular == '' || password == '' || foto==undefined)">
+                                    <button type="submit" class="btn btn-primary btn-block mb-3" style="background-color: #FFA900;" disabled>Registrarse</button>
+                                </div>
+                            </form>
+                        </div>
 
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <label class="form-label" for="registerUsername">Dirección</label>
-                <input type="text" name="direccion" id="direccion" class="form-control" [(ngModel)]="direccion" required />
-              </div>
-              <div class="col-md-6">
-                <label class="form-label" for="registerUsername">Email</label>
-                <input type="email" name="email" id="email" class="form-control"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" #emailref="ngModel" [(ngModel)]="email" required/>
-                <div *ngIf="emailref.errors &&(emailref.touched || emailref.dirty)" class ="alert alert-danger">
-                 <div [hidden]="!emailref.errors?.pattern">
-                   Correo inválido
-                 </div> 
+
+                        <!-- Form Restaurante -->
+                        <div class="form_cont-res">
+                            <form *ngIf="!cliente" #f="ngForm" (ngSubmit)="onRegisterRestaurante()" novalidate>
+                                <h5 class="title-log-r">Ingrese sus datos para crearse la cuenta de restaurante.</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class=" mb-1">
+                                            <label class="form-label" for="registerName">Nombre</label>
+                                            <input type="text" name="nombreRestaurante" id="nombreRestaurante" class="form-control" [(ngModel)]="nombreRestaurante" required />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-1">
+                                            <label class="form-label" for="registerUsername">Razón social</label>
+                                            <input type="text" name="razonSocial" id="razonSocial" class="form-control" [(ngModel)]="razonSocial" required />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="form-label" for="registerUsername">Descripción</label>
+                                        <input type="text" name="descripcionMenues" id="descripcionMenues" class="form-control" [(ngModel)]="descripcionMenues" required pattern="^.{1,30}$" #descref="ngModel" />
+                                        <div *ngIf="descref.errors &&(descref.touched || descref.dirty)" class="alert alert-danger">
+                                            <div [hidden]="!descref.errors?.pattern">
+                                                La descripción supera los 30 caracteres
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label" for="registerUsername">Horario</label>
+                                        <input type="text" name="horario" id="horario" class="form-control" [(ngModel)]="horario" required />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="form-label" for="registerUsername">Celular</label>
+                                        <input type="text" name="celular" id="celular" [(ngModel)]="celular" required class="form-control" pattern="^\d{8,9}$" #celularref="ngModel" />
+                                        <div *ngIf="celularref.errors &&(celularref.touched || celularref.dirty)" class="alert alert-danger">
+                                            <div [hidden]="!celularref.errors?.pattern">
+                                                Celular inválido
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label" for="registerUsername">Número de habilitación</label>
+                                        <input type="text" name="nroHabilitacion" id="nroHabilitacion" [(ngModel)]="nroHabilitacion" required class="form-control" pattern="^\d+$" #nroHabref="ngModel" />
+                                        <div *ngIf="nroHabref.errors &&(nroHabref.touched || nroHabref.dirty)" class="alert alert-danger">
+                                            <div [hidden]="! nroHabref.errors?.pattern">
+                                                Número de habilitación inválido
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="form-label" for="registerUsername">RUT</label>
+                                        <input type="text" name="rut" id="rut" [(ngModel)]="rut" required class="form-control" pattern="^\d+$" #rutref="ngModel" />
+                                        <div *ngIf="rutref.errors &&(rutref.touched || rutref.dirty)" class="alert alert-danger">
+                                            <div [hidden]="! rutref.errors?.pattern">
+                                                RUT inválido
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label" for="registerUsername">Precio de envío</label>
+                                        <input type="number" name="precioEnvio" id="precioEnvio" [(ngModel)]="precioEnvio" required class="form-control" pattern="^\d+$" #precioref="ngModel" />
+                                        <div *ngIf="precioref.errors &&(precioref.touched || precioref.dirty)" class="alert alert-danger">
+                                            <div [hidden]="! precioref.errors?.pattern">
+                                                Precio de envío inválido
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="form-label" for="registerUsername">Dirección</label>
+                                        <input type="text" name="direccion" id="direccion" class="form-control" [(ngModel)]="direccion" required />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label" for="registerUsername">Email</label>
+                                        <input type="email" name="email" id="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" #emailref="ngModel" [(ngModel)]="email" required/>
+                                        <div *ngIf="emailref.errors &&(emailref.touched || emailref.dirty)" class="alert alert-danger">
+                                            <div [hidden]="!emailref.errors?.pattern">
+                                                Correo inválido
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="form-label" for="registerUsername">Contraseña</label>
+                                        <input type="password" name="password" id="pass" class="form-control" [(ngModel)]="password" required />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="formFileLg" class="form-label">Foto de perfil</label><br>
+                                        <input class="form-outline form-control form-control-lg" type="file" #file placeholder="Subir foto" (change)="subirIcono(file.files)" class="file" />
+                                    </div>
+                                </div>
+                                <div *ngIf="!((emailref.errors &&(emailref.touched || emailref.dirty)) || (descref.errors &&(descref.touched || descref.dirty)) || (celularref.errors &&(celularref.touched || celularref.dirty)) || (nroHabref.errors &&(nroHabref.touched || nroHabref.dirty)) || 
+            (rutref.errors &&(rutref.touched || rutref.dirty)) || (precioref.errors &&(precioref.touched || precioref.dirty)) || email=='' || razonSocial=='' || horario=='' || celular=='' ||nroHabilitacion=='' || rut=='' || direccion=='' || password==''|| foto==undefined) ; else btnDisabledRest">
+                                    <button type="submit" class="btn btn-primary btn-block mb-3" style="background-color: #FFA900;">Registrarse</button>
+                                </div>
+                                <ng-template #btnDisabledRest>
+                                    <button type="submit" class="btn btn-primary btn-block mb-3" style="background-color: #FFA900;" disabled>Registrarse</button>
+                                </ng-template>
+                                <br>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-            <div class="row">
-              <div class="col-md-6">
-                <label class="form-label" for="registerUsername">Contraseña</label>
-                <input type="password" name="password" id="pass" class="form-control" [(ngModel)]="password" required />
-              </div>
-              <div class="col-md-6">
-                <label for="formFileLg" class="form-label">Foto de perfil</label><br>
-                <input class="form-outline form-control form-control-lg" type="file" #file placeholder="Subir foto" (change)="subirIcono(file.files)" class="file"/>
-              </div>
-            </div>
-            <div *ngIf="!((emailref.errors &&(emailref.touched || emailref.dirty)) || (descref.errors &&(descref.touched || descref.dirty)) || (celularref.errors &&(celularref.touched || celularref.dirty)) || (nroHabref.errors &&(nroHabref.touched || nroHabref.dirty)) || 
-            (rutref.errors &&(rutref.touched || rutref.dirty)) || (precioref.errors &&(precioref.touched || precioref.dirty)) || email=='' || razonSocial=='' || horario=='' || celular=='' ||nroHabilitacion=='' || rut=='' || direccion=='' || password=='') ; else btnDisabledRest">
-              <button type="submit" class="btn btn-primary btn-block mb-3" style="background-color: #FFA900;"  >Registrarse</button>
-            </div>
-            <ng-template #btnDisabledRest>
-              <button type="submit" class="btn btn-primary btn-block mb-3" style="background-color: #FFA900;" disabled >Registrarse</button>
-            </ng-template>
-            <br>
-         </form>
-        </div>
-          </div>
-        </div>
-        </div>
-        <div class="overlay-container">
-            <div class="overlay">
-                <div class="overlay-panel overlay-right">
-                  <div class="text-center mb-3">
-                    <img src="./assets/fondoLogin.png" alt="..." />
-                  </div>
-                    <button type="submit" class="btn btn-primary btn-block mb-3" id="tab-login" data-mdb-toggle="pill" routerLink="/login" role="tab" aria-controls="pills-login" aria-selected="true"style="background-color: #FFA900;" >Iniciar Sesión</button>
+            <div class="overlay-container">
+                <div class="overlay">
+                    <div class="overlay-panel overlay-right">
+                        <div class="text-center mb-3">
+                            <img src="./assets/fondoLogin.png" alt="..." />
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block mb-3" id="tab-login" data-mdb-toggle="pill" routerLink="/login" role="tab" aria-controls="pills-login" aria-selected="true" style="background-color: #FFA900;">Iniciar Sesión</button>
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
     </div>
-    
-   
+
+
 
 </ng-template>
-
-
-
-
-
-
-
-
-

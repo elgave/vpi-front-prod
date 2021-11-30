@@ -14,7 +14,7 @@
                             Ingrese Nombre:
                             <div class="form-outline">
                                 <input type="text" id="formControlLg" name="nombre" class="form-control form-control-lg" [(ngModel)]="nombre" />
-                                
+
                             </div>
                         </div>
                     </div>
@@ -33,7 +33,7 @@
                             Descripción:
                             <div class="form-outline">
                                 <textarea class="form-control" id="textAreaExample" rows="3" d="formControlLg" name="descripcion" class="form-control form-control-lg" [(ngModel)]="descripcion"></textarea>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -53,21 +53,21 @@
                     <div class="border border-warning col-md-2">
                         <div>
                             <div class="form-outline">
-                                <input type="number" id="typeNumber" name="costo" class=" border form-control form-control-lg" value="{{menu.costo}}" [(ngModel)]="costo" required pattern="^\d+$" #costoref="ngModel"/>
+                                <input type="number" id="typeNumber" name="costo" class=" border form-control form-control-lg" value="{{menu.costo}}" [(ngModel)]="costo" required pattern="^\d+$" #costoref="ngModel" />
                                 <label class="form-label" for="typeNumber">Costo</label>
                             </div>
-                            <div *ngIf="costoref.errors &&(costoref.touched || costoref.dirty)" class ="alert alert-danger">
+                            <div *ngIf="costoref.errors &&(costoref.touched || costoref.dirty)" class="alert alert-danger">
                                 <div [hidden]="! costoref.errors?.pattern">
-                                  Costo inválido
+                                    Costo inválido
                                 </div>
                             </div>
                             <div class="form-outline" *ngIf="isPromo">
-                                <input type="number" name="descuento" id="typeNumber" class=" border form-control form-control-lg" value="{{menu.descuento}}"  [(ngModel)]="descuento" required pattern="^\d+$" #descuentoref="ngModel" />
+                                <input type="number" name="descuento" id="typeNumber" class=" border form-control form-control-lg" value="{{menu.descuento}}" [(ngModel)]="descuento" required pattern="^\d+$" #descuentoref="ngModel" />
                                 <label class="form-label" for="typeNumber">Descuento</label>
                             </div>
-                            <div *ngIf="descuento > 100 || descuento < 0" class ="alert alert-danger">
+                            <div *ngIf="descuento > 100 || descuento < 0" class="alert alert-danger">
                                 <div [hidden]="! descuentoref.errors?.pattern">
-                                  Descuento inválido
+                                    Descuento inválido
                                 </div>
                             </div>
                         </div>
@@ -87,9 +87,9 @@
                 <div class="row">
                     <div class="col text-center">
                         <button (click)="cargarAgregados(menu)" type="button" data-mdb-toggle="modal" href="#agragadosModal" class="btn btn-warning btn-rounded">Agregados</button>
-                            <button *ngIf="!( (costoref.errors &&(costoref.touched || costoref.dirty)) || descuento > 100 || descuento < 0); else btnDisabled" type="submit" class="btn btn-warning btn-rounded">Confirmar Menú / Promoción</button>
+                        <button *ngIf="!( (costoref.errors &&(costoref.touched || costoref.dirty)) || descuento > 100 || descuento < 0 || fotofile==undefined); else btnDisabled" type="submit" class="btn btn-warning btn-rounded">Confirmar Menú / Promoción</button>
                         <ng-template #btnDisabled>
-                                <button type="submit" class="btn btn-warning btn-rounded" disabled>Confirmar Menú / Promoción</button>
+                            <button type="submit" class="btn btn-warning btn-rounded" disabled>Confirmar Menú / Promoción</button>
                         </ng-template>
                     </div>
                 </div>
@@ -106,8 +106,8 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalToggleLabel1">Agregados del menu: {{menu.nombre}}</h5>
                 <i class="fas fa-times" data-mdb-dismiss="modal"></i>
-<!--                 <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
- -->            </div>
+                <!--                 <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+ --></div>
             <div class="modal-body" *ngIf="abrirModal">
                 <h5 *ngIf="!(agregados.length > 0)"> Este menu no tiene agregados</h5>
                 <table *ngIf="agregados.length>0" class="table">
@@ -136,8 +136,8 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalToggleLabel22">Quitar agregado</h5>
                 <i class="fas fa-times" data-mdb-dismiss="modal"></i>
-<!--                 <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
- -->            </div>
+                <!--                 <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+ --></div>
             <div class="modal-body">
                 <div class="modal-body text-center" *ngIf="abrirModalE">
                     <h6 class="delete-h6">Se quitara el agregado: {{agregadoSeleccionado.nombre}}</h6>
@@ -160,8 +160,8 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalToggleLabel22">Asociar Agregados</h5>
                 <i class="fas fa-times" data-mdb-dismiss="modal"></i>
-<!--                 <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
- -->            </div>
+                <!--                 <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+ --></div>
             <div class="modal-body">
                 <form [formGroup]="checkArray" (ngSubmit)="asociarAgregados()">
                     <div class="card  shadow-0 " style="max-width: 30rem;">
