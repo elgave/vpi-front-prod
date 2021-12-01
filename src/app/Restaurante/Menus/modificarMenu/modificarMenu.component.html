@@ -53,8 +53,9 @@
                     <div class="border border-warning col-md-2">
                         <div>
                             <div class="form-outline">
+                                <label>Costo</label>
                                 <input type="number" id="typeNumber" name="costo" class=" border form-control form-control-lg" value="{{menu.costo}}" [(ngModel)]="costo" required pattern="^\d+$" #costoref="ngModel" />
-                                <label class="form-label" for="typeNumber">Costo</label>
+
                             </div>
                             <div *ngIf="costoref.errors &&(costoref.touched || costoref.dirty)" class="alert alert-danger">
                                 <div [hidden]="! costoref.errors?.pattern">
@@ -62,8 +63,9 @@
                                 </div>
                             </div>
                             <div class="form-outline" *ngIf="isPromo">
+                                <label>Descuento</label>
                                 <input type="number" name="descuento" id="typeNumber" class=" border form-control form-control-lg" value="{{menu.descuento}}" [(ngModel)]="descuento" required pattern="^\d+$" #descuentoref="ngModel" />
-                                <label class="form-label" for="typeNumber">Descuento</label>
+
                             </div>
                             <div *ngIf="descuento > 100 || descuento < 0" class="alert alert-danger">
                                 <div [hidden]="! descuentoref.errors?.pattern">

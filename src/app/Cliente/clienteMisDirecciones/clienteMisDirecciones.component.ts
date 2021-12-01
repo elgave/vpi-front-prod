@@ -43,10 +43,9 @@ export class ClienteMisDireccionesComponent implements OnInit {
 
   ngOnInit() {
     this.cargarDirecciones();
-    this.principal = false;
     this.cantDirecciones();
     this.obtenerFoto(this.tokenService.getUsername());
-   
+         
     
 
   }
@@ -56,6 +55,7 @@ export class ClienteMisDireccionesComponent implements OnInit {
     this.clienteService.getDirecciones(this.email).subscribe(
       data => {
         this.direcciones = data;
+        this.direccionSeleccionada = this.direcciones[0];
         
       },
       err => {
@@ -66,8 +66,8 @@ export class ClienteMisDireccionesComponent implements OnInit {
 
   capturarPrincipal(e){
     this.principal= e.target.checked;
-    
   }
+
   limpiarForm(){
     this.nombre = '';
     this.principal = false;
@@ -107,7 +107,7 @@ export class ClienteMisDireccionesComponent implements OnInit {
            console.log(err);
           }
         );
-        this.limpiarForm();     
+     
   }
 
   cantDirecciones(){
@@ -141,11 +141,16 @@ export class ClienteMisDireccionesComponent implements OnInit {
   
     }
 
-    seleccionar(dire: Direccion){
-      this.direccionSeleccionada = dire;
-      this.abrirModal = true;
-  
-    }
+  seleccionar(dire: Direccion){
+    this.direccionSeleccionada = dire;  
+    this.numero = dire.numero;
+    this.nombre = dire.nombre;
+    this.calle = dire.calle;
+    this.apto = dire.apto;
+    this.barrio = dire.barrio;
+    this.esquina = dire.esquina;
+    this.abrirModal = true; 
+  }
 
   modificar(){
     this.email = this.tokenService.getUsername();
