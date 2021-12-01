@@ -9,7 +9,7 @@ import * as Stomp from 'stompjs';
 })
 export class StompService {
 
-  socket = new SockJS('https://vapai.netlify.app/vapai-websocket');
+  socket = new SockJS('https://vapai.herokuapp.com/vapai-websocket');
   stompClient = Stomp.over(this.socket);
 
   subscribe(topic: string, callback:any): void {
