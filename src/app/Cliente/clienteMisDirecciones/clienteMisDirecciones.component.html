@@ -51,7 +51,7 @@
                                                 <div class="row">
                                                     <div class="col">
                                                         <ul class="d-flex justify-content-center list-unstyled">
-                                                            <li class="item-list" *ngIf="cambiarPrincipal">
+                                                            <li class="item-list" *ngIf="!direccionSeleccionada.principal">
                                                                 <input type="checkbox" class="form-check-input" [(ngModel)]="principal" data-md-icheck (change)="capturarPrincipal($event)"> Principal
                                                             </li>
                                                         </ul>
