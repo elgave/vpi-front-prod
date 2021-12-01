@@ -157,7 +157,9 @@ export class ClienteMisDireccionesComponent implements OnInit {
     if(this.esquina === ''){
       this.esquina = this.direccionSeleccionada.esquina;
     }
-    if(this.apto === ''){
+   
+    if(this.direccionSeleccionada.apto==null || this.direccionSeleccionada.apto== undefined){
+      this.direccionSeleccionada.apto = '';
       this.apto = this.direccionSeleccionada.apto;
     }
     if(this.numero === ''){

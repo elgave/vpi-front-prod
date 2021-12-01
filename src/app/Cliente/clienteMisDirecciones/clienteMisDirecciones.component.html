@@ -66,23 +66,23 @@
                                                 <div class="row">
                                                     <div class="col-sm-3">
                                                         <div class="form-outline">
-                                                            <input type="text" name="nro" id="nro" class="form-control" [(ngModel)]="numero" required pattern="\d+$" #nroref="ngModel" value="{{direccionSeleccionada.numero}}"/>
+                                                            <input type="text" name="nro" id="nro" class="form-control" [(ngModel)]="numero" required pattern="\d+$" #nroref="ngModel" value="{{direccionSeleccionada.numero}}" />
                                                             <label class="form-label" for="formControlLg">Número</label>
                                                         </div>
-                                                        <div *ngIf="nroref.errors &&(nroref.touched || nroref.dirty)" class ="alert alert-danger">
+                                                        <div *ngIf="nroref.errors &&(nroref.touched || nroref.dirty)" class="alert alert-danger">
                                                             <div [hidden]="! nroref.errors?.pattern">
-                                                              Número inválido
+                                                                Número inválido
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-3">
                                                         <div class="form-outline">
-                                                            <input type="text" name="apto" id="nro" class="form-control"  [(ngModel)]="apto" required pattern="^\d+$" #aptoref="ngModel" value="{{direccionSeleccionada.apto}}"/>
+                                                            <input type="text" name="apto" id="nro" class="form-control" [(ngModel)]="apto" required pattern="^\d+$" #aptoref="ngModel" value="{{direccionSeleccionada.apto}}" />
                                                             <label class="form-label" for="formControlLg">Apto</label>
                                                         </div>
-                                                        <div *ngIf="aptoref.errors &&(aptoref.touched || aptoref.dirty)" class ="alert alert-danger">
+                                                        <div *ngIf="aptoref.errors &&(aptoref.touched || aptoref.dirty)" class="alert alert-danger">
                                                             <div [hidden]="! aptoref.errors?.pattern">
-                                                              Apto inválido
+                                                                Apto inválido
                                                             </div>
                                                         </div>
                                                     </div>
@@ -176,23 +176,23 @@
                                         <div class="row">
                                             <div class="col-sm-3">
                                                 <div class="form-outline">
-                                                    <input type="text" name="nro" id="nro" class="form-control" [(ngModel)]="numero" required pattern="^\d+$" #nroref="ngModel"/>
+                                                    <input type="text" name="nro" id="nro" class="form-control" [(ngModel)]="numero" required pattern="^\d+$" #nroref="ngModel" />
                                                     <label class="form-label" for="formControlLg">Número</label>
                                                 </div>
-                                                <div *ngIf="nroref.errors &&(nroref.touched || nroref.dirty)" class ="alert alert-danger">
+                                                <div *ngIf="nroref.errors &&(nroref.touched || nroref.dirty)" class="alert alert-danger">
                                                     <div [hidden]="! nroref.errors?.pattern">
-                                                      Número inválido
+                                                        Número inválido
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-sm-3">
                                                 <div class="form-outline">
-                                                    <input type="text" name="apto" id="nro" class="form-control"  [(ngModel)]="apto" required pattern="^\d+$" #aptoref="ngModel"/>
+                                                    <input type="text" name="apto" id="nro" class="form-control" [(ngModel)]="apto" pattern="^\d+$" #aptoref="ngModel" />
                                                     <label class="form-label" for="formControlLg">Apto</label>
                                                 </div>
-                                                <div *ngIf="aptoref.errors &&(aptoref.touched || aptoref.dirty)" class ="alert alert-danger">
+                                                <div *ngIf="aptoref.errors &&(aptoref.touched || aptoref.dirty)" class="alert alert-danger">
                                                     <div [hidden]="! aptoref.errors?.pattern">
-                                                      Apto inválido
+                                                        Apto inválido
                                                     </div>
                                                 </div>
                                             </div>
@@ -218,7 +218,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="modal-footer text-center" *ngIf="!( numero == '' || apto == '' || nombre=='' || calle == '' || esquina=='' || barrio == '' || (nroref.errors &&(nroref.touched || nroref.dirty))|| (aptoref.errors &&(aptoref.touched || aptoref.dirty))); else btnDisabled">
+                                    <div class="modal-footer text-center" *ngIf="!( numero == '' 
+                                     || nombre=='' || calle == '' || esquina=='' || barrio == '' || (nroref.errors &&(nroref.touched || nroref.dirty))|| (aptoref.errors &&(aptoref.touched || aptoref.dirty))); else btnDisabled">
                                         <button type="submit" class="centrado btn btn-warning btn-rounded" (click)="registrarDireccion()" data-mdb-dismiss="modal">Confirmar Dirección</button>
                                     </div>
                                     <ng-template #btnDisabled>
