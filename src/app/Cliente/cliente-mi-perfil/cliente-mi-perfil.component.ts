@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Cliente } from 'src/app/models/Cliente/Cliente';
 import { ClienteService } from 'src/app/service/Cliente/cliente.service';
 import { TokenService } from 'src/app/service/token.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cliente-mi-perfil',
@@ -18,6 +19,7 @@ export class ClienteMiPerfilComponent implements OnInit {
   constructor(
     private clienteService: ClienteService,
     private tokenService: TokenService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -49,7 +51,7 @@ export class ClienteMiPerfilComponent implements OnInit {
     this.clienteService.eliminarMiCuenta(this.tokenService.getUsername()).subscribe(
       data=>{
         this.tokenService.logOut();
-        window.location.reload();
+        this.router.navigate(['/login']);
       }
     )
 
