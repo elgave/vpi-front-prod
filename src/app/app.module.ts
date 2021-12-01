@@ -44,6 +44,7 @@ import {MatNativeDateModule, MAT_DATE_FORMATS} from '@angular/material/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
 import { MomentDateModule } from '@angular/material-moment-adapter';
+import { StompService } from './service/stomp.service';
 
 
 
@@ -100,7 +101,7 @@ import { MomentDateModule } from '@angular/material-moment-adapter';
     NgxPayPalModule
     //MomentDateModule
   ],
-  providers: [ interceptorProvider,
+  providers: [ interceptorProvider, StompService
     /*{
       provide: MAT_DATE_FORMATS,
       useValue: {

@@ -8,6 +8,7 @@ import { PedidoConfirmar } from '../../models/Pedido/PedidoConfirmar';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { RechazoPedido } from '../../models/Pedido/RechazoPedido';
+import { StompService } from 'src/app/service/stomp.service';
 
 @Component({
   selector: 'app-index',
@@ -33,7 +34,10 @@ export class IndexComponent implements OnInit {
     private tokenService: TokenService,
     private restauranteService: RestauranteService,
     private toastr: ToastrService,
-    ) { }
+    private stompService:StompService
+    ) { 
+      this.cargarPedidosPendientes();
+    }
 
   ngOnInit() {
     if(this.tokenService.getToken()){
@@ -50,7 +54,11 @@ export class IndexComponent implements OnInit {
       }
     })
     this.obtenerFoto(this.tokenService.getUsername())
-    this.cargarPedidosPendientes();
+    
+    this.stompService.subscribe('/topic/pedidos', (): void =>{
+      this.cargarPedidosPendientes();
+    });
+    
   }
 
   /**Restaurante**/
