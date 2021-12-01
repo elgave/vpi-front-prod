@@ -45,6 +45,8 @@ export class ClienteMisPedidosComponent implements OnInit {
   pedB: PedidoConReclamos[] = [];
   fecha: string = '';
   pedOrder: PedidoConReclamos[]=[];
+  id: string = '';
+  precio: string = '';
   
    
 
@@ -148,7 +150,9 @@ export class ClienteMisPedidosComponent implements OnInit {
     for(let i in this.pedB){
       this.estado = String(this.pedB[i].estado).toLocaleLowerCase();
       this.fecha = String(this.pedB[i].fecha).toLocaleLowerCase();
-      if((this.estado.search(this.textoBusqueda) != -1) || ( this.fecha.search(this.textoBusqueda) != -1 ) ){
+      this.id = String(this.pedB[i].idPedido).toLocaleLowerCase();
+      this.precio = String(this.pedB[i].precioTotal).toLocaleLowerCase();
+      if((this.estado.search(this.textoBusqueda) != -1) || ( this.fecha.search(this.textoBusqueda) != -1  )  || ( this.id.search(this.textoBusqueda) != -1  )|| ( this.precio.search(this.textoBusqueda) != -1  )){
         this.pedidoBusequeda.push(this.pedB[i]);
         this.busqueda = true;
 

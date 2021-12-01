@@ -168,16 +168,16 @@
                                             </div>
                                             <div class="col">
                                                 <div class="form-outline">
+                                                    <label>Nombre</label>
                                                     <input type="text" name="nombre" id="nombre" class="form-control" [(ngModel)]="nombre" required />
-                                                    <label class="form-label" for="formControlLg">Nombre</label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-3">
                                                 <div class="form-outline">
+                                                    <label>Número</label>
                                                     <input type="text" name="nro" id="nro" class="form-control" [(ngModel)]="numero" required pattern="^\d+$" #nroref="ngModel" />
-                                                    <label class="form-label" for="formControlLg">Número</label>
                                                 </div>
                                                 <div *ngIf="nroref.errors &&(nroref.touched || nroref.dirty)" class="alert alert-danger">
                                                     <div [hidden]="! nroref.errors?.pattern">
@@ -187,8 +187,8 @@
                                             </div>
                                             <div class="col-sm-3">
                                                 <div class="form-outline">
+                                                    <label>Apto</label>
                                                     <input type="text" name="apto" id="nro" class="form-control" [(ngModel)]="apto" pattern="^\d+$" #aptoref="ngModel" />
-                                                    <label class="form-label" for="formControlLg">Apto</label>
                                                 </div>
                                                 <div *ngIf="aptoref.errors &&(aptoref.touched || aptoref.dirty)" class="alert alert-danger">
                                                     <div [hidden]="! aptoref.errors?.pattern">
@@ -198,22 +198,22 @@
                                             </div>
                                             <div class="col">
                                                 <div class="form-outline">
-                                                    <input type="text" name="calle" id="nombre" class="form-control" [(ngModel)]="calle" required />
-                                                    <label class="form-label" for="formControlLg">Calle</label>
+                                                    <label>Calle</label>
+                                                    <input type="text" name="calle" id="nombre" class="form-control" [(ngModel)]="calle" required>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col">
                                                 <div class="form-outline">
+                                                    <label>Esquina</label>
                                                     <input type="text" name="esquina" id="nombre" class="form-control" [(ngModel)]="esquina" required />
-                                                    <label class="form-label" for="formControlLg">Esquina</label>
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="form-outline">
+                                                    <label>Barrio</label>
                                                     <input type="text" name="barrio" id="nombre" class="form-control" [(ngModel)]="barrio" required />
-                                                    <label class="form-label" for="formControlLg">Barrio</label>
                                                 </div>
                                             </div>
                                         </div>
