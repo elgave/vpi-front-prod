@@ -55,7 +55,7 @@
                                                 <li class="item-list"><b>Comentario:</b> {{pedido.comentario}}</li>
                                                 <li *ngIf="pedido.pagoAcreditado" class="item-list"><b>Pago:</b> Acreditado </li>
                                                 <li *ngIf="!pedido.pagoAcreditado" class="item-list"><b>Pago:</b> Pendiente </li>
-                                                <li class="item-list"><b>Tiempo de entrega:</b>{{pedido.tiempoE}} </li>
+                                                
                                             </ul>
                                             <li class="list-unstyled_li item-list"><b>Items:</b> </li>
                                             <ul *ngFor="let item of pedido.items" class=" fw-normal pb-1 small mt-1 mb-0 ">
