@@ -25,6 +25,7 @@ export class MenuComponent implements OnInit {
   email : string;
   abrirCerrar: AbrirCerrar;
   miCalificacion: number = 0.0;
+  caliVPI: number = 0.0;
   
 
   foto: string;
@@ -140,12 +141,15 @@ export class MenuComponent implements OnInit {
       });
     }else{
       this.restauranteService.obtenerMisDatos(email).subscribe(data =>{
-        this.fotostring = data.foto
+        this.fotostring = data.foto;
+        this.caliVPI= data.calificacionVPI;
           
       });
     }
   
     }
+
+  
 
     
 

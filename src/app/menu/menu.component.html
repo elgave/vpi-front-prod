@@ -1,9 +1,9 @@
-<nav  class="navbar navbar-expand-lg navbar-dark  mb-4">
+<nav class="navbar navbar-expand-lg navbar-dark  mb-4">
     <div class="container-fluid">
         <div class="image-vpi">
-        <img src="../../assets/VPI-icon.png" height="50" loading="lazy" />
-        <img src="../../assets/vpi (1).png" height="50" loading="lazy" />
-    </div>
+            <img src="../../assets/VPI-icon.png" height="50" loading="lazy" />
+            <img src="../../assets/vpi (1).png" height="50" loading="lazy" />
+        </div>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -44,43 +44,44 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle d-flex align-items-center" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false"><img src="{{this.s3Url}}/{{this.fotostring}}" class="rounded-circle" height="40" alt="" loading="lazy" />
                             </a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                                    <li>
-                                        <a class="dropdown-item" data-mdb-toggle="modal"  data-mdb-target="#calificacionModal" (click)="obtenerMiCalificacion()"><i class="far fa-star dropmenu"></i>Mis calificaciones</a>
-                                    </li>
-                                    <li *ngIf="abierto">
-                                        <a class="dropdown-item" (click)="cerrarLocal()"><i class="far fa-calendar-minus dropmenu"></i>Cerrar Local</a>
-                                    </li>
-                                    <li *ngIf="!abierto">
-                                        <a class="dropdown-item" (click)="abrirLocal()"><i class="far fa-calendar-minus dropmenu"></i>Abrir Local</a>
-                                    </li>
-                                    <li *ngIf="isLogged" (click)="onLogOut()">
-                                        <a class="dropdown-item"><i class="far fa-arrow-alt-circle-right dropmenu"></i>Cerrar sesión</a>
-                                    </li>
-                                </ul>
-                                <div class="modal fade" id="calificacionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Mis calificaciones</h5>
-                                                <i class="fas fa-times" data-mdb-dismiss="modal"></i>
-                                            </div>
-                                            <div class="modal-body">
-                                                <h6 style="margin-left: 20px;">Calificacion global de clientes: {{miCalificacion}} </h6>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                                <li>
+                                    <a class="dropdown-item" data-mdb-toggle="modal" data-mdb-target="#calificacionModal" (click)="obtenerMiCalificacion()"><i class="far fa-star dropmenu"></i>Mis calificaciones</a>
+                                </li>
+                                <li *ngIf="abierto">
+                                    <a class="dropdown-item" (click)="cerrarLocal()"><i class="far fa-calendar-minus dropmenu"></i>Cerrar Local</a>
+                                </li>
+                                <li *ngIf="!abierto">
+                                    <a class="dropdown-item" (click)="abrirLocal()"><i class="far fa-calendar-minus dropmenu"></i>Abrir Local</a>
+                                </li>
+                                <li *ngIf="isLogged" (click)="onLogOut()">
+                                    <a class="dropdown-item"><i class="far fa-arrow-alt-circle-right dropmenu"></i>Cerrar sesión</a>
+                                </li>
+                            </ul>
+                            <div class="modal fade" id="calificacionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Mis calificaciones</h5>
+                                            <i class="fas fa-times" data-mdb-dismiss="modal"></i>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h6 style="margin-left: 20px;">Calificacion global de clientes: {{miCalificacion}} </h6>
+                                            <h6 style="margin-left: 20px;">Calificacion VPI: {{caliVPI}} </h6>
 
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-outline-danger btn-rounded" data-mdb-ripple-color="dark" data-mdb-dismiss="modal">Cancelar</button>
-                                    
-                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-outline-danger btn-rounded" data-mdb-ripple-color="dark" data-mdb-dismiss="modal">Cancelar</button>
+
                                         </div>
                                     </div>
                                 </div>
-                    
+                            </div>
+
                     </div>
                 </div>
 
-                </ul>
+            </ul>
         </div>
     </div>
 </nav>
@@ -110,8 +111,8 @@
   
     </defs>
   </svg>
-  
-  <div *ngIf="isLogged">
+
+<div *ngIf="isLogged">
     <div class="d-flex align-items-center" *ngIf="isCliente">
         <nav class="nav__cont">
             <ul class="nav">
@@ -121,33 +122,33 @@
                         <h5>{{this.tokenService.getUsername()}}</h5>
                     </div>
                 </li>
-            
-            <li class="nav__items ">
-                <i class="fas fa-home"></i>
-                <a class="active" href="" routerLink="/clienteRestaurante" >Home</a>
-                <div class="cont-li">
-                
-                </div>
-            </li>
-            <br>
-            
-            <li class="nav__items ">
-                <i class="fas fa-map-marker-alt"></i>
-                <a href="" routerLink="/misDirecciones">Mis Direcciones</a>
-            </li>
-            
-            <li class="nav__items ">
-                <i class="fas fa-list-ul"></i>
-            <a href="" routerLink="/misPedidos">Mis Pedidos</a>
-            </li>
-                
-            <li class="nav__items ">
-                <i class="fas fa-utensils"></i>
-                <a href="" routerLink="/clienteRestaurante">Restaurantes</a>
-            </li>
+
+                <li class="nav__items ">
+                    <i class="fas fa-home"></i>
+                    <a class="active" href="" routerLink="/clienteRestaurante">Home</a>
+                    <div class="cont-li">
+
+                    </div>
+                </li>
+                <br>
+
+                <li class="nav__items ">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <a href="" routerLink="/misDirecciones">Mis Direcciones</a>
+                </li>
+
+                <li class="nav__items ">
+                    <i class="fas fa-list-ul"></i>
+                    <a href="" routerLink="/misPedidos">Mis Pedidos</a>
+                </li>
+
+                <li class="nav__items ">
+                    <i class="fas fa-utensils"></i>
+                    <a href="" routerLink="/clienteRestaurante">Restaurantes</a>
+                </li>
             </ul>
 
-            <div class="logo"> 
+            <div class="logo">
                 <img class="logo-img" src="../../assets/vpi (1).png">
             </div>
         </nav>
@@ -164,42 +165,40 @@
                         <h5>{{this.tokenService.getUsername()}}</h5>
                     </div>
                 </li>
-            
-            <li class="nav__items ">
-                <i class="fas fa-home"></i>
-                <a class="active" href="" routerLink="/homeRest">Home</a>
-                <div class="cont-li">
-                
-                </div>
-            </li>
-            <br>
-            
-            <li class="nav__items ">
-                <i class="fas fa-list-ul"></i>
-                <a href="" routerLink="/menusYPromociones">Mis Menús</a>
-            </li>
-                
-            <li class="nav__items ">
-                <i class="fas fa-book-reader"></i>
-                <a href="" routerLink="/historicoPedidos">Histórico Pedidos</a>
-            </li>
-                
-            <li class="nav__items ">
-                <i class="fas fa-bookmark"></i>
-                <a href="" routerLink="/reclamos">Reclamos</a>
-            </li>
 
-            <li class="nav__items ">
-                <i class="fas fa-hand-holding-usd"></i>
-                <a href="" routerLink="/obtenerBalance">Balance de ventas</a>
-            </li>
+                <li class="nav__items ">
+                    <i class="fas fa-home"></i>
+                    <a class="active" href="" routerLink="/homeRest">Home</a>
+                    <div class="cont-li">
+
+                    </div>
+                </li>
+                <br>
+
+                <li class="nav__items ">
+                    <i class="fas fa-list-ul"></i>
+                    <a href="" routerLink="/menusYPromociones">Mis Menús</a>
+                </li>
+
+                <li class="nav__items ">
+                    <i class="fas fa-book-reader"></i>
+                    <a href="" routerLink="/historicoPedidos">Histórico Pedidos</a>
+                </li>
+
+                <li class="nav__items ">
+                    <i class="fas fa-bookmark"></i>
+                    <a href="" routerLink="/reclamos">Reclamos</a>
+                </li>
+
+                <li class="nav__items ">
+                    <i class="fas fa-hand-holding-usd"></i>
+                    <a href="" routerLink="/obtenerBalance">Balance de ventas</a>
+                </li>
             </ul>
 
-            <div class="logo_2"> 
+            <div class="logo_2">
                 <img class="logo-img" src="../../assets/vpi (1).png">
             </div>
         </nav>
     </div>
 </div>
-  
-  
