@@ -66,8 +66,8 @@
                                                 <div class="row">
                                                     <div class="col-sm-3">
                                                         <div class="form-outline">
+                                                            <label>Número</label>
                                                             <input type="text" name="nro" id="nro" class="form-control" [(ngModel)]="numero" required pattern="\d+$" #nroref="ngModel" value="{{direccionSeleccionada.numero}}" />
-                                                            <label class="form-label" for="formControlLg">Número</label>
                                                         </div>
                                                         <div *ngIf="nroref.errors &&(nroref.touched || nroref.dirty)" class="alert alert-danger">
                                                             <div [hidden]="! nroref.errors?.pattern">
@@ -77,8 +77,8 @@
                                                     </div>
                                                     <div class="col-sm-3">
                                                         <div class="form-outline">
+                                                            <label>Apto</label>
                                                             <input type="text" name="apto" id="nro" class="form-control" [(ngModel)]="apto" required pattern="^\d+$" #aptoref="ngModel" value="{{direccionSeleccionada.apto}}" />
-                                                            <label class="form-label" for="formControlLg">Apto</label>
                                                         </div>
                                                         <div *ngIf="aptoref.errors &&(aptoref.touched || aptoref.dirty)" class="alert alert-danger">
                                                             <div [hidden]="! aptoref.errors?.pattern">
