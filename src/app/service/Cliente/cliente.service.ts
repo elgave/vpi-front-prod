@@ -113,11 +113,11 @@ public eliminarMiCuenta(email: string): Observable<any> {
 }
 
 public menusCategorias(dto: MenuCategoria): Observable<Menu[]> {
-  return this.httpClient.post<Menu[]>(this.Base + 'restaurante/menuCategoria', dto);
+  return this.httpClient.post<Menu[]>(this.Base + 'cliente/menuCategoria', dto);
 }
 
 public getRestConPromos(): Observable<Restaurante[]> {
-  return this.httpClient.get<Restaurante[]>( `${this.Base+'restaurante/getRestConPromo'}`);
+  return this.httpClient.get<Restaurante[]>( `${this.Base+'cliente/getRestConPromo'}`);
 }
 
 public quitarFavorito(favorito: Favorito): Observable<Favorito>{

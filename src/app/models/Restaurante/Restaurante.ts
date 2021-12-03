@@ -12,7 +12,7 @@ export class Restaurante {
     precioEnvio: number;
     horario: string;
     calificacionVPI: number;
-
+    calificacionGral: number;
     /**/
    
     
@@ -20,7 +20,7 @@ export class Restaurante {
 
     constructor(email: string, nombreRestaurante: string, nroHabilitacion: string,
         razonSocial: string, rut: string, direccion: string, descripcionMenues: string, celular: string,
-        foto: string, precioEnvio: number, horario: string, calificacionVPI: number)
+        foto: string, precioEnvio: number, horario: string, calificacionVPI: number,calificacionGral:number)
         {
         this.email = email;
         this.nombreRestaurante = nombreRestaurante;
@@ -34,6 +34,7 @@ export class Restaurante {
         this.precioEnvio = precioEnvio;
         this.horario = horario;
         this.calificacionVPI = calificacionVPI;
+        this.calificacionGral = calificacionGral;
     }
 
 }
