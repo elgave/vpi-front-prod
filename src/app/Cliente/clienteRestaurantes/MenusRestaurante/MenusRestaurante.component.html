@@ -170,7 +170,7 @@
                 </div>
                 <br>
                 <!-- <div class="items-oren" *ngFor="let item of pedidos"> -->
-                <div *ngIf="itemArray.length!=0" class="sd" >
+                <div *ngIf="itemArray.length!=0" class="sd">
                     <div class="items-orden" *ngFor="let item of itemArray">
                         <div>
                             <p class="item-p"><b>{{item.nombre}}</b></p>
@@ -211,12 +211,12 @@
                             <br>
                             <div *ngIf="!pagoOnline" class="container-btn">
                                 <button type="button" class="btn btn-warning btn-rounded btn-l" (click)="confirmarPedido()">Realizar pedido</button>
-                                
+
                             </div>
                             <div *ngIf="pagoOnline">
                                 <ngx-paypal [config]="payPalConfig"></ngx-paypal>
                             </div>
-                           
+
                         </div>
                     </div>
 
@@ -224,7 +224,7 @@
 
                 <div *ngIf="itemArray.length==0" class="items-orden">
                     <div class="carrito-vacio">
-                        <img src="../../../../assets/carrito-vacio.png" width="500" loading="lazy" >
+                        <img src="../../../../assets/carrito-vacio.png" width="500" loading="lazy">
                         <span class="text21">Parece que no hay nada por aquí</span>
                     </div>
                 </div>
@@ -240,8 +240,8 @@
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Mis direcciones</h5>
                         <i class="fas fa-times" data-mdb-dismiss="modal"></i>
-<!--                         <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
- -->                    </div>
+                        <!--                         <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+ --></div>
                     <div class="modal-body">
                         <table class="table table-striped" *ngFor="let direccion of direcciones">
                             <thead>
@@ -294,17 +294,17 @@
                         </div>
                         <div class="input-group mb-3 group-caant">
                             <div>
-                            <span class="input-group-text border-0">Unidades:</span>
-                            <!-- <span class="input-group-text"></span> -->
-                                <input type="number" name="nro" id="nro" class="form-control cantidad" min="1" max="10"  [(ngModel)]="cantModal" (change)="Oncantidad()" required pattern="^\d+$" #unidadref="ngModel"/>
-                            <!-- <span class="input-group-text"></span> -->
+                                <span class="input-group-text border-0">Unidades:</span>
+                                <!-- <span class="input-group-text"></span> -->
+                                <input type="number" name="nro" id="nro" class="form-control cantidad" min="1" max="10" [(ngModel)]="cantModal" (change)="Oncantidad()" required pattern="^\d+$" #unidadref="ngModel" />
+                                <!-- <span class="input-group-text"></span> -->
                             </div>
-                            <div *ngIf="unidadref.errors &&(unidadref.touched || unidadref.dirty)" class ="alert alert-danger">
+                            <div *ngIf="unidadref.errors &&(unidadref.touched || unidadref.dirty)" class="alert alert-danger">
                                 <div [hidden]="! unidadref.errors?.pattern">
-                                  Unidad inválida
+                                    Unidad inválida
                                 </div>
                             </div>
-                       
+
                         </div>
                         <h5 class="card-title">Subtotal Menu: $ {{costoMenu}}</h5>
                         <hr>
@@ -333,7 +333,8 @@
                                     <h5 class="col">SubTotal Extras: $ {{CostoAgregadosCantidad}}</h5>
                                     <button type="submit" class="col-sm-4 btn btn-outline-warning btn-rounded" value="Submit" data-mdb-ripple-color="dark">Agregar extras</button>
                                 </div>
-                                <div class="col-12 col-lg-7"> <!-- col-m-10  -->
+                                <div class="col-12 col-lg-7">
+                                    <!-- col-m-10  -->
                                     <h5 class="card-title">Total $ {{costoTotal}}</h5>
                                 </div>
                             </form>
@@ -346,14 +347,14 @@
 
 
                         <div class="modal-footer text-center" *ngIf="!( cantidad == 0 || (unidadref.errors &&(unidadref.touched || unidadref.dirty))); else btnDisabled">
-                            <button *ngIf="sinItems" type="button" class="btn btn-warning btn-rounded btn-lg action" (click)="agregarItemAPedido()">Agregar al pedido</button>
+                            <button type="button" class="btn btn-warning btn-rounded btn-lg action" (click)="agregarItemAPedido()" data-mdb-dismiss="modal" aria-label="Close" (click)="OnClose()">Agregar al pedido</button>
                         </div>
                         <ng-template #btnDisabled>
                             <div class="modal-footer text-center">
-                                <button *ngIf="sinItems" type="button" class="btn btn-warning btn-rounded btn-lg action" (click)="agregarItemAPedido()" disabled>Agregar al pedido</button>
+                                <button type="button" class="btn btn-warning btn-rounded btn-lg action" (click)="agregarItemAPedido()" data-mdb-dismiss="modal" aria-label="Close" (click)="OnClose()" disabled>Agregar al pedido</button>
                             </div>
                         </ng-template>
-                        <button *ngIf="!sinItems" type="button" class="btn btn-warning btn-rounded btn-lg action" data-mdb-dismiss="modal" aria-label="Close" (click)="OnClose()">Seguir comprando</button>
+
                     </div>
                 </div>
             </div>
