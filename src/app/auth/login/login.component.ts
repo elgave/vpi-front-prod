@@ -124,11 +124,18 @@ export class LoginComponent implements OnInit {
         
       },
       err=>{
-        this.isLogged = false;   
+        this.isLogged = false;
+        if(err.error.error == 'Unauthorized'){
+          this.toastr.error('Contraseña incorrecta', '',{
+            timeOut: 3000, positionClass: 'toast-top-center',
+          });
+        }
+        else{   
         this.toastr.error(err.error, '',{
           timeOut: 3000, positionClass: 'toast-top-center',
         });
-        console.log(err.error);
+      }
+        console.log(err.error.error);
       }
     );
   }
