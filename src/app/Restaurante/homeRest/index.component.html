@@ -20,7 +20,8 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>Id de Pedido</th>
+                                <th>Nro.</th>
+                                <th>Cliente</th>
                                 <th>Estado</th>
                                 <th>Dirección</th>
                                 <th>Fecha</th>
@@ -30,6 +31,7 @@
                         <tbody *ngFor="let pedido of pedidos">
                             <tr>
                                 <td>{{pedido.idPedido}}</td>
+                                <td>{{pedido.cliente}}</td>
                                 <td>{{pedido.estado}}</td>
                                 <td>{{pedido.direccion}}</td>
                                 <td>{{pedido.fecha}}</td>
@@ -37,7 +39,7 @@
                                 <td>
                                     <a data-mdb-toggle="tooltip" title="Información Adicional"><i class="fas fa-search expanded" data-mdb-toggle="modal" attr.data-mdb-target="#detallesPedidosPendientes{{pedido.idPedido}}" aria-expanded="false" aria-controls="test"></i></a>
 
-                                    
+
                                 </td>
                             </tr>
 
@@ -55,7 +57,7 @@
                                                 <li class="item-list"><b>Comentario:</b> {{pedido.comentario}}</li>
                                                 <li *ngIf="pedido.pagoAcreditado" class="item-list"><b>Pago:</b> Acreditado </li>
                                                 <li *ngIf="!pedido.pagoAcreditado" class="item-list"><b>Pago:</b> Pendiente </li>
-                                                
+
                                             </ul>
                                             <li class="list-unstyled_li item-list"><b>Items:</b> </li>
                                             <ul *ngFor="let item of pedido.items" class=" fw-normal pb-1 small mt-1 mb-0 ">
@@ -107,12 +109,12 @@
                                                 <td>{{pedidoSelecionado.direccion}}</td>
                                                 <td>
                                                     <div class="form-outline" (ngSubmit)="confirmarPedido()" novalidate>
-                                                        <input type="number" id="form12" class="form-control" [(ngModel)]="tiempoE" required pattern="^[1-9][0-9]*$" #tiemporef="ngModel"/>
+                                                        <input type="number" id="form12" class="form-control" [(ngModel)]="tiempoE" required pattern="^[1-9][0-9]*$" #tiemporef="ngModel" />
                                                         <label class="form-label" for="form12">Minutos</label>
                                                     </div>
-                                                    <div *ngIf="tiempoE == 0 || tiempoE < 0" class ="alert alert-danger">
+                                                    <div *ngIf="tiempoE == 0 || tiempoE < 0" class="alert alert-danger">
                                                         <div [hidden]="! tiemporef.errors?.pattern">
-                                                          Tiempo de entrega inválido
+                                                            Tiempo de entrega inválido
                                                         </div>
                                                     </div>
                                                 </td>
@@ -128,7 +130,7 @@
                                     <button type="button" class="centrado btn btn-warning btn-rounded" (click)="confirmarPedido()" data-mdb-toggle="modal" data-mdb-dismiss="modal">Confirmar</button>
                                 </div>
                                 <ng-template #btnDisabled>
-                                        <button type="button" class="centrado btn btn-warning btn-rounded" disabled data-mdb-toggle="modal" data-mdb-dismiss="modal">Confirmar</button>
+                                    <button type="button" class="centrado btn btn-warning btn-rounded" disabled data-mdb-toggle="modal" data-mdb-dismiss="modal">Confirmar</button>
                                 </ng-template>
                             </div>
                         </div>

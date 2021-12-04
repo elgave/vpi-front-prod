@@ -112,7 +112,7 @@ export class ClienteMisPedidosComponent implements OnInit {
 
   realizarReclamo(){
     console.log(this.seleccionado);
-    this.reclamo = new Reclamo(0,this.idPedidoSeleccionado,"",this.seleccionado,this.comentario,null);  
+    this.reclamo = new Reclamo(0,this.idPedidoSeleccionado,"",this.seleccionado,this.comentario,null,null);  
     this.clienteService.realizarReclamo(this.reclamo).subscribe(
       data=> {
         this.toastr.success('Reclamo enviado con exito', '',{

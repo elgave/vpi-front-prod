@@ -30,7 +30,8 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>Nro. Pedido</th>
+                        <th>Nro.</th>
+                        <th>Cliente</th>
                         <th>Estado</th>
                         <th>Dirección</th>
                         <th>Fecha</th>
@@ -42,6 +43,7 @@
                 <tbody *ngFor="let pedido of pedidos">
                     <tr *ngIf="getFiltro() === 'none'">
                         <td>{{pedido.idPedido}}</td>
+                        <td>{{pedido.cliente}}</td>
                         <td>{{pedido.estado}}</td>
                         <td>{{pedido.direccion}}</td>
                         <td>{{pedido.fecha}}</td>
