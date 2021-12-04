@@ -550,7 +550,7 @@ limpiarForm(){
       
     
   injectTweet(){       
-    this.urlTweet = 'https://twitter.com/intent/tweet?url=https%3A%2F%2Fvpi.com.uy&via=VPIUruguay&text=Necesitas%20comida%3F%20Te%20recomiendo%20el%20restaurante%20' + this.nombreRestaurante + '%21&hashtags=PediloPorVPI';
+    this.urlTweet = 'https://twitter.com/intent/tweet?url=https%3A%2F%2Fvapai.netlify.app&via=VPIUruguay&text=Necesitas%20comida%3F%20Te%20recomiendo%20el%20restaurante%20' + this.nombreRestaurante + '%21&hashtags=PediloPorVPI';
   }
 
   obtenerCalificacionRest(){
