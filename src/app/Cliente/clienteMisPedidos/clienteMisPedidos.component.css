@@ -2,11 +2,12 @@
 .col-md-11 {
     background-color: #ffff;
     margin-top: 35px;
-    height: 600px;
+    height: 970px;
     padding: 50px;
     border-radius: 30px;
     overflow-y: scroll;
 }
+
 
 /* .title {
     background-color: #fdcc46;
@@ -39,7 +40,7 @@
     z-index: 40;
 }
 
-.title span{
+.title span {
     color: #ffff;
     font-size: 20px;
     margin-left: 15px;
@@ -66,7 +67,8 @@
     color: #ffff;
     font-size: 20px;
     margin-left: 15px;
-    margin-right: 15px;}
+    margin-right: 15px;
+}
 
 .btn-outline-warning {
     margin: 20px;
@@ -160,17 +162,20 @@ th {
     display: flex;
     justify-content: center;
 }
-.container{
+
+.container {
     margin-bottom: 40px;
 }
 
-.navbar{
+.navbar {
     background-color: rgba(34, 51, 34, 0);
     box-shadow: none;
 }
-.d-flex{
+
+.d-flex {
     border-radius: 30px;
 }
+
 .search-box {
     transition: width 0.6s, border-radius 0.6s, background 0.6s, box-shadow 0.6s;
     width: 40px;
@@ -180,17 +185,21 @@ th {
     cursor: pointer;
     background: #ebebeb;
 }
-.search-box + label .search-icon {
+
+.search-box+label .search-icon {
     color: black;
 }
+
 .search-box:hover {
     color: white;
     background: #c8c8c8;
     box-shadow: 0 0 0 5px #3d4752;
 }
-.search-box:hover + label .search-icon {
+
+.search-box:hover+label .search-icon {
     color: white;
 }
+
 .search-box:focus {
     transition: width 0.6s cubic-bezier(0, 1.22, 0.66, 1.39), border-radius 0.6s, background 0.6s;
     border: none;
@@ -203,52 +212,62 @@ th {
     background: #ebebeb;
     color: black;
 }
-.search-box:focus + label .search-icon {
+
+.search-box:focus+label .search-icon {
     color: black;
 }
+
 .search-box:not(:focus) {
     text-indent: -5000px;
 }
+
 #search-submit {
     position: relative;
     left: -5000px;
 }
+
 .search-icon {
     position: relative;
     left: -30px;
     color: white;
     cursor: pointer;
 }
-.search-container{
-    display: inline-block  !important;
+
+.search-container {
+    display: inline-block !important;
 }
-.fa-search{
+
+.fa-search {
     margin-left: -27px;
 }
-.fa-times-circle{
+
+.fa-times-circle {
     font-size: 19px;
     color: rgb(214, 70, 99);
 }
-.fa-times{
+
+.fa-times {
     color: #ffff;
     margin-right: 15px;
     cursor: pointer;
 }
-@media (max-width: 1380px){
-    .col-md-11{
+
+@media (max-width: 1380px) {
+    .col-md-11 {
         margin-top: 0;
         height: 520px;
     }
-    th, td {
+    th,
+    td {
         font-size: 14px;
     }
-    .title{
+    .title {
         height: 43px;
     }
-    .title span{
+    .title span {
         font-size: 16px;
     }
-    .navbar{
+    .navbar {
         margin-top: -27px;
     }
 }

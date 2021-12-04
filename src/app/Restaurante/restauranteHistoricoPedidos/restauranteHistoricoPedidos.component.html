@@ -14,6 +14,9 @@
                     <button type="button" class="btn btn-warning btn-rounded" data-mdb-ripple-color="dark" (click)="setFiltro('Confirmado')"> Confirmados </button>
                     <button type="button" class="btn btn-warning btn-rounded" data-mdb-ripple-color="dark" (click)="setFiltro('Rechazado')"> Rechazados </button>
                     <button type="button" class="btn btn-warning btn-rounded" data-mdb-ripple-color="dark" (click)="setFiltro('none')"> Todos </button>
+                    <button type="button" class="btn btn-warning btn-rounded" data-mdb-ripple-color="dark" (click)="setFiltro('Acreditado')"> Pago Acreditado </button>
+                    <button type="button" class="btn btn-warning btn-rounded" data-mdb-ripple-color="dark" (click)="setFiltro('Pendiente')"> Pago Pendiente </button>
+
 
                     <form class="search-container" action="//llamaswill.tumblr.com/search">
                         <input id="search-box" type="text" class="search-box" name="q" />
@@ -41,14 +44,15 @@
                     </tr>
                 </thead>
                 <tbody *ngFor="let pedido of pedidos">
-                    <tr *ngIf="getFiltro() === 'none'">
+                    <tr>
                         <td>{{pedido.idPedido}}</td>
                         <td>{{pedido.cliente}}</td>
                         <td>{{pedido.estado}}</td>
                         <td>{{pedido.direccion}}</td>
                         <td>{{pedido.fecha}}</td>
                         <td>${{pedido.precioTotal}}</td>
-                        <td *ngIf="pedido.pagoAcreditado"> Acreditado </td>
+                        <td *ngIf="pedido.pagoAcreditado && !pedido.pagoOnline"> Acreditado(Efectivo) </td>
+                        <td *ngIf="pedido.pagoAcreditado && pedido.pagoOnline"> Acreditado(Paypal) </td>
                         <td *ngIf="!pedido.pagoAcreditado"> Pendiente </td>
                         <td>
                             <i *ngIf="!pedido.pagoAcreditado" class="fas fa-money-bill-alt fa-lg expanded" style="color: #1f8e01" (click)="ingresarPagoEnEfectivo(pedido.idPedido)"></i>
@@ -58,19 +62,6 @@
                         </td>
                     </tr>
 
-                    <tr *ngIf="pedido.estado === getFiltro() && getFiltro() != 'none' ">
-                        <td>{{pedido.idPedido}}</td>
-                        <td>{{pedido.estado}}</td>
-                        <td>{{pedido.direccion}}</td>
-                        <td>{{pedido.fecha}}</td>
-                        <td>${{pedido.precioTotal}}</td>
-                        <td *ngIf="pedido.pagoAcreditado"> Acreditado </td>
-                        <td *ngIf="!pedido.pagoAcreditado"> Pendiente </td>
-                        <td>
-                            <i *ngIf="!pedido.pagoAcreditado" class="fas fa-money-bill-alt fa-lg expanded" style="color: #1f8e01" (click)="ingresarPagoEnEfectivo(pedido.idPedido)"></i>
-                            <a><i class="fas fa-star" data-mdb-toggle="modal"  data-mdb-target="#calificarModal" (click)="calificarCliente(pedido.cliente)" ></i></a>
-                        </td>
-                    </tr>
 
                 </tbody>
             </table>

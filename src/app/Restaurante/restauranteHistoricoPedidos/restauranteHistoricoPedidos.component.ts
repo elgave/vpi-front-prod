@@ -23,6 +23,8 @@ export class RestauranteHistoricoPedidosComponent implements OnInit {
   calificacion : Calificacion;
   micalificacion: number = 0;
   idCliente: string;
+  pedFiltro: PedidoDetalle[] = [];
+  ped: PedidoDetalle[] = [];
 
 
 
@@ -50,6 +52,7 @@ export class RestauranteHistoricoPedidosComponent implements OnInit {
     this.restauranteService.getPedidosSinPendientes(this.email).subscribe(
       data => {
         this.pedidos = data;
+        this.ped = data;
         
       },
       err => {
@@ -92,9 +95,49 @@ export class RestauranteHistoricoPedidosComponent implements OnInit {
       )
     }
     
-    setFiltro(filtro: string){
+    setFiltro(filtro: any){
+      this.cargarPedidos;
       this.filtro = filtro;
-      console.log('set' + this.filtro)
+      this.pedFiltro = [];
+      if(filtro === 'Acreditado'){
+        for(let i in this.ped){
+          if(this.ped[i].pagoAcreditado ){
+            this.pedFiltro.push(this.ped[i]);   
+          }  
+        }
+        this.pedidos = this.pedFiltro;
+
+      }
+      if(filtro === 'Pendiente'){
+        for(let i in this.ped){
+          if(!this.ped[i].pagoAcreditado){
+            this.pedFiltro.push(this.ped[i]);   
+          }  
+        }
+        this.pedidos = this.pedFiltro;
+      }
+      if(filtro === 'none'){
+        for(let i in this.ped){
+          this.pedFiltro.push(this.ped[i]);   
+        }
+      this.pedidos = this.pedFiltro;
+      }
+      if(filtro === 'Confirmado'){
+        for(let i in this.ped){
+          if(this.ped[i].estado === 'Confirmado'){
+            this.pedFiltro.push(this.ped[i]);   
+          }  
+        }
+        this.pedidos = this.pedFiltro;
+      }
+      if(filtro === 'Rechazado'){
+        for(let i in this.ped){
+          if(this.ped[i].estado === 'Rechazado'){
+            this.pedFiltro.push(this.ped[i]);   
+          }  
+        }
+        this.pedidos = this.pedFiltro;
+      }
     }
   
     getFiltro(){

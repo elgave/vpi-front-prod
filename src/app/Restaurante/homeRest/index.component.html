@@ -13,7 +13,7 @@
         <!--Restaurante-->
         <div *ngIf="!isCliente" class="container">
             <div class=" row">
-                <div class="contitolo redondo col-md-7 bg-white">
+                <div class="contitolo redondo col-md-8 bg-white">
                     <div class="title div-s">
                         <span>Pedidos Pendientes</span>
                     </div>
@@ -55,8 +55,9 @@
                                             <h6>Detalles del pedido</h6>
                                             <ul class=" list-unstyled fw-normal pb-1 small mt-1 mb-0 ">
                                                 <li class="item-list"><b>Comentario:</b> {{pedido.comentario}}</li>
-                                                <li *ngIf="pedido.pagoAcreditado" class="item-list"><b>Pago:</b> Acreditado </li>
-                                                <li *ngIf="!pedido.pagoAcreditado" class="item-list"><b>Pago:</b> Pendiente </li>
+                                                <li *ngIf="pedido.pagoOnline && pedido.pagoAcreditado" class="item-list"><b>Pago:</b> Acreditado (Paypal) </li>
+                                                <li *ngIf="pedido.pagoOnline && !pedido.pagoAcreditado" class="item-list"><b>Pago:</b> Acreditado (Efectivo) </li>
+                                                <li *ngIf="!pedido.pagoAcreditado" class="item-list"><b>Pago:</b> Pendiente (Efectivo) </li>
 
                                             </ul>
                                             <li class="list-unstyled_li item-list"><b>Items:</b> </li>
@@ -138,7 +139,7 @@
                 </div>
                 <!-- Cierre modal -->
 
-                <div class="redondo col-md-4">
+                <div class="redondo col-md-3">
                     <br>
                     <h3>
                         Gracias por ser parte de nuestra comunidad.
