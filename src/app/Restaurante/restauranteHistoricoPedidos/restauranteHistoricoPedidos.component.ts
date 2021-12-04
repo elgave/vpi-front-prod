@@ -25,6 +25,17 @@ export class RestauranteHistoricoPedidosComponent implements OnInit {
   idCliente: string;
   pedFiltro: PedidoDetalle[] = [];
   ped: PedidoDetalle[] = [];
+  pedidoBusequeda : PedidoDetalle[] = [];
+  pedB : PedidoDetalle[] = [];
+  textoBusqueda: string;
+  estado: string = '';
+  busqueda: boolean = false;
+  fecha: string = '';
+  precio: string = '';
+  cliente: string = '';
+  direccion: string = '';
+  id: string = '';
+
 
 
 
@@ -53,6 +64,7 @@ export class RestauranteHistoricoPedidosComponent implements OnInit {
       data => {
         this.pedidos = data;
         this.ped = data;
+        this.pedFiltro = data;
         
       },
       err => {
@@ -211,5 +223,35 @@ export class RestauranteHistoricoPedidosComponent implements OnInit {
     return 0;
     });
    }
+
+   
+  onKey(event: any) {
+    this.pedidos = this.pedFiltro;
+    this.pedidoBusequeda = [];
+    this.pedB = this.pedidos;           
+  
+    this.textoBusqueda = event.target.value;
+    this.textoBusqueda = this.textoBusqueda.toLocaleLowerCase();
+    
+    for(let i in this.pedB){
+      this.estado = String(this.pedB[i].estado).toLocaleLowerCase();
+      this.fecha = String(this.pedB[i].fecha).toLocaleLowerCase();
+      this.id = String(this.pedB[i].idPedido).toLocaleLowerCase();
+      this.precio = String(this.pedB[i].precioTotal).toLocaleLowerCase();
+      this.cliente = String(this.pedB[i].cliente).toLocaleLowerCase();
+      this.direccion = String(this.pedB[i].direccion).toLocaleLowerCase();
+      if((this.estado.search(this.textoBusqueda) != -1) || ( this.fecha.search(this.textoBusqueda) != -1  )  || ( this.id.search(this.textoBusqueda) != -1  )|| ( this.precio.search(this.textoBusqueda) != -1  )
+      || ( this.cliente.search(this.textoBusqueda) != -1  ) || ( this.direccion.search(this.textoBusqueda) != -1  )){
+        this.pedidoBusequeda.push(this.pedB[i]);
+        this.busqueda = true;
+
+      }  
+    }
+    if(this.busqueda){
+    this.pedidos = this.pedidoBusequeda;
+  }else{
+    this.pedidos = this.pedFiltro;
+  }
+  }
 
 }

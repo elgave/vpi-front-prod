@@ -19,9 +19,9 @@
 
 
                     <form class="search-container" action="//llamaswill.tumblr.com/search">
-                        <input id="search-box" type="text" class="search-box" name="q" />
+                        <input (keyup)="onKey($event)" id="search-box" type="text" class="search-box" name="q" />
                         <label for="search-box"><span class="fas fa-search"></span></label>
-                        <input type="submit" id="search-submit" />
+                        <input type="submit" (keyup)="onKey($event)" id="search-submit" />
                     </form>
 
                     <button (click)="ordenarAsc()" type="button" class="btn btn-warning px-3"><i class="fas fa-lg fa-sort-numeric-up-alt"> </i></button>
