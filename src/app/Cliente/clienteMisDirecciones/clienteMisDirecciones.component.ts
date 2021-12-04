@@ -32,6 +32,12 @@ export class ClienteMisDireccionesComponent implements OnInit {
   abrirModal: boolean = false;
   cambiarPrincipal: boolean = true;
   id: number;
+  busqueda: Direccion[] = [];
+  textoBusqueda: string;
+  db: Direccion[] = [];
+  b: boolean = false;
+  d: Direccion[] = [];
+
    
 
   constructor(
@@ -55,6 +61,7 @@ export class ClienteMisDireccionesComponent implements OnInit {
     this.clienteService.getDirecciones(this.email).subscribe(
       data => {
         this.direcciones = data;
+        this.d= data;
         this.direccionSeleccionada = this.direcciones[0];
         
       },
@@ -225,5 +232,38 @@ export class ClienteMisDireccionesComponent implements OnInit {
       );
       this.cargarDirecciones();
   }
+}
+
+onKey(event: any) {
+
+  this.direcciones = this.d;
+
+  this.db = this.direcciones; 
+  this.busqueda = [];
+  this.textoBusqueda = event.target.value;
+  this.textoBusqueda = this.textoBusqueda.toLocaleLowerCase();
+  
+  for(let i in this.direcciones){
+    this.nombre = String(this.db[i].nombre).toLocaleLowerCase();
+    this.calle = String(this.db[i].calle).toLocaleLowerCase();
+    this.numero = String(this.db[i].numero).toLocaleLowerCase();
+    this.barrio = String(this.db[i].barrio).toLocaleLowerCase();
+    
+
+    if((this.nombre.search(this.textoBusqueda) != -1) || ( this.calle.search(this.textoBusqueda) != -1 ) 
+    || ( this.numero.search(this.textoBusqueda) != -1 ) || ( this.barrio.search(this.textoBusqueda) != -1 )){
+      this.busqueda.push(this.db[i]);
+      this.b = true;
+
+    }  
+  }
+  if(this.b){
+  this.direcciones = this.busqueda;
+  }
+  else{
+    this.direcciones = this.d;  
+  }
+ 
+
 }
 }

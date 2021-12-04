@@ -34,6 +34,7 @@ export class RestauranteReclamosComponent implements OnInit {
   nroPedido: string;
   tipo: string;
   comentarioB: string;
+  cliente: string;
 
   constructor(
     private tokenService: TokenService,
@@ -135,11 +136,12 @@ export class RestauranteReclamosComponent implements OnInit {
       this.nroPedido = String(this.rb[i].pedido).toLocaleLowerCase();
       this.tipo = String(this.rb[i].tipo).toLocaleLowerCase();
       this.comentarioB = String(this.rb[i].comentario).toLocaleLowerCase();
+      this.cliente = String(this.rb[i].cliente).toLocaleLowerCase();
     
 
       if((this.estado.search(this.textoBusqueda) != -1) || ( this.fecha.search(this.textoBusqueda) != -1 ) 
       || ( this.nroReclamo.search(this.textoBusqueda) != -1 ) || ( this.nroPedido.search(this.textoBusqueda) != -1 )
-      || ( this.tipo.search(this.textoBusqueda) != -1 ) || ( this.comentarioB.search(this.textoBusqueda) != -1 )){
+      || ( this.tipo.search(this.textoBusqueda) != -1 ) || ( this.comentarioB.search(this.textoBusqueda) != -1 ) || ( this.cliente.search(this.textoBusqueda) != -1 )){
         this.reclamoBusequeda.push(this.rb[i]);
         this.busqueda = true;
 

@@ -5,10 +5,10 @@
             <div class="title div-s">
                 <span>Mis Direcciones</span>
             </div>
-            <form class="search-container " action="//llamaswill.tumblr.com/search">
-                <input id="search-box" type="text" class="search-box" name="q" />
+            <form class="search-container" action="//llamaswill.tumblr.com/search">
+                <input (keyup)="onKey($event)" id="search-box" type="text" class="search-box" name="q" />
                 <label for="search-box"><span class="fas fa-search"></span></label>
-                <input type="submit" id="search-submit" />
+                <input (keyup)="onKey($event)" type="submit" id="search-submit" />
             </form>
             <table class="table table-hover">
                 <thead>
