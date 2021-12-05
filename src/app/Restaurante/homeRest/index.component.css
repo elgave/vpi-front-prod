@@ -171,7 +171,8 @@ th {
 }
 
 .contitolo {
-    height: 400px;
+    overflow: auto;
+    width: auto;
 }
 
 .text {
