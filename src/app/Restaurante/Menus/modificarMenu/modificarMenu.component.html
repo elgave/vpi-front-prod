@@ -89,7 +89,7 @@
                 <div class="row">
                     <div class="col text-center">
                         <button (click)="cargarAgregados(menu)" type="button" data-mdb-toggle="modal" href="#agragadosModal" class="btn btn-warning btn-rounded">Agregados</button>
-                        <button *ngIf="!( (costoref.errors &&(costoref.touched || costoref.dirty)) || descuento > 100 || descuento < 0 || fotofile==undefined); else btnDisabled" type="submit" class="btn btn-warning btn-rounded">Confirmar Menú / Promoción</button>
+                        <button *ngIf="!( (costoref.errors &&(costoref.touched || costoref.dirty)) || descuento > 100 || descuento < 0 ); else btnDisabled" type="submit" class="btn btn-warning btn-rounded">Confirmar Menú / Promoción</button>
                         <ng-template #btnDisabled>
                             <button type="submit" class="btn btn-warning btn-rounded" disabled>Confirmar Menú / Promoción</button>
                         </ng-template>
