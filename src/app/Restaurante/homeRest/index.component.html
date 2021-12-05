@@ -69,11 +69,9 @@
                                         </div>
 
                                         <div class="modal-footer">
-                                            <!--ACÁ REDIRIGE A APROBAR PEDIDO-->
-                                            <a data-mdb-toggle="tooltip" title="Confirmar Pedido"><i class="fas fa-clipboard-check"  data-mdb-toggle="modal" data-mdb-target="#confirmacionModal" (click)="seleccionar(pedido)" data-mdb-dismiss="modal" ></i></a>
-                                            <!--ACÁ REDIRIGE A RECHAZAR PEDIDO-->
-                                            <a data-mdb-toggle="tooltip" title="Rechazar Pedido"><i class="fas fa-times"  data-mdb-toggle="modal" data-mdb-target="#rechazoModal" (click)="seleccionar(pedido)" data-mdb-dismiss="modal" ></i></a>
-                                            <button type="button" class="btn btn-danger btn-rounded" data-mdb-ripple-color="dark" data-mdb-dismiss="modal"> Cerrar</button>
+                                            
+                                            <button type="button" class="btn btn-danger btn-rounded" data-mdb-ripple-color="dark" data-mdb-toggle="modal" data-mdb-target="#rechazoModal" (click)="seleccionar(pedido)" data-mdb-dismiss="modal" > Rechazar</button>
+                                            <button type="button" class="btn btn-success btn-rounded" data-mdb-ripple-color="dark" data-mdb-toggle="modal" data-mdb-target="#confirmacionModal" (click)="seleccionar(pedido)" data-mdb-dismiss="modal"> Confirmar</button>
                                         </div>
                                     </div>
                                 </div>

@@ -35,6 +35,7 @@ export class RestauranteReclamosComponent implements OnInit {
   tipo: string;
   comentarioB: string;
   cliente: string;
+  reclamoSelecionado : Reclamo; 
 
   constructor(
     private tokenService: TokenService,
@@ -66,9 +67,6 @@ export class RestauranteReclamosComponent implements OnInit {
       );
     }
 
-  seleccionar(){
-
-  }
 
   aceptarReclamo(reclamo: Reclamo){
     this.reclamoSeleccionado = reclamo;
@@ -93,7 +91,7 @@ export class RestauranteReclamosComponent implements OnInit {
 
 
     rechazarReclamo(reclamo: Reclamo){
-      this.reclamoSeleccionado = reclamo;
+      
       this.rechazaReclamo = new RechazaReclamo( this.reclamoSeleccionado.idReclamo, this.comentario);
             
       this.restauranteService.rechazarReclamo(this.rechazaReclamo).subscribe(
@@ -112,10 +110,15 @@ export class RestauranteReclamosComponent implements OnInit {
           }
         );
       }
-
+    seleccionar(reclamo: Reclamo){
+      this.reclamoSeleccionado = reclamo;
+      console.log("Se selecciona el reclamo: " + this.reclamoSeleccionado.idReclamo);
+      
+    }
 
   setFiltro(filtro: string){
-    this.filtro = filtro;
+    this.filtro
+     = filtro;
     this.listarReclamos();
         
   }

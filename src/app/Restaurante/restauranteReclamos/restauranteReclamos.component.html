@@ -55,7 +55,7 @@
                             <a *ngIf="reclamo.estado === 'Pendiente'"><i class="fas fa-clipboard-check" (click)="aceptarReclamo(reclamo)"></i></a>
 
 
-                            <a *ngIf="reclamo.estado === 'Pendiente'"><i class="fas fa-times-circle" data-mdb-toggle="modal"  data-mdb-target="#cancelModal"></i></a>
+                            <a *ngIf="reclamo.estado === 'Pendiente'"><i class="fas fa-times-circle" data-mdb-toggle="modal" (click)="seleccionar(reclamo)" data-mdb-target="#cancelModal"  ></i></a>
 
                             <div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -78,80 +78,13 @@
                                             <button type="button" class="btn btn-outline-danger btn-rounded" data-mdb-ripple-color="dark" data-mdb-dismiss="modal">
                                     Cancelar
                                   </button>
-                                            <button type="button" class="btn btn-warning btn-rounded" data-mdb-dismiss="modal" (click)="rechazarReclamo(reclamo)">Confirmar</button>
+                                            <button type="button" class="btn btn-warning btn-rounded" data-mdb-dismiss="modal" (click)="rechazarReclamo(reclamoseleccionado)">Confirmar</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <!--  <i class="fas fa-plus-circle expanded" data-mdb-toggle="collapse" data-mdb-target="#test" aria-expanded="false" aria-controls="test"></i>-->
                         </td>
                     </tr>
-                    <!--
-                    <tr>
-                         <td>{{reclamo.idReclamo}}</td>
-                        <td>{{reclamo.pedido}}</td>
-                        <td>{{reclamo.fecha}}</td>
-                        <td>{{reclamo.tipo}}</td>
-                        <td>{{reclamo.comentario}}</td>
-                        <td>
-                            <a><i class="fas fa-clipboard-check" (click)="aceptarReclamo(reclamo)"></i></a>
-
-
-                            <a><i class="fas fa-times-circle" data-mdb-toggle="modal"  data-mdb-target="#cancelModal"></i></a>
-
-                            <div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Rechazar reclamo</h5>
-                                            <i class="fas fa-times" data-mdb-dismiss="modal"></i>
-                                        </div>
-
-
-                                        <div class="modal-body">
-                                            <h6 style="margin-left: 20px;">Ingrese el motivo del rechazo</h6>
-                                            <div class="form-outline">
-                                                <textarea class="form-control" style="resize: none;" id="textAreaExample" rows="4" [(ngModel)]="comentario"></textarea>
-                                                <label class="form-label" for="textAreaExample">Motivo</label>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-outline-warning btn-rounded" data-mdb-ripple-color="dark" data-mdb-dismiss="modal">
-                                    Cancelar
-                                  </button>
-                                            <button type="button" class="btn btn-warning btn-rounded" data-mdb-dismiss="modal" (click)="rechazarReclamo(reclamo)">Confirmar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <i class="fas fa-plus-circle expanded" data-mdb-toggle="collapse" data-mdb-target="#test" aria-expanded="false" aria-controls="test"></i>
-                        </td>
-                    </tr>
-                    <tr class=" collapse" id="test">
-                        <td>
-                            <ul class=" list-unstyled fw-normal pb-1 small mt-1 mb-0 ">
-                                <li class="item-list"><b>Pago acreditado:</b> dato</li>
-                                <li class="item-list"><b>Tiempo de entrega:</b> </li>
-                                <li class="list-unstyled_li item-list"><b>Agregados:</b> </li>
-                                
-                            Aca se listarían los agregados del pedido
-                          <table>
-                            <tr *ngFor="let item of listaAgregados">
-                              <td>
-                                {{nombreDelAgregado}}
-                              </td>
-                            </tr>
-                          </table>
-                        
-                            </ul>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>-->
                 </tbody>
             </table>
         </div>
