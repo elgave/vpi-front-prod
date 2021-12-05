@@ -171,8 +171,9 @@ th {
 }
 
 .contitolo {
-    overflow: auto;
+    overflow: scroll;
     width: auto;
+    height: 550px;
 }
 
 .text {
