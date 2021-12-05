@@ -29,6 +29,13 @@ private AUTH_HEADER = "Authorization";
           }
         });
         return next.handle(modifiedReq);
+      }else{
+        const modifiedReq = req.clone({ 
+          setHeaders: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        return next.handle(modifiedReq);
       }
     }
     return next.handle(req);
