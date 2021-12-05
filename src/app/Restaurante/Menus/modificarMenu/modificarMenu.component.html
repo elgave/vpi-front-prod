@@ -12,7 +12,7 @@
                     <div class="border align-items-center contitulo border-warning col-md-3">
                         <div>
                             Ingrese Nombre:
-                            <div class="form-outline">
+                            <div>
                                 <input type="text" id="formControlLg" name="nombre" class="form-control form-control-lg" [(ngModel)]="nombre" />
 
                             </div>
@@ -31,7 +31,7 @@
                     <div class="border contitulo border-warning col-md-5">
                         <div>
                             Descripción:
-                            <div class="form-outline">
+                            <div>
                                 <textarea class="form-control" id="textAreaExample" rows="3" d="formControlLg" name="descripcion" class="form-control form-control-lg" [(ngModel)]="descripcion"></textarea>
 
                             </div>
@@ -42,7 +42,7 @@
                     <div class="border border-warning col-md-3">
                         <div>
                             Categoría:
-                            <div class="form-outline">
+                            <div>
                                 <select class="form-select" aria-label="Default select example" [(ngModel)]="opcionSeleccionado" (change)="capturar()">
                                     <option value="0">{{menu.categoria}}</option>
                                     <option *ngFor="let dato of lista">{{dato}}</option>
@@ -52,7 +52,7 @@
                     </div>
                     <div class="border border-warning col-md-2">
                         <div>
-                            <div class="form-outline">
+                            <div>
                                 <label>Costo</label>
                                 <input type="number" id="typeNumber" name="costo" class=" border form-control form-control-lg" value="{{menu.costo}}" [(ngModel)]="costo" required pattern="^\d+$" #costoref="ngModel" />
 
@@ -62,7 +62,7 @@
                                     Costo inválido
                                 </div>
                             </div>
-                            <div class="form-outline" *ngIf="isPromo">
+                            <div *ngIf="isPromo">
                                 <label>Descuento</label>
                                 <input type="number" name="descuento" id="typeNumber" class=" border form-control form-control-lg" value="{{menu.descuento}}" [(ngModel)]="descuento" required pattern="^\d+$" #descuentoref="ngModel" />
 

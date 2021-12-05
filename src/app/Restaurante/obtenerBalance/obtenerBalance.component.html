@@ -5,7 +5,7 @@
         <div id="eltitulo" class="contitulo redondo col-md-10">
             <div class="div-s title"><span>Balance de Ventas</span></div>
             <h5 class="h5_t">Selecciona un período de tiempo para obtener el balance adecuado:</h5>
-            
+
             <div class="fechas">
 
                 <mat-form-field>
@@ -24,8 +24,8 @@
                     </mat-datepicker>
                 </mat-form-field>
 
-<!-- color="warn" -->
-                <button mat-raised-button  (click)="buscar()" class="btn redondo btn-warning btn-rounded">Buscar</button>
+                <!-- color="warn" -->
+                <button mat-raised-button (click)="buscar()" class="btn redondo btn-warning btn-rounded">Buscar</button>
             </div>
         </div>
         <div id="div_balance" class="redondo col-md-10 bg-white">
@@ -59,7 +59,7 @@
                             <td *ngIf="pedido.pagoAcreditado"> Acreditado </td>
                             <td *ngIf="!pedido.pagoAcreditado"> Pendiente </td>
                             <td>${{pedido.precioTotal}}</td>
-                            <td *ngIf="pedido.reclamos.length > 0 && pedido.reclamos[0].estado === 'Reembolsado'"> ${{pedido.precioTotal}} </td>
+                            <td *ngIf="pedido.reclamos.length > 0 && pedido.reclamos[0].estado === 'Reembolsado'"> $ -{{pedido.precioTotal}} </td>
                             <td></td>
                             <td></td>
                         </tr>

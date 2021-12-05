@@ -51,7 +51,7 @@ table,
     margin-bottom: 25px;
 }
 
-.col-md-7 {
+.col-md-8 {
     background-color: #ffff;
     /* margin-top: 35px;
     height: 600px;
@@ -149,25 +149,31 @@ th {
     color: #ecb725;
     cursor: pointer;
 }
-.alert-danger{
-	background-color: rgba(255, 255, 255, 0);
+
+.alert-danger {
+    background-color: rgba(255, 255, 255, 0);
 }
-.alert{
-	font-family: 'Poppins', sans-serif;
-	color: rgb(211, 7, 85);
-	font-weight: bold;
-	font-size: 14px;
+
+.alert {
+    font-family: 'Poppins', sans-serif;
+    color: rgb(211, 7, 85);
+    font-weight: bold;
+    font-size: 14px;
     padding: 0;
     margin-bottom: 0;
 }
-.btn-group-lg>.btn, .btn-lg {
-    font-size: 12px; 
+
+.btn-group-lg>.btn,
+.btn-lg {
+    font-size: 12px;
     line-height: 1.1;
 }
-.contitolo{
+
+.contitolo {
     height: 400px;
 }
-.text{
+
+.text {
     display: flex;
     justify-content: center;
     flex-direction: column;

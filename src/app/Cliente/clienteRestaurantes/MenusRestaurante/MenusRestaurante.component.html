@@ -204,9 +204,9 @@
                         </div>
                         <br>
                         <div class="container">
-                            <div class="form-outline" (ngSubmit)="confirmarPedido()" novalidate>
-                                <textarea class="form-control" name="comentario" id="comentario" class="form-control" [(ngModel)]="comentario" rows="4"></textarea>
-                                <label class="form-label" for="textAreaExample">Comentarios</label>
+                            <div (ngSubmit)="confirmarPedido()" novalidate>
+                                <label>Comentarios</label>
+                                <textarea class="form-control" id="textAreaExample" [(ngModel)]="comentario" rows="4"></textarea>
                             </div>
                             <br>
                             <div *ngIf="!pagoOnline" class="container-btn">

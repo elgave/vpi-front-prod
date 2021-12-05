@@ -134,18 +134,18 @@
 
                             <div class="modal-body">
 
-                                <div class="form-outline mb-4">
+                                <div class="mb-4">
+                                    <label>Nombre</label>
                                     <input type="text" id="form5Example1" class="form-control" name="nombre" [(ngModel)]="nombre" required />
-                                    <label class="form-label" for="form5Example1">Nombre</label>
                                 </div>
 
-                                <div class="form-outline mb-4">
-                                    <input type="number" id="form5Example2" class="form-control" name="precio" [(ngModel)]="precio" required pattern="\d+$" #precioref="ngModel"/>
-                                    <label class="form-label" for="form5Example2">Precio</label>
+                                <div class=" mb-4">
+                                    <label>Precio</label>
+                                    <input type="number" id="form5Example2" class="form-control" name="precio" [(ngModel)]="precio" required pattern="\d+$" #precioref="ngModel" />
                                 </div>
-                                <div *ngIf="precioref.errors &&(precioref.touched || precioref.dirty)" class ="alert alert-danger">
+                                <div *ngIf="precioref.errors &&(precioref.touched || precioref.dirty)" class="alert alert-danger">
                                     <div [hidden]="! precioref.errors?.pattern">
-                                      Precio inválido
+                                        Precio inválido
                                     </div>
                                 </div>
                             </div>
@@ -197,12 +197,12 @@
                                                                 <input class="form-control" id="formControlDisabled" type="text" placeholder="Nombre" aria-label="disabled input example" value="{{agregadoSeleccionado.nombre}}" disabled />
                                                             </div>
                                                             <div class="form-outline mb-4">
-                                                                <input type="number" id="form5Example2" class="form-control" name="precio" [(ngModel)]="costo" required pattern="\d+$" #costoref="ngModel"/>
+                                                                <input type="number" id="form5Example2" class="form-control" name="precio" [(ngModel)]="costo" required pattern="\d+$" #costoref="ngModel" />
                                                                 <label class="form-label" for="form5Example2">Precio</label>
                                                             </div>
-                                                            <div *ngIf="costoref.errors &&(costoref.touched || costoref.dirty)" class ="alert alert-danger">
+                                                            <div *ngIf="costoref.errors &&(costoref.touched || costoref.dirty)" class="alert alert-danger">
                                                                 <div [hidden]="! costoref.errors?.pattern">
-                                                                  Precio inválido
+                                                                    Precio inválido
                                                                 </div>
                                                             </div>
                                                         </form>
