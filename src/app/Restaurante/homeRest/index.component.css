@@ -45,6 +45,7 @@ table,
 
 .redondo {
     border-radius: 30px;
+    flex: auto;
 }
 
 .row {
@@ -177,4 +178,8 @@ th {
     display: flex;
     justify-content: center;
     flex-direction: column;
+}
+.contitolo redondo col-md-8 bg-white{
+    overflow: auto;
+    width: auto;
 }
