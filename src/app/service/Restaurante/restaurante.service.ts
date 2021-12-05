@@ -118,6 +118,9 @@ constructor( private httpClient:HttpClient) { }
     return this.httpClient.post<any>(this.Base + 'restaurante/modificarMenu', formData);
   }
 
+  public modificarMenuSinFoto(menuDto: Menu):Observable<any>{
+    return this.httpClient.post<any>(this.Base + 'restaurante/modificarMenuSinFoto', menuDto);
+  }
 
   public getAgregadosByMenu(idMenu: number): Observable<Agregado[]> {
     return this.httpClient.get<Agregado[]>( `${this.Base+'restaurante/getAgregados?idMenu='}${idMenu}`);

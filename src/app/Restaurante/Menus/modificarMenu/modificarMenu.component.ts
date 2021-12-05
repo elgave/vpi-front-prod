@@ -112,29 +112,50 @@ export class ModificarMenuComponent implements OnInit {
     if(this.descuento == undefined){
       this.descuento = this.menu.descuento;
     }
-    
+    if(this.fotofile == undefined){
+      this.foto = this.menu.imagen
+    }
     this.menu = new Menu(this.menu.idMenu, this.nombre, this.categoria, this.isPromo, this.descripcion, this.costo,
       this.descuento, this.foto, this.menu.restaurante);
 
-      const formData = new FormData();
-      formData.append('menuDto', JSON.stringify(this.menu));
-      formData.append('file',this.fotofile);
-      sessionStorage.setItem('altaMenu', "true");
-      this.restauranteService.modificarMenu(formData).subscribe(
-        data=> {
-        this.toastr.success('Menu modificado con exito', '',{
-          timeOut: 3000, positionClass: 'toast-top-center'
-        });
-        console.log(data);
-        sessionStorage.setItem('altaMenu', "false"); 
-        },
-        err=>{
-            this.toastr.error(err, '',{
-            timeOut: 3000, positionClass: 'toast-top-center',
+      if(this.fotofile == undefined){
+        this.restauranteService.modificarMenuSinFoto(this.menu).subscribe(
+          data=> {
+          this.toastr.success('Menu modificado con exito', '',{
+            timeOut: 3000, positionClass: 'toast-top-center'
           });
-          console.log(err);
-        }
-      );
+          console.log(data);
+          
+          },
+          err=>{
+              this.toastr.error(err, '',{
+              timeOut: 3000, positionClass: 'toast-top-center',
+            });
+            console.log(err);
+          }
+        );
+      }else{
+        const formData = new FormData();
+        formData.append('menuDto', JSON.stringify(this.menu));
+        formData.append('file',this.fotofile);
+        sessionStorage.setItem('altaMenu', "true");
+        this.restauranteService.modificarMenu(formData).subscribe(
+          data=> {
+          this.toastr.success('Menu modificado con exito', '',{
+            timeOut: 3000, positionClass: 'toast-top-center'
+          });
+          console.log(data);
+          sessionStorage.setItem('altaMenu', "false"); 
+          },
+          err=>{
+              this.toastr.error(err, '',{
+              timeOut: 3000, positionClass: 'toast-top-center',
+            });
+            console.log(err);
+          }
+        );
+      }
+      
     }
 
   capturar() {
