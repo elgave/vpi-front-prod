@@ -45,7 +45,7 @@
                         <td>{{pedido.fecha}}</td>
                         <td>
                             <!-- aca debe dirigirse a realizar reclamo-->
-                            <i *ngIf="pedido.reclamos.length == 0" class="fas fa-bookmark" data-mdb-toggle="modal" attr.data-mdb-target="#realizarReclamo{{pedido.idPedido}}" (click)="seleccionPedido(pedido)"></i>
+                            <i *ngIf="pedido.reclamos.length == 0 && pedido.restaurante != 'deleteUserRest'" class="fas fa-bookmark" data-mdb-toggle="modal" attr.data-mdb-target="#realizarReclamo{{pedido.idPedido}}" (click)="seleccionPedido(pedido)"></i>
 
                             <i class="fas fa-plus-circle expanded" data-mdb-toggle="modal" attr.data-mdb-target="#detallesPedido{{pedido.idPedido}}"></i>
                             <!-- Modal -->

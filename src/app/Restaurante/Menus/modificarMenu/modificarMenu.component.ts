@@ -9,6 +9,7 @@ import { TokenService } from '../../../service/token.service';
 import { AsociarAgregados } from '../../../models/Restaurante/AsociarAgregados';
 import { QuitarAgregadoDto } from '../../../models/Restaurante/QuitarAgregadoDto';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-modificarMenu',
@@ -50,6 +51,7 @@ export class ModificarMenuComponent implements OnInit {
     private toastr: ToastrService,
     private fb: FormBuilder,
     private tokenService: TokenService,
+    private router : Router
   ) { }
 
   ngOnInit() {
@@ -124,6 +126,7 @@ export class ModificarMenuComponent implements OnInit {
           this.toastr.success('Menu modificado con exito', '',{
             timeOut: 3000, positionClass: 'toast-top-center'
           });
+          this.router.navigate(['/menusYPromociones']);
           console.log(data);
           
           },
@@ -144,8 +147,10 @@ export class ModificarMenuComponent implements OnInit {
           this.toastr.success('Menu modificado con exito', '',{
             timeOut: 3000, positionClass: 'toast-top-center'
           });
+          
           console.log(data);
-          sessionStorage.setItem('altaMenu', "false"); 
+          sessionStorage.setItem('altaMenu', "false");
+          this.router.navigate(['/menusYPromociones']);
           },
           err=>{
               this.toastr.error(err, '',{
