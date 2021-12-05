@@ -74,14 +74,15 @@
                         </div>
                         <div class="modal-body">
                             <h6 style="margin-left: 40px;">Cliente a calificar: <b>{{idCliente}}</b></h6>
-                            <div class="estrellas">
-                                <ng-container *ngFor="let star of stars">
-                                    <app-star [starId]="star" [rating]="hoverState || rating" (enter)="enter($event)" (leave)="leave($event)" (bigClick)="updateRating(star)" data-mdb-dismiss="modal">
-                                    </app-star>
-                                </ng-container>
+                            <div *ngif="idCliente != 'deleteUser'">
+                                <div class="estrellas">
+                                    <ng-container *ngFor="let star of stars">
+                                        <app-star [starId]="star" [rating]="hoverState || rating" (enter)="enter($event)" (leave)="leave($event)" (bigClick)="updateRating(star)" data-mdb-dismiss="modal">
+                                        </app-star>
+                                    </ng-container>
+                                </div>
+                                <a *ngIf="micalificacion>0"><i class="fas fa-backspace expanded" (click)="eliminarCalificacion()" data-mdb-dismiss="modal"></i></a>
                             </div>
-                            <a *ngIf="micalificacion>0"><i class="fas fa-backspace expanded" (click)="eliminarCalificacion()" data-mdb-dismiss="modal"></i></a>
-
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-outline-danger btn-rounded" data-mdb-ripple-color="dark" data-mdb-dismiss="modal">Cancelar</button>
