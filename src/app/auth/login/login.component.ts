@@ -126,7 +126,7 @@ export class LoginComponent implements OnInit {
       err=>{
         this.isLogged = false;
         if(err.error.error == 'Unauthorized'){
-          this.toastr.error('Contraseña incorrecta', '',{
+          this.toastr.error('Usuario o contraseña incorrectos', '',{
             timeOut: 3000, positionClass: 'toast-top-center',
           });
         }
